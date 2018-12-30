@@ -1,3 +1,4 @@
+auxil/
 
 # Created by https://www.gitignore.io/api/tex,latex,jetbrains+all
 # Edit at https://www.gitignore.io/?templates=tex,latex,jetbrains+all
@@ -170,7 +171,6 @@ acs-*.bib
 *.mp
 *.t[1-9]
 *.t[1-9][0-9]
-*.tfm
 
 #(r)(e)ledmac/(r)(e)ledpar
 *.end
