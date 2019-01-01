@@ -1,0 +1,64 @@
+%%
+%% Author: lukas
+%% 01.01.2019
+%%
+
+\chapter{Introduction}\label{ch:introduction}
+
+\section{Problem definition}\label{sec:problem-definition}
+
+\subsection{What I want}\label{subsec:what-i-want}
+
+\begin{itemize}
+    \item I have generic scheduling algorithm which does not need to know the domain it is operating with
+    \item I have many different domains where each requires it's own visualisation application (let's call it \textit{client} application)
+    \item I want to have one instance of scheduling algorithm which can perform scheduling for each client application
+    \begin{itemize}
+        \item This instance must be easily scalable and generic such as adding new problem domain is not \textit{"a big deal"}
+    \end{itemize}
+    \item I want to change as little as possible when adding a new domain (and thus new client application)
+    \item I want this algorithm to run on dedicated server
+\end{itemize}
+
+\subsection{Remote scheduler application requirements}\label{subsec:remote-scheduler-application-requirements}
+
+\begin{itemize}
+    \item  Client application does not contain any scheduling algorithm
+    \begin{itemize}
+        \item Client contains converter (which is used to translate data from client's database model into remote scheduler data model) and \textit{http} client which
+        ensures connection with remote scheduling server
+    \end{itemize}
+    \item When client wants to create new plan, it just transforms database data into scheduler data model and sends them to
+    \textbf{RMS}\footnote{\textbf{R}emote\textbf{S}cheduler \textbf{S}erver}
+    \item RMS is modified as little as possible while adding new client application (and thus new problem domains)
+    \begin{itemize}
+        \item Core scheduling algorithm \textbf{must not} be changed
+        \item No code can be changed when adding new domain
+        \begin{itemize}
+            \item Only new domain-specific behaviour can be added such as heuristics, plan evaluation etc.
+            \item It must be ensured that these domain specific parts of RMS will be used only while scheduling correct domain
+        \end{itemize}
+    \end{itemize}
+    \item RMS ensures that clients scheduling data/algorithms can't interact with each other
+    \begin{itemize}
+        \item Each scheduling must be enclosed and exclusively accessible only for client that started it
+        \item Domain specific code can't be used in different domain
+    \end{itemize}
+    \item RMS is able to balance it's load
+    \begin{itemize}
+        \item It is possible to outsource SJ\footnote{SJ - Scheduling Job} to another instance of RMS
+        \item SJ have priority and assigned resources, when priority is set to low, resources can be reassigned to SJ with higher priority
+    \end{itemize}
+    \item RMS supports different scheduling configuration
+    \begin{itemize}
+        \item SJ can have different requirements on RAM/CPU/IO
+        \item SJ can have different complexity and thus different scheduling phases have different performance requirements
+        \begin{itemize}
+            \item ie.
+            inserting assignments to final plan, removing assignments from plan, plan evaluation etc.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section{Motivation to solve it}\label{sec:motivation-to-solve-it}
+
