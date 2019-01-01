@@ -1,31 +1,27 @@
-%%
-%% Author: lukas
-%% 30.12.2018
-%%
+\documentclass{ctuthesis}
 
-\input ctustyle2
-
-\worktype [O/EN]
-\workname {Unassisted project report}
-\faculty    {F3}
-\department {Department of Computer Science}
-\title      {Remote Scheduling}
-\author     {Lukáš Forst}
-\date       {Prague, January 2019}
-
-\studyinfo {
-Bachelor Program: Open Informatics\nl
-Specialization: Software
-}
-\supervisor { % Supervisor including degrees, department and address
-Ondřej Vaněk, PhD.\nl
-\the\department\nl
-Faculty of Electrical Engineering of the CTU in Prague\nl
+\ctusetup{
+%xdoctype = B,
+xfaculty = F3,
+mainlanguage = english,
+titlelanguage = english,
+title-english = {Unassisted project report},
+title-czech = {Zpráva Samostatného projektu},
+department-english = {Department of Computer Science},
+author = {Lukáš Forst},
+supervisor = {Ing. Ondřej Vaněk, Ph.D.},
+month = 1,
+year = 2019,
 }
 
-\draft     % Uncomment this if the version of your document is working only.
-\makefront
+\ctuprocess
+
+\begin{document}
+    \maketitle
+
+    \chapter{Introduction}\label{ch:introduction}
 
 
-\input intro
-\bye
+    \chapter{Conclusion}\label{ch:conclusion}
+
+\end{document}
