@@ -70,8 +70,7 @@
     \item I don't want to include same and unnecessary code into all client applications
     \begin{itemize}
         \item I don't need whole scheduling algorithm in client's code when data conversion layer would be enough
-        \item I don't want to deploy whole application when scheduling algorithm needs to be adjusted
-        \item If scheduling algorithm is licensed intellectual property it is better to have its source codes placed outside of source codes that are being sold
+        \item \textbf{[MAIN]} I don't want to deploy whole application when scheduling algorithm needs to be adjusted
     \end{itemize}
     \item I would like to completely separate scheduling core and user service layer
     \begin{itemize}
@@ -88,7 +87,7 @@
     \item Scheduling is resource-intensive task which requires powerful hardware
     \begin{itemize}
         \item This powerful hardware could be fully utilized only when scheduling is running
-        \item It's not always possible to have such a powerful server for each client application to create \textit{a decent plans}
+        \item It's not always possible to have such a powerful server for each client application to solve complex and large-scale optimization problems
         \item If I use powerful machine, majority of power is not used for most of the time, because scheduling algorithm is not running
         \begin{itemize}
             \item This power can be potentially used elsewhere - for example in applications that, for some reason, can't have powerful server
