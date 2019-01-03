@@ -1,0 +1,65 @@
+%%
+%% Author: lukas
+%% 03.01.2019
+%%
+
+\section{Algorithms}\label{sec:algorithms}
+
+This work does not contain any own algorithm implementation for scheduling problems,
+instead I would like to use pre-prepared and already implemented solver.
+First we must specify which kind of approach we would like to choose.
+We have many options, how to represent and then solve scheduling problem such as
+\begin{itemize}
+    \item Linear programming
+    \begin{itemize}
+        \item more specifically mixed integer programming
+    \end{itemize}
+    \item Constraint programming
+    \begin{itemize}
+        \item more specifically heuristics algorithms
+    \end{itemize}
+\end{itemize}
+
+\subsection{Linear Programming}\label{subsec:linear-programming}
+Some general information about linear programming goes here %TODO add here some info
+
+\subsubsection{Advantages of linear programming approach}
+%TODO
+
+\subsubsection{Disadvantages of linear programming approach}
+%TODO
+
+
+\subsection{Heuristic algorithms}\label{subsec:heuristic-algorithms}
+General information about heuristic %TODO add heuristic
+
+\subsubsection{Advantages of heuristic algorithms}
+The main advantage of heuristic algorithms is that they offer a quick solution for problem they are solving.
+
+\subsubsection{Disadvantages of heuristic algorithms}
+The main downside of HA is the fact, that they can't guarantee that found solution is the optimal one.
+
+\subsection{Existing solutions}\label{subsec:existing-solutions}
+After considering all advantages and disadvantages of previously mentioned approaches, I decided to use \textit{heuristic algorithm}
+in my implementation of RMS\@.
+Since it is not main goal of this work to implement such a algorithm I will choose some existing implementation of some heuristic algorithm which
+is general enough to be used in my paper.\\
+I would like to present two selected existing implementations
+\begin{itemize}
+    \item OptaPlanner
+    \item TASP
+\end{itemize}
+
+\subsubsection{OptaPlanner}
+OptaPlanner is generic heuristics based constraint solver.
+%TODO more fom https://www.optaplanner.org
+
+\subsubsection{TASP}
+\textit{Task and Asset Scheduling Platform}  is a lightweight framework developed by Blindspot Solutions designed to solve a large
+variety of optimization and scheduling problems from the area of logistics, workforce management, manufacturing, planning and others.
+It contains a modular, efficient planning engine utilizing latest optimization algorithms.
+TASP is delivered as a software library to be used through its API in applications which require powerful scheduling capabilities.
+
+\subsection{Selected algorithm}\label{subsec:selected-algorithm2}
+I decided to use TASP in for my paper, because \ldots %TODO add explanation why I selected TASP
+
