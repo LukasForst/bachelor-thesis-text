@@ -1,0 +1,159 @@
+%%
+%% Author: lukas
+%% 01.01.2019
+%%
+
+\chapter{Introduction}\label{ch:introduction}
+
+\section{Problem definition}\label{sec:problem-definition}
+
+\subsection{What I want}\label{subsec:what-i-want}
+
+\begin{itemize}
+    \item I have generic scheduling algorithm which does not entirely need to know the domain it is operating with
+    \begin{itemize}
+        \item It has its own data representation
+    \end{itemize}
+    \item I have many different domains where each requires its own visualisation application (let's call it \textit{client} application)
+    \item I want to have one instance of scheduling algorithm which can perform scheduling for each client application
+    \begin{itemize}
+        \item This instance must be easily scalable and generic such as adding new problem domain is not \textit{"a big deal"}
+    \end{itemize}
+    \item I want to change as little as possible when adding a new domain (and thus new client application)
+    \item I want this algorithm to run on dedicated server
+\end{itemize}
+
+\subsection{Remote scheduler server requirements}\label{subsec:remote-scheduler-server-requirements}
+
+\begin{itemize}
+    \item  Client application does not contain any scheduling algorithm
+    \begin{itemize}
+        \item Client contains converter (which is used to translate data from client's database model into remote scheduler data model) and system which
+        ensures connection with remote scheduling server
+    \end{itemize}
+    \item When client wants to create new plan, it just transforms database data into scheduler data model and sends them to
+    \textbf{RMS}\footnote{\textbf{R}emote \textbf{S}cheduler \textbf{S}erver}
+    \item RMS is modified as little as possible while adding new client application (and thus new problem domains)
+    \begin{itemize}
+        \item Core scheduling algorithm \textbf{must not} be changed
+        \item No code can be changed when adding new domain
+        \begin{itemize}
+            \item Only new domain-specific behaviour can be added such as heuristics, plan evaluation etc.
+            \item It must be ensured that these domain specific parts of RMS will be used only while scheduling correct domain
+        \end{itemize}
+    \end{itemize}
+    \item RMS ensures that clients scheduling data/algorithms can't interact with each other
+    \begin{itemize}
+        \item Each scheduling must be enclosed and exclusively accessible only for client that started it
+        \item Domain specific code can't be used in different domain
+    \end{itemize}
+    \item RMS is able to balance its load
+    \begin{itemize}
+        \item It is possible to outsource SJ\footnote{SJ - Scheduling Job} to another instance of RMS
+        \item SJ have priority and assigned resources, when priority is set to low, resources can be reassigned to SJ with higher priority
+    \end{itemize}
+    \item RMS supports different scheduling configuration
+    \begin{itemize}
+        \item SJ can have different requirements on RAM/CPU/IO
+        \item SJ can have different complexity and thus different scheduling phases have different performance requirements
+        \begin{itemize}
+            \item ie.
+            inserting assignments to final plan, removing assignments from plan, plan evaluation etc.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
+\section{Motivation to solve it}\label{sec:motivation-to-solve-it}
+
+\begin{itemize}
+    \item I don't want to include same and unnecessary code into all client applications
+    \begin{itemize}
+        \item I don't need whole scheduling algorithm in client's code when data conversion layer would be enough
+        \item I don't want to deploy whole application when scheduling algorithm needs to be adjusted
+        \item If scheduling algorithm is licensed intellectual property it is better to have its source codes placed outside of source codes that are being sold
+    \end{itemize}
+    \item I would like to completely separate scheduling core and user service layer
+    \begin{itemize}
+        \item Client and RMS communicate on predefined API
+        \item Client can be implemented in different environment (ie.
+        programming language, runtime environment etc.) than RMS
+        \begin{itemize}
+            \item ie.
+            RMS in JVM and client in .NET
+            \item This is one of the main advantage of RMS, because sometimes, client application must be build on specified technology, if we have
+            one implementation of scheduling algorithm in different technology, than is specified, we would need to reimplement it
+        \end{itemize}
+    \end{itemize}
+    \item Scheduling is resource-intensive task which requires powerful hardware
+    \begin{itemize}
+        \item This powerful hardware could be fully utilized only when scheduling is running
+        \item It's not always possible to have such a powerful server for each client application to create \textit{a decent plans}
+        \item If I use powerful machine, majority of power is not used for most of the time, because scheduling algorithm is not running
+        \begin{itemize}
+            \item This power can be potentially used elsewhere - for example in applications that, for some reason, can't have powerful server
+            \item Even when having powerful machine, scheduling task is resource-intensive and therefore server response time could be higher than usual, this
+            usually leads to lowered user experience
+        \end{itemize}
+        \item Different phases of scheduling have different resource requirements
+        \item If I move scheduling algorithm out of user-serving application, I don't need such powerful hardware for each application
+    \end{itemize}
+    \item I want one central place, where all applications perform scheduling
+    \begin{itemize}
+        \item I would have control over total resources allocation for scheduling
+        \item I could assign priorities to SJ
+    \end{itemize}
+    \item I want to be able to change resources allocation during scheduling
+    \begin{itemize}
+        \item Resource allocation according to scheduling phase
+    \end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
