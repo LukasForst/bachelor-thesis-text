@@ -1,0 +1,62 @@
+%%
+%% Author: lukas
+%% 03.01.2019
+%%
+
+\section{Optimization Algorithms}\label{sec:optimization-algorithms}
+
+This work does not contain any own algorithm implementation for generic optimization problems,
+instead I would like to use pre-prepared and already implemented optimization solver.
+First we must specify which kind of approach we would like to choose.
+We have many options, how to represent and then solve scheduling problem such as
+\begin{itemize}
+    \item Linear programming - mixed integers programming
+    \item Constraint programming - heuristics algorithms
+\end{itemize}
+
+\subsection{Linear Programming}\label{subsec:linear-programming}
+Some general information about linear programming goes here %TODO add here some info
+
+\subsubsection{Advantages of linear programming approach}
+%TODO
+
+\subsubsection{Disadvantages of linear programming approach}
+%TODO
+
+\subsubsection{Existing solutions}\label{subsec:existing-solutions-lin}
+GLPK
+Google Optimization Kit
+
+\subsection{Heuristic algorithms}\label{subsec:heuristic-algorithms}
+General information about heuristic %TODO add heuristic
+
+\subsubsection{Advantages of heuristic algorithms}
+The main advantage of heuristic algorithms is that they offer a quick solution for problem they are solving.
+
+\subsubsection{Disadvantages of heuristic algorithms}
+The main downside of HA is the fact, that they can't guarantee that found solution is the optimal one.
+
+\subsubsection{Existing solutions}\label{subsec:existing-solutions-heur}
+I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP.
+
+\subsubsection{OptaPlanner}
+OptaPlanner is an open source generic heuristics based constraint solver.
+It is optimized to
+%TODO more fom https://www.optaplanner.org
+
+\subsubsection{TASP}
+\textit{Task and Asset Scheduling Platform}  is a lightweight framework developed by Blindspot Solutions designed to solve a large
+variety of optimization and scheduling problems from the area of logistics, workforce management, manufacturing, planning and others.
+It contains a modular, efficient planning engine utilizing latest optimization algorithms.
+TASP is delivered as a software library to be used through its API in applications which require powerful scheduling capabilities.\\
+It is written in Kotlin and runs on JVM.
+
+\subsection{Selected algorithm}\label{subsec:selected-algorithm}
+I decided to use one linear solver and one heuristic algorithm to test load balancing server.
+This will provide us heterogeneous environment for distinguish optimization tasks as well as different demands on performance.\\
+While choosing suitable solvers I was looking mainly at possibility running on JVM and their API as well as at their suitability for my paper.
+For final testing I selected \textbf{GLPK} as linear solver, mainly because it is widely used linear programming kit
+and because of it's convenient Java interface.\\
+As a representative of heuristics algorithms I selected \textbf{TASP} because of it's great scalability, Kotlin interface
+and because I have already worked with it and I'm familiar with multiple TASP implementations.
+%TODO do I have to mention that I'm working for Blindspot?

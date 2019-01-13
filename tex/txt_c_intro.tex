@@ -11,7 +11,7 @@ Complexity of optimization problems could be huge and therefore performance requ
 Using one powerful instance of optimization algorithm in cloud seems like a solution for problems with smaller complexity,
 but what if we have multiple huge problems where each is performance demanding?
 Of course, we can create multiple instances, but that would be expensive and not well manageable and scalable
-since adding another instance requires some time.
+since adding another instances manually requires some time and it is not much flexible.
 Another disadvantage of this approach is the fact, that optimization algorithm is not running $100\%$ of time
 and thus resources allocated by this algorithm are unused while other algorithm instances could be potentially overwhelmed.
 Also paying for unused hardware is wasting money and optimization algorithms are supposed to save money.\\
@@ -25,10 +25,12 @@ As previously mentioned, these two machines would not be using their power whole
 What if one application runs only few minutes a day, but needs that power to complete tasks in time?
 A lot of resources would be wasted if it has its own server,
 but using not powerful server would lead to increasing duration of ongoing tasks which is something we do not want.\\
-Solution might be \textbf{load balancer} specifically developed for optimization algorithms.
+In this paper I would like to introduce \textbf{load balancer} specifically developed for optimization algorithms
+which could potentially minimize resources wasting and increase performance using correct utilization distribution across
+multiple instances of optimization algorithms.
 
 
-\input{report-intro-problem-definition}
+\input{txt_s_problem_definition.tex}
 
-\input{report-intro-motivation}
+\input{txt_s_motivation.tex}
 
