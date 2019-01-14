@@ -10,53 +10,58 @@ instead I would like to use pre-prepared and already implemented optimization so
 First we must specify which kind of approach we would like to choose.
 We have many options, how to represent and then solve scheduling problem such as
 \begin{itemize}
-    \item Linear programming - mixed integers programming
+    \item Linear Optimization - mixed integers optimization
     \item Constraint programming - heuristics algorithms
 \end{itemize}
 
-\subsection{Linear Programming}\label{subsec:linear-programming}
-Some general information about linear programming goes here %TODO add here some info
+\subsection{Linear Optimization}\label{subsec:linear-optimization}
 
-\subsubsection{Advantages of linear programming approach}
-%TODO
 
-\subsubsection{Disadvantages of linear programming approach}
-%TODO
+\subsubsection{Advantages and disadvantages of linear optimization}
+\todo{info about lp}
 
 \subsubsection{Existing solutions}\label{subsec:existing-solutions-lin}
 GLPK
 Google Optimization Kit
 
 \subsection{Heuristic algorithms}\label{subsec:heuristic-algorithms}
-General information about heuristic %TODO add heuristic
+Heuristics algorithms are designed to solve optimization problems faster
+and more efficient fashion than Linear Optimization methods by using different kinds of heuristics and metaheuristics.
+In exchange for that, algorithms sacrifice optimality, accuracy, precision, and completeness.
+Thus solution provided by HA is not guaranteed to be optimal.\\
+HA are often used to solve various types of NP-complete problems such as
+Vehicle Routing, Task Assignment, Job Scheduling or Traveling Salesmen Problem.\\
+Heuristic algorithms are most often employed when approximate solutions are sufficient
+and exact solutions are necessarily computationally expensive.\cite{papanikolaou2018holistic}
 
-\subsubsection{Advantages of heuristic algorithms}
-The main advantage of heuristic algorithms is that they offer a quick solution for problem they are solving.
+\subsubsection{Advantages and disadvantages of heuristic algorithms}
+The main advantage of heuristic algorithms is that they provide quick feasible solution.
+Because the implementation of HA is easier than LP and they provide at least feasible solution for optimization problems,
+they are solving, they are widely used in organizations that face such optimization problems.\\
+The main downside of HA is the fact, that they can't guarantee that the found solution is the optimal one.
 
-\subsubsection{Disadvantages of heuristic algorithms}
-The main downside of HA is the fact, that they can't guarantee that found solution is the optimal one.
 
 \subsubsection{Existing solutions}\label{subsec:existing-solutions-heur}
-I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP.
+I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP\@.\\
 
-\subsubsection{OptaPlanner}
-OptaPlanner is an open source generic heuristics based constraint solver.
-It is optimized to
-%TODO more fom https://www.optaplanner.org
+\textbf{OptaPlanner} - OptaPlanner is an open source generic heuristics based constraint solver.
+It is designed to solve optimization problems such as Vehicle Routing, Agenda Scheduling etc.
+OptaPlanner is written in pure Java and runs on JVM, therefore it can be used as Java library.
+While solving optimization task, it combines and uses various optimization heuristics and metaheuristics such as
+Tabu Search or Simulated Annealing.\\
 
-\subsubsection{TASP}
-\textit{Task and Asset Scheduling Platform}  is a lightweight framework developed by Blindspot Solutions designed to solve a large
+\textbf{TASP} - \textit{Task and Asset Scheduling Platform}  is a lightweight framework developed by Blindspot Solutions designed to solve a large
 variety of optimization and scheduling problems from the area of logistics, workforce management, manufacturing, planning and others.
 It contains a modular, efficient planning engine utilizing latest optimization algorithms.
 TASP is delivered as a software library to be used through its API in applications which require powerful scheduling capabilities.\\
-It is written in Kotlin and runs on JVM.
+It is written in Kotlin and runs on JVM\@.
 
-\subsection{Selected algorithm}\label{subsec:selected-algorithm}
+\subsection{Selected algorithms}\label{subsec:selected-algorithms}
 I decided to use one linear solver and one heuristic algorithm to test load balancing server.
-This will provide us heterogeneous environment for distinguish optimization tasks as well as different demands on performance.\\
+This will provide us heterogeneous environment for distinguish optimization tasks as well as different demands on performance.
 While choosing suitable solvers I was looking mainly at possibility running on JVM and their API as well as at their suitability for my paper.
-For final testing I selected \textbf{GLPK} as linear solver, mainly because it is widely used linear programming kit
+For final testing I selected \textbf{GLPK} as linear solver, mainly because it is widely used linear optimization kit
 and because of it's convenient Java interface.\\
 As a representative of heuristics algorithms I selected \textbf{TASP} because of it's great scalability, Kotlin interface
 and because I have already worked with it and I'm familiar with multiple TASP implementations.
-%TODO do I have to mention that I'm working for Blindspot?
+\todo{do I have to mention that I'm working for Blindspot?} %TODO
