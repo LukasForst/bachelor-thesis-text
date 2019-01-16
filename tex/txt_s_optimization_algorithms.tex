@@ -6,23 +6,42 @@
 \section{Optimization Algorithms}\label{sec:optimization-algorithms}
 
 This work does not contain any own algorithm implementation for generic optimization problems,
-instead I would like to use pre-prepared and already implemented optimization solver.
-First we must specify which kind of approach we would like to choose.
-We have many options, how to represent and then solve scheduling problem such as
-\begin{itemize}
-    \item Linear Optimization - mixed integers optimization
-    \item Constraint programming - heuristics algorithms
-\end{itemize}
+instead I would like to use pre-prepared and already implemented optimization solver.\\
+We have many options how to solve optimization problems, I would like to present two of them
+- linear optimization and heuristics algorithms.
 
 \subsection{Linear Optimization}\label{subsec:linear-optimization}
+Linear optimization (or linear programming) is a method to achieve the best outcome in a mathematical model
+whose requirements are represented by linear relationships.\cite{web_wiki:linearProgramming}
+The algorithms are widely utilized in company management, such as planning, production, transportation, technology and other issues.
 
 
 \subsubsection{Advantages and disadvantages of linear optimization}
-\todo{info about lp}
+The main benefit of linear optimization is that it provides the best possible solution,
+because optimization algorithms are guaranteed to provide optimal solution.
+Although almost everything can be represented as linear problem,
+linear programming solvers could be unable to provide solution since, in the most cases, computation time grows exponentially.
+Even though there are solvers that are able to provide $\epsilon$ (partial) solution,
+this solution can be (and in most cases is) unusable, because is is not optimal at all.
 
 \subsubsection{Existing solutions}\label{subsec:existing-solutions-lin}
-GLPK
-Google Optimization Kit
+There are plenty of linear programming solvers available.
+I would like to highlight following two optimization kits.\\
+
+\textbf{GLPK} - \textit{GNU Linear Programming Kit} is a software package intended for solving large-scale linear programming (LP),
+mixed integer programming (MIP), and other related problems.
+It is a set of routines written in ANSI $C$ and organized in the form of a callable library.\cite{web:gnuGlpk}\\
+Although originally is GLPK written in $C$ programming language,
+there is an independent project,
+which provides Java-based interface for execution of GLPK via Java Native Interface.
+\footnote{Java Native Interface - Interface provided by Java platform to run and integrate non-Java language libraries}\\
+
+\textbf{Google OR-Tools} - OR-Tools is an open source software suite for optimization,
+tuned for tackling the world's toughest problems in vehicle routing, flows,
+integer and linear programming, and constraint programming.\cite{web:googleOrTools}
+Tools contain \textit{Glop} which is Google's custom linear solver.\\
+One of the greatest advantages of Google OR-Tools is great API supporting multiple programming languages - \textit{C++, Python, C\# and Java}.
+
 
 \subsection{Heuristic algorithms}\label{subsec:heuristic-algorithms}
 Heuristics algorithms are designed to solve optimization problems faster
