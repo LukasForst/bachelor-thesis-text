@@ -18,3 +18,20 @@ There will be some info about how should server balance itself.
         \item The Least Response Time Method
     \end{itemize}
 \end{itemize}
+\todo{some stuff about load balancing in general}
+
+In general, load balancing can be classified as either \textit{static} or \textit{dynamic}.
+
+\subsection{Static Load Balancing}\label{subsec:static-load-balancing}
+Static load balancing is an approach where system information are provided a priori
+and load balancer does not use node performance information of the nodes
+\footnote{Execution node - Server executing task which is being scheduled by load balancer.
+In our case, this task is solving optimization problem by solver.}, to make distribution decisions.
+The performance possibilities and the load of the execution point (or node) are not taken in account
+when decision - where to execute current task - is being made.
+Then, depending on the performance and load of the nodes, balancing server decides which node will execute task.
+When a decision is made, no other interaction with executing node, regarding the current task, is being made.
+In other words, once the load is allocated to the execution node, it cannot be transferred to another node.\\
+The main disadvantage of this approach is
+
+\subsection{Dynamic Load Balancing}\label{subsec:dynamic-load-balancing}
