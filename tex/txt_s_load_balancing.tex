@@ -24,14 +24,57 @@ In general, load balancing can be classified as either \textit{static} or \texti
 
 \subsection{Static Load Balancing}\label{subsec:static-load-balancing}
 Static load balancing is an approach where system information are provided a priori
-and load balancer does not use node performance information of the nodes
+and load balancer does not use performance information about execution node
 \footnote{Execution node - Server executing task which is being scheduled by load balancer.
-In our case, this task is solving optimization problem by solver.}, to make distribution decisions.
+In our case, this task is solving optimization problem by solver.},
+to make distribution decisions.
 The performance possibilities and the load of the execution point (or node) are not taken in account
-when decision - where to execute current task - is being made.
-Then, depending on the performance and load of the nodes, balancing server decides which node will execute task.
+when decision - where to execute current task - is being made, because load-balancing decisions are made at compile time.
 When a decision is made, no other interaction with executing node, regarding the current task, is being made.
-In other words, once the load is allocated to the execution node, it cannot be transferred to another node.\\
-The main disadvantage of this approach is
+In other words, once the load is allocated to the execution node, it cannot be transferred to another node.
+Static load balancing method is to reduce the overall execution time of a concurrent program while minimizing the communication delays.\cite{web:loadBalancingInGridComputing}\\
+
+The main disadvantage of static load balancing is that it does not take in account current state of the system,
+when making decision.
+This could potentially lead to performance issues in the whole system because some nodes can be overloaded although others are not working at all.\\
+Another drawback of this approach is that hardware resources are allocated only once in the execution time.
+Since optimization jobs are very heterogeneous, they sometimes have different power requirements during the execution.
+For example \textbf{TASP} uses only one thread when creating feasible plan in the first algorithm iteration -
+this task relays only on single core performance.
+However, when first iteration is completed, all following can be done by multiple threads,
+therefore it could be useful to execute first iteration on a machine with better single core performance
+and then transfer algorithm into machine focused on multiple threads execution.
+This is something that can not be done while using static load balancing.
+
+Following static load balancing algorithms are commonly used.
+\begin{itemize}
+    \item \textbf{First alive} or also called \textit{Central Manager} algorithm uses the concept of a primary server and backup servers.\cite{web:ibmLoadBalancingDecisions}
+    All tasks will be scheduled to be executed on primary server unless the primary server is down.
+    Then load will be forwarded to first backup server.
+    This algorithm has almost zero level of inner process communication, which leads to better performance when there are lots of smaller tasks.
+
+    \item \textbf{Round Robin} algorithm which distributes work load evenly to all nodes.
+    It is being done in round robin order, where load is distributed to each node in circular order without any priority.
+    Round Robin is esy to implement and as well as \textit{First alive} algorithm has almost none inner communication overhead.
+    This algorithm performs best when tasks have equal, or at least similar, processing time.
+
+    \item \textbf{Weighted Round Robin} algorithm maintains a weighted list of servers and forwards new connections in proportion to the weight, or preference,
+    of each server.
+    This algorithm uses more computation times than the round robin algorithm.
+    However, the additional computation results in distributing the traffic more efficiently to the server that is most capable of handling the request.\cite{web:ibmLoadBalancingDecisions}
+
+    \item \textbf{Threshold algorithm} - execution nodes keep private copy of the system's load, when the load state of a node exceeds a load level limit,
+    node sends message to all remote nodes, that it is overloaded.
+    If the local state is not overloaded then the load is allocated locally.
+    Otherwise a remote under loaded node is selected and if no such node exists it is also allocated locally.
+    This algorithm has low inter process communication and large number of local process allocations.
+    The later reduces the overhead of remote process allocation and the overhead of remote memory access, which leads to improvement in performance.\cite{web:qDifferenceBetweenStaticAndDynamicBalancing}
+
+    \item \textbf{Least Connections} algorithm maintains a record of active server connections
+    and forward a new connection to the server with the least number of active connections.\cite{web:ibmLoadBalancingDecisions}
+
+    \item \textbf{Randomized algorithm} uses random selection of the execution node without having any information about it.
+
+\end{itemize}
 
 \subsection{Dynamic Load Balancing}\label{subsec:dynamic-load-balancing}
