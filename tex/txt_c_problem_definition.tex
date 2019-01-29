@@ -9,18 +9,60 @@ The problem with implementation of optimization algorithms in applications is th
 performance requirements are quite high and are fully utilized only while working.
 Optimization algorithm is not running all the time and for that reason hardware resources are mainly unused.
 These unused resources could be potentially used by another instance of algorithm
-or can be shutdown completely tp reduce hosting costs.
+or can be shutdown completely to reduce hosting costs.\\
+Also adding more time to job execution does not always bring better solution
+but it certainly costs more.
+Therefore proposed load balancer must be able to stop execution when solution value
+is not getting better compared with scheduling costs.
 
 \section{Formal definition}\label{sec:formal-definition}
-Load balancer take in account following scheduling job properties.
+\begin{itemize}
+    \item $T_{\max}$ - maximal optimization job execution time provided by user and specified before execution started
+
+    \item $T$ - actual optimization job execution time, when no execution time optimization is being used $T = T_{\max}$
+
+    \item $RC$ - \textit{Resource Costs} - all hardware costs used for executing optimization job by some algorithm
+    \todo{don't know how to say that - costs that you actually pay for hardware}
+    \begin{equation}
+        RC = \sum_{i=0}^T RC_i
+    \end{equation}
+
+    \item $RC_t$ - \textit{Resource Costs} in time $t$ - accumulated costs from beginning of execution to time $t$
+    \begin{equation}
+        RC_{t} = \sum_{i=0}^{t-1} RC_i
+    \end{equation}
+
+    \item $RC_{\max}$ - maximal resource costs specified by user in advance
+    \begin{equation}
+        RC_{\max} \geq RC
+    \end{equation}
+
+    \item $V$ - \textit{Solution Value} - value of the found solution, since this paper focus on cost optimization,
+    \textit{Solution Value} is cost of found solution
+    \begin{equation}
+        V = min \{ V_t \}, \quad t = 0 \dots T
+    \end{equation}
+
+    \item $V_t$ - \textit{Solution Value} in time $t$ - best solution provided by algorithm since the beginning of the job execution
+    until time $t$
+
+\end{itemize}
+
+Then load balancer optimizes following function
+
+\begin{equation}
+    min \{ \alpha RC + \beta V \,|\, \alpha, \beta \in \mathbb{R} \}
+\end{equation}
+
+Where $\alpha$ and $\beta$ are coefficients that are balancing $RC$ and $V$.
 
 
 
 \subsection{Load Balancer Requirements}\label{subsec:load-balancer-requirements}
 %TODO
-%For successful server implementation we must enforce following things
-%\begin{itemize}
+% For successful server implementation we must enforce following things
+% \begin{itemize}
 %    \item Running optimization algorithms can't interfere with each other
 %    \item RMS guarantee that scheduled job will be always executed
 %    \item
-%\end{itemize}
+% \end{itemize}
