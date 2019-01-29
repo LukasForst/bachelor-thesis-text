@@ -11,7 +11,7 @@ We have many options how to solve optimization problems, I would like to present
 - linear optimization and heuristics algorithms.
 
 \subsection{Linear Optimization}\label{subsec:linear-optimization}
-Linear optimization (or linear programming) is a method to achieve the best outcome in a mathematical model
+Linear optimization (or linear programming) is a method to achieve the best outcome in a mathematical model\todo{I must add more about it since it is important topic}
 whose requirements are represented by linear relationships.\cite{web_wiki:linearProgramming}
 The algorithms are widely utilized in company management, such as planning, production, transportation, technology and other issues.
 
@@ -20,8 +20,7 @@ because optimization algorithms are guaranteed to provide optimal solution.
 Although almost everything can be represented as linear problem,
 linear programming solvers could be unable to provide solution since, in the most cases, computation time grows exponentially.
 Even though there are solvers that are able to provide $\epsilon$ (partial) solution,
-this solution can be (and in most cases is) unusable, because is is not optimal at all.\\
-
+this solution can be (and in most cases is) unusable, because is is not optimal at all.\newline
 There are plenty of linear programming solvers available.
 I would like to highlight following two optimization kits.
 
@@ -39,11 +38,11 @@ which provides Java-based interface for execution of GLPK via Java Native Interf
 tuned for tackling the world's toughest problems in vehicle routing, flows,
 integer and linear programming, and constraint programming~\cite{web:googleOrTools}.
 Tools contain \textit{Glop} which is Google's custom linear solver.
-One of the greatest advantages of Google OR-Tools is great API supporting multiple programming languages - \textit{C++, Python, C\# and Java}.
+One of the greatest advantages of Google OR-Tools is great API supporting multiple programming languages - \textit{C++, Python, C\#} and \textit{Java}.
 
 
 \subsection{Heuristic algorithms}\label{subsec:heuristic-algorithms}
-Heuristics algorithms are designed to solve optimization problems faster
+Heuristics algorithms (or HA) are designed to solve optimization problems faster\todo{Same as above, I must add more information about them}
 and more efficient fashion than Linear Optimization methods by using different kinds of heuristics and metaheuristics.
 In exchange for that, algorithms sacrifice optimality, accuracy, precision, and completeness.
 Thus solution provided by HA is not guaranteed to be optimal.
@@ -55,24 +54,24 @@ and exact solutions are necessarily computationally expensive~\cite{papanikolaou
 The main advantage of heuristic algorithms is that they provide quick feasible solution.
 Because the implementation of HA is easier than LP and they provide at least feasible solution for optimization problems,
 they are solving, they are widely used in organizations that face such optimization problems.
-The main downside of HA is the fact, that they can't guarantee that the found solution is the optimal one.
-
-\\I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP\@.
+The main downside of HA is the fact, that they can't guarantee that the found solution is the optimal one.\newline
+I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP\@.
 
 \subsubsection{OptaPlanner}
-\textbf{OptaPlanner} - OptaPlanner is an open source generic heuristics based constraint solver.
+OptaPlanner is an open source generic heuristics based constraint solver.
 It is designed to solve optimization problems such as Vehicle Routing, Agenda Scheduling etc.
-OptaPlanner is written in pure Java and runs on JVM, therefore it can be used as Java library.
 While solving optimization task, it combines and uses various optimization heuristics and metaheuristics such as
 Tabu Search or Simulated Annealing.
 
+OptaPlanner is written in pure Java and runs on JVM, therefore it can be used as Java library.
+
 \subsubsection{TASP}
-\textbf{TASP} - \textit{Task and Asset Scheduling Platform}  is a lightweight framework developed by Blindspot Solutions designed to solve a large
+\textit{Task and Asset Scheduling Platform} is a lightweight framework developed by Blindspot Solutions designed to solve a large
 variety of optimization and scheduling problems from the area of logistics, workforce management, manufacturing, planning and others.
 It contains a modular, efficient planning engine utilizing latest optimization algorithms.
 TASP is delivered as a software library to be used through its API in applications which require powerful scheduling capabilities.
 
-It is written in Kotlin and runs on JVM\@.
+It is written in Kotlin which runs on JVM, therefore it can be easily used as library to any JVM based project\@.
 
 \subsection{Selected algorithms}\label{subsec:selected-algorithms}
 I decided to use one linear solver and one heuristic algorithm to test load balancing server.
