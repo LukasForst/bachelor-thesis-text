@@ -86,27 +86,36 @@ Randomized algorithm uses random selection of the execution node without having 
 Unlike static load balancing algorithms, dynamic algorithms use runtime state information to more more informative decisions while distributing the jobs.
 They monitor changes on the system work load and take it in account when decision, where to execute job, is being made.
 The process of monitoring the system is not stopped after execution job started and if circumstances change,
-job execution can be transferred to another system node which then proceeds with execution.\newline
-Dynamic algorithms usually uses three main strategies.
-\begin{itemize}
-    \item \textbf{Information strategy} - it is responsible for collecting the information about the nodes, their performance and load.
-    \item \textbf{Transfer strategy} - decides which tasks could be potentially transferred to another remote system node.
-    \item \textbf{Location strategy} - this strategy selects most suitable remote note which should execute transferred job.
-\end{itemize}
-Dynamic load balancing algorithms can be divided into three groups based on their control form,
-or in other words, how they control whole nodes system.\cite{web:staticAndDynamicLoadBalancing}
+job execution can be transferred to another system node which then proceeds with execution.
+
+While many different load balancing algorithms have been proposed, there are four basic steps that nearly all algorithms have in common\cite{malik2000dynamic}.
+\begin{enumerate}
+    \item Monitoring workstation performance (load monitoring)
+    \item Exchanging this information between workstations (synchronization)
+    \item Calculating new distributions and making the work movement decision (rebalancing criteria)
+    \item Actual data movement (job migration)
+\end{enumerate}
+Dynamic load balancing algorithms can be divided into two groups based on their control form,
+or in other words, where load balancing decisions are made\cite{malik2000dynamic}.
 \begin{itemize}
     \item Centralized - a single node in the network is responsible for all load distribution
     \item Distributed - all nodes ale equal
-    \item Semi-distributed - the network is segmented into clusters, where each cluster is centralized
 \end{itemize}
+While in centralized scheme are decisions made in one master workstation,
+in distributed scheme, the load balancing algorithm runs on all nodes
+and each node balances itself.
+Each of this approach has its own ups and downs,
+centralized scheme can be potential performance bottleneck
+since it relies on one system node,
+on the other hand distributed scheme has communication overhead,
+because it requires broadcast communication between all algorithm instances.
 
 The main advantage of dynamic load balancing is that it allows changing execution node in runtime.
-Because of that, it is possible to change hardware characteristics according to the job execution phase.
+For that reason it is possible to change hardware characteristics according to the job execution phase.
 For example execute initial phase of optimization algorithm on machine with powerful single core performance
-and then move job to the machine with multiple, less powerful cores to let it run in parallel.\todo{This sentence sounds weird}
+and then move the job to the machine with multiple, less powerful, cores to let it run in parallel.\todo{This sentence sounds weird}
 Also as a result of runtime scheduling,
-dynamic load balancing algorithms tends to provide a significant improvements in performance over static algorithms.
+dynamic load balancing algorithms tend to provide a significant improvements in performance over static algorithms.
 However, this comes at the additional cost of collecting and maintaining load information\cite{malik2000dynamic}.
 For that reason dynamic load balancing suites better for long running tasks, which can be managed and distributed better, than for fast queries.
 
