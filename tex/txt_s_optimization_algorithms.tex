@@ -12,7 +12,7 @@ We have many options how to solve optimization problems, I would like to present
 
 \subsection{Linear Optimization}\label{subsec:linear-optimization}
 Linear optimization (or linear programming) is a method to achieve the best outcome in a mathematical model\todo{I must add more about it since it is important topic}
-whose requirements are represented by linear relationships.\cite{web_wiki:linearProgramming}
+whose requirements are represented by linear relationships\cite{web_wiki:linearProgramming}.
 The algorithms are widely utilized in company management, such as planning, production, transportation, technology and other issues.
 
 The main benefit of linear optimization is that it provides the best possible solution,
@@ -20,14 +20,15 @@ because optimization algorithms are guaranteed to provide optimal solution.
 Although almost everything can be represented as linear problem,
 linear programming solvers could be unable to provide solution since, in the most cases, computation time grows exponentially.
 Even though there are solvers that are able to provide $\epsilon$ (partial) solution,
-this solution can be (and in most cases is) unusable, because is is not optimal at all.\newline
-There are plenty of linear programming solvers available.
+this solution can be (and in most cases is) unusable, because is is not optimal at all.
+
+\smallskip \noindent There are plenty of linear programming solvers available.
 I would like to highlight following two optimization kits.
 
 \subsubsection{GLPK}
 \textbf{GNU} - \textit{GNU Linear Programming Kit} is a software package intended for solving large-scale linear programming (LP),
 mixed integer programming (MIP), and other related problems.
-It is a set of routines written in ANSI $C$ and organized in the form of a callable library~\cite{web:gnuGlpk}.
+It is a set of routines written in ANSI $C$ and organized in the form of a callable library\cite{web:gnuGlpk}.
 Although originally is GLPK written in $C$ programming language,
 there is an independent project,
 which provides Java-based interface for execution of GLPK via Java Native Interface.
@@ -36,7 +37,7 @@ which provides Java-based interface for execution of GLPK via Java Native Interf
 \subsubsection{Google OR-Tools}
 \textbf{Google OR-Tools} - OR-Tools is an open source software suite for optimization,
 tuned for tackling the world's toughest problems in vehicle routing, flows,
-integer and linear programming, and constraint programming~\cite{web:googleOrTools}.
+integer and linear programming, and constraint programming\cite{web:googleOrTools}.
 Tools contain \textit{Glop} which is Google's custom linear solver.
 One of the greatest advantages of Google OR-Tools is great API supporting multiple programming languages - \textit{C++, Python, C\#} and \textit{Java}.
 
@@ -49,13 +50,14 @@ Thus solution provided by HA is not guaranteed to be optimal.
 HA are often used to solve various types of NP-complete problems such as
 Vehicle Routing, Task Assignment, Job Scheduling or Traveling Salesmen Problem.
 Heuristic algorithms are most often employed when approximate solutions are sufficient
-and exact solutions are necessarily computationally expensive~\cite{papanikolaou2018holistic}.
+and exact solutions are necessarily computationally expensive\cite{papanikolaou2018holistic}.
 
 The main advantage of heuristic algorithms is that they provide quick feasible solution.
 Because the implementation of HA is easier than LP and they provide at least feasible solution for optimization problems,
 they are solving, they are widely used in organizations that face such optimization problems.
-The main downside of HA is the fact, that they can't guarantee that the found solution is the optimal one.\newline
-I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP\@.
+The main downside of HA is the fact, that they can't guarantee that the found solution is the optimal one.
+
+\smallskip \noindent I would like to mention two implementations of heuristics algorithms - OptaPlanner and TASP\@.
 
 \subsubsection{OptaPlanner}
 OptaPlanner is an open source generic heuristics based constraint solver.
@@ -78,7 +80,8 @@ I decided to use one linear solver and one heuristic algorithm to test load bala
 This will provide us heterogeneous environment for distinguish optimization tasks as well as different demands on performance.
 While choosing suitable solvers I was looking mainly at possibility running on JVM and their API as well as at their suitability for my paper.
 For final testing I selected \textbf{GLPK} as linear solver, mainly because it is widely used linear optimization kit
-and because of it's convenient Java interface.\\
+and because of it's convenient Java interface.
+
 As a representative of heuristics algorithms I selected \textbf{TASP} because of it's great scalability, Kotlin interface
 and because I have already worked with it and I'm familiar with multiple TASP implementations.
 \todo{do I have to mention that I'm working for Blindspot?} %TODO

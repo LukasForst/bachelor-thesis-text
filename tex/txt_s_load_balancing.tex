@@ -15,6 +15,7 @@ There will be some info about how should server balance itself.
     which is heavy on computer resources like CPU/RAM/IO
 \end{itemize}
 \todo{some stuff about load balancing in general}
+\todo{it would be useful to mention hardware load balancing like routers etc.i}
 
 In general, load balancing can be classified as either \textit{static} or \textit{dynamic}.
 
@@ -31,7 +32,7 @@ In other words, once the load is allocated to the execution node, it cannot be t
 Static load balancing method is to reduce the overall execution time of a concurrent program while minimizing the communication delays\cite{web:loadBalancingInGridComputing}.
 The main advantage of static load balancing methods is mainly the fact, that there is minimal communication delay between system nodes
 and therefore execution overhead is minimized to almost zero.
-For that reason is static load balancing mainly used in the fields, where server response is crucial such as serving a webpage.\todo{Find better example}
+For that reason is static load balancing mainly used in the fields, where server response is crucial such as serving a web page.\todo{Find better example}
 Also the implementation of some static load balancing algorithm is straightforwards, since the used methods are very simple.
 
 The main disadvantage of static load balancing is that it does not take in account current state of the system, when making decision.
@@ -117,11 +118,28 @@ and then move the job to the machine with multiple, less powerful, cores to let 
 Also as a result of runtime scheduling,
 dynamic load balancing algorithms tend to provide a significant improvements in performance over static algorithms.
 However, this comes at the additional cost of collecting and maintaining load information\cite{malik2000dynamic}.
-For that reason dynamic load balancing suites better for long running tasks, which can be managed and distributed better, than for fast queries.\newline
-There are two main dynamic load balancing algorithms.
+For that reason dynamic load balancing suites better for long running tasks, which can be managed and distributed better, than for fast queries.
+
+\subsubsection{Dynamic load balancing strategies}
+There are three major parameters which usually define the strategy a specific load balancing algorithm will employ.
+These three parameters answer three important questions\cite{malik2000dynamic}:
+\begin{enumerate}
+    \item Who makes the load balancing decision?
+    \item What information is used to make the load balancing decision?
+    \item Where the load balancing decision is made?
+\end{enumerate}
+
+Question number $1$ is answered based on whether a \textit{sender-initiated} or \textit{receiver-initiated} policy is employed.
+
+Question `What information is used to make the load balancing decision?` is answered by control policies - \textit{global} and \textit{local}.
+
+
+\bigskip \noindent I would like to present two general dynamic load balancing algorithms - \textit{Central Queue Algorithm} and \textit{Local Queue Algorithm}.
 
 \subsubsection{Central Queue Algorithm}
-Central queue algorithm uses a cyclic FIFO queue on the main host to store new activities\footnote{Activities - jobs to be executed, in our case optimization job}
+Central queue algorithm is based on centralized receiver-initiated load balancing strategy.
+
+It uses a cyclic FIFO queue on the main host to store new activities\footnote{Activities - jobs to be executed, in our case optimization job}
 and unfulfilled requests.
 New activity request is inserted into queue and here it is stored until some execution node picks it up.
 
@@ -139,7 +157,9 @@ or queues the request until a new activity arrives\cite{sharma2008performance}.
 
 
 \subsubsection{Local Queue Algorithm}
-Local queue algorithms main feature is, that it supports dynamic process migration.\todo{Weird sentence}
+Local queue algorithms uses distributed receiver-initiated strategy.
+
+Its main feature is, that it supports dynamic process migration.\todo{Weird sentence}
 This algorithm in the first step uses static allocation of all new processes - all processes are allocated to under loaded hosts.
 In the second step the process migration is initiated by a host when its load falls under predefined threshold\footnote{
 This threshold can be defined by the user and it is an input for the algorithm}.
