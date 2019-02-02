@@ -129,16 +129,27 @@ These three parameters answer three important questions\cite{malik2000dynamic}:
     \item Where the load balancing decision is made?
 \end{enumerate}
 
-Question number $1$ is answered based on whether a \textit{sender-initiated} or \textit{receiver-initiated} policy is employed.
+Question number $1$ is answered based on whether a \textbf{sender-initiated} or \textbf{receiver-initiated} policy is employed.
+In \textit{sender-initiated} policies, congested nodes attempt to move work to lightly-loaded nodes.
+In \textit{receiver-initiated} policies, lightly-loaded nodes look for heavily-loaded nodes from which work may be received\cite{malik2000dynamic}.
 
-Question `What information is used to make the load balancing decision?` is answered by control policies - \textit{global} and \textit{local}.
+\smallskip
+Question `What information is used to make the load balancing decision?` is answered by following policies - \textbf{global} and \textbf{local}.
+When algorithm uses \textit{global} policy, the load balancer uses the performance profiles of all execution nodes connected to the network.
+When using \textit{local} policy, only local
+\footnote{Workstations are usually divided into groups, in this context \textit{local} means in the same group of workstations}
+nodes are taken in account while creating performance profile of the system.
 
+\smallskip
+The last parameter - `where the load balancing decision is made` - is answered by used control form,
+as mentioned previously,
+dynamic load balancing algorithms are divided into two groups based on their control form - \textbf{centralized} and \textbf{distributed}.
 
-\bigskip \noindent I would like to present two general dynamic load balancing algorithms - \textit{Central Queue Algorithm} and \textit{Local Queue Algorithm}.
+\medskip
+\noindent I would like to present two general dynamic load balancing algorithms - \textit{Central Queue Algorithm} and \textit{Local Queue Algorithm}.
 
 \subsubsection{Central Queue Algorithm}
 Central queue algorithm is based on centralized receiver-initiated load balancing strategy.
-
 It uses a cyclic FIFO queue on the main host to store new activities\footnote{Activities - jobs to be executed, in our case optimization job}
 and unfulfilled requests.
 New activity request is inserted into queue and here it is stored until some execution node picks it up.
