@@ -83,7 +83,7 @@ This can be generally useful while having many concurrent requests, that can be 
 Randomized algorithm uses random selection of the execution node without having any information about it.
 
 \subsection{Dynamic Load Balancing}\label{subsec:dynamic-load-balancing}
-Unlike static load balancing algorithms, dynamic algorithms use runtime state information to more more informative decisions while distributing the jobs.
+Unlike static load balancing algorithms, dynamic algorithms use runtime state information to more informative decisions while distributing the jobs.
 They monitor changes on the system work load and take it in account when decision, where to execute job, is being made.
 The process of monitoring the system is not stopped after execution job started and if circumstances change,
 job execution can be transferred to another system node which then proceeds with execution.
@@ -133,10 +133,28 @@ If a new activity arrives at the queue manager while there are unanswered reques
 the first such request is removed from the queue and the new activity is assigned to it.
 
 When a execution node load falls under the threshold,
-the local load manager sends a request for a new activity to the central load manager (which manages the queue).
+the local load manager sends a request for a new activity to the central load manager (which manages the central system queue).
 The central load manager answers the request immediately if a ready activity is found in the queue,
 or queues the request until a new activity arrives\cite{sharma2008performance}.
 
 
 \subsubsection{Local Queue Algorithm}
-And the second one.
+Local queue algorithms main feature is, that it supports dynamic process migration.\todo{Weird sentence}
+This algorithm in the first step uses static allocation of all new processes - all processes are allocated to under loaded hosts.
+In the second step the process migration is initiated by a host when its load falls under predefined threshold\footnote{
+This threshold can be defined by the user and it is an input for the algorithm}.
+In such case, the execution node attempts to get several processes from remote hosts.
+It randomly sends requests with the number of local ready processes to remote load managers.
+When a load manager receives such a request, it compares the local number of ready processes with the received number.
+If the former is greater than the latter, then some of the running processes are transferred to the requester
+and an affirmative confirmation with the number of processes transferred is returned.\cite{sharma2008performance}
+
+Local queue algorithm is distributed load balancing algorithm where each execution node requests a new activity when it is under loaded.
+The main advantage of using such algorithm is the fact, that there is no central point,
+where all requests are managed and distributed to another segments of system.
+For that reason is this particular algorithm copes and performs well under an increased or expanding workload.
+
+\subsection{Static vs.
+Dynamic scheduling}\label{subsec:static-vs.-dynamic-scheduling}
+Comparison between static and dynamic scheduling\todo{There must be something about it}.
+For our case dynamic is definitely better and more suitable because\ldots
