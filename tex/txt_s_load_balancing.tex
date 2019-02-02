@@ -117,13 +117,26 @@ and then move the job to the machine with multiple, less powerful, cores to let 
 Also as a result of runtime scheduling,
 dynamic load balancing algorithms tend to provide a significant improvements in performance over static algorithms.
 However, this comes at the additional cost of collecting and maintaining load information\cite{malik2000dynamic}.
-For that reason dynamic load balancing suites better for long running tasks, which can be managed and distributed better, than for fast queries.
-
-% kinda cool paper http://www.drmalik.ca/downloads/paper_515.pdf
+For that reason dynamic load balancing suites better for long running tasks, which can be managed and distributed better, than for fast queries.\newline
 There are two main dynamic load balancing algorithms.
 
 \subsubsection{Central Queue Algorithm}
-The first one.
+Central queue algorithm uses a cyclic FIFO queue on the main host to store new activities\footnote{Activities - jobs to be executed, in our case optimization job}
+and unfulfilled requests.
+New activity request is inserted into queue and here it is stored until some execution node picks it up.
+
+Whenever a request for an activity (which is send by executing node in the case when its load has fallen bellow specified threshold)
+is received by the queue manager\footnote{Queue manager - central server which manages queue},
+it removes the first activity from the queue and sends it to the requester.
+If the queue is empty, the request is buffered, until a new activity is available.
+If a new activity arrives at the queue manager while there are unanswered requests in the queue,
+the first such request is removed from the queue and the new activity is assigned to it.
+
+When a execution node load falls under the threshold,
+the local load manager sends a request for a new activity to the central load manager (which manages the queue).
+The central load manager answers the request immediately if a ready activity is found in the queue,
+or queues the request until a new activity arrives\cite{sharma2008performance}.
+
 
 \subsubsection{Local Queue Algorithm}
 And the second one.
