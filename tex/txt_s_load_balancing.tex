@@ -3,21 +3,25 @@
 %% 03.01.2019
 %%
 
-\newpage
 \section{Load Balancing}\label{sec:load-balancing}
-There will be some info about how should server balance itself.
-%TODO State of the art balancing - https://www.ibm.com/support/knowledgecenter/en/SS9H2Y_7.7.0/com.ibm.dp.doc/lbg_loadbalancergroup.html
-\begin{itemize}
-    \item prioritisation - mainly done by priority queues
-    \item handover
-    \item instance sizing
-    \item algorithms - following are methods used in network balancing -> probably can't be used because we need to manage scheduling
-    which is heavy on computer resources like CPU/RAM/IO
-\end{itemize}
-\todo{some stuff about load balancing in general}
-\todo{it would be useful to mention hardware load balancing like routers etc.i}
+Load balancing is technique for a division of processing work in the distributed environment of execution units
+\footnote{In general, execution unit can be CPU, network links, storage devices or other devices,
+in this paper \textit{execution unit} or also referred as \textit{execution node} or as \textit{host} is a computer executing assigned job}
+with aim to deliver faster service with higher efficiency.
+It improves the distribution of workloads across the whole environment and thus balances resources usage while maximizing throughput and minimizing response time.
+Load balancer is typically either dedicated \textit{hardware device} or \textit{software program}.
 
-In general, load balancing can be classified as either \textit{static} or \textit{dynamic}.
+A \textbf{hardware} load balancer is a dedicated hardware device which distributes network traffic across a cluster of servers\cite{web:hardwareLoadBalancer}.
+These devices are used mainly in the data centers to ensure equal distribution of traffic between the application servers.
+Main benefit of using hardware load balancer is zero balancing overhead on the host machines,
+because all decisions are made on dedicated hardware specially developed for such tasks.
+
+A \textbf{software} load balancer is a program operating on the application server with the same aim as hardware load balancer.
+Main advantage of the software load balancing is that it can be heavily customized and deployed to its own server.
+This paper will discuss only software load balancing approach.
+
+\medskip
+\noindent In general, software load balancing algorithms can be classified as either \textit{static} or \textit{dynamic}.
 
 \subsection{Static Load Balancing}\label{subsec:static-load-balancing}
 Static load balancing is an approach where system information are provided a priori
@@ -40,8 +44,9 @@ This could potentially lead to performance issues in the whole system because so
 
 Another drawback of this approach is that hardware resources are allocated only once in the execution time.
 Since optimization jobs are very heterogeneous, they sometimes have different power requirements during the execution.
-For example \textit{TASP} uses only one thread when creating feasible plan in the first algorithm iteration -
-this task relays only on single core performance.
+For example \textit{TASP}
+\footnote{\textbf{Task and Asset Scheduling Platform} - proprietary optimization software developed by Blindspot Solutions, described in\ref{subsubsec:tasp}}
+uses only one thread when creating feasible plan in the first algorithm iteration - this task relays only on single core performance.
 However, when first iteration is completed, all following can be done by multiple threads,
 therefore it could be useful to execute first iteration on a machine with better single core performance
 and then transfer algorithm into machine focused on multiple threads execution.
@@ -189,3 +194,46 @@ For that reason is this particular algorithm copes and performs well under an in
 Dynamic scheduling}\label{subsec:static-vs.-dynamic-scheduling}
 Comparison between static and dynamic scheduling\todo{There must be something about it}.
 For our case dynamic is definitely better and more suitable because\ldots
+
+\subsection{Load Balancing for Optimization Algorithms}\label{subsec:load-balancing-for-optimization-algorithms}
+In general, load balancing algorithms don't use information about what exactly is being executed on the execution nodes.
+This is because they are working mainly on the network layer and thus don't need that information.
+Also, they are mainly designed to be generic - to be used with any system and to be suitable for every environment.
+From the load balancer point of view, everything behind load balancing layer of the system is a black box.
+
+Because there is no knowledge about the algorithms operating on the execution nodes,
+load balancing algorithm can not make fully informed decision about the job execution.
+However, this paper focus on the load balancing and execution scheduling of optimization algorithms,
+therefore,
+unlike generic load balancing solutions,
+proposed load balancer \textbf{have} the information about execution algorithms on the host machine
+and thus load balancing decision are more informed.
+More informed load balancing decisions could potentially lead to better performance and costs reduction as well as greater capacity of whole system.
+
+Since load balancer is aware of algorithms running on the hosts,
+it can take in account a lot of execution criteria which can be specified (such as execution time)
+or at least estimated (how much memory will be needed according to the domain size) in advance to make even more informed balancing decision
+when scheduling job execution.
+This is also the main difference between the generally used and existing load balancing software and a solution proposed in this paper.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
