@@ -11,22 +11,22 @@ In the first place, used variables have to be introduced.\todo{this must be chan
 
 \subsubsection{Indexes}
 \begin{itemize}
-    \item $j$ - index used to identify something related to the execution job, in real world this is most likely job id, located in the right upper corner - $x^{j}$
-    \item $r$ - index used to identify resources, written in the left upper corner - ${}^{r}x$, whole set of resources is represented by letter $R$, therefore $r \in R$
-    \item $t$ - right bottom index represents time - $x_t$
+	\item $j$ - index used to identify something related to the execution job, in real world this is most likely job id, located in the right upper corner - $x^{j}$
+	\item $r$ - index used to identify resources, written in the left upper corner - ${}^{r}x$, whole set of resources is represented by letter $R$, therefore $r \in R$
+	\item $t$ - right bottom index represents time - $x_t$
 \end{itemize}
 
 \subsubsection{Input}
 Input which is specified before executing optimization job by user outside of the system.
 
 \begin{itemize}
-    \item $D^{j}$ - maximal duration of the job execution which cannot be exceeded
-    \item $P^{j}$ - maximal used resources cost per job, or in other words highest possible price paid for the job execution which cannot be exceeded
+	\item $D^{j}$ - maximal duration of the job execution which cannot be exceeded
+	\item $P^{j}$ - maximal used resources cost per job, or in other words highest possible price paid for the job execution which cannot be exceeded
 \end{itemize}
 These are values provided by user of the load balancer.
 There are also constants defined before load balancer start up.
 \begin{itemize}
-    \item ${}^{r}c$ - cost of the using particular resources for one time unit
+	\item ${}^{r}c$ - cost of the using particular resources for one time unit
 \end{itemize}
 For each previously mentioned variable applies that its value is $\geq 0$.
 
@@ -35,91 +35,95 @@ Apart from result of optimization algorithm,
 following data are returned to user after successful job execution.
 
 \begin{itemize}
-    \item $V^{j}$ - solution value provided by algorithm
-    \item $T^{j}$ - time taken, duration of the actual job execution
-    \item $C^{j}$ - resource costs, how much job execution cost
+	\item $V^{j}$ - solution value provided by algorithm
+	\item $T^{j}$ - time taken, duration of the actual job execution
+	\item $C^{j}$ - resource costs, how much job execution cost
 \end{itemize}
 
 \subsubsection{Variables}
 
 \begin{itemize}
-    \item $v_{t}^{j}$ - value\todo{better example would be fine} (i.e.\ cost of the scheduled plan) of the job $j$ at the time $t$
-    \begin{align*}
-        \forall t, j: v_{t}^{j} \geq v_{t+1}^{j} > 0
-    \end{align*}
-    \item $^{r}x_{t}^{j}$ - represents assignment of the resources $r$ at time $t$ to job $j$
-    \begin{align*}
-        ^{r}x_{t}^{j} = \{0, 1\}
-    \end{align*}
-    Each $x$ is either $1$ = indexed resources are assigned to the job at given time or $0$ = given combination does not have assignment.
-    We assume that each job has only one such assignment at one time,
-    which effectively means that this job is executed on the single computation node.
-    This is defined by following constraint:
-    \begin{align*}
-        \forall j, t:\; \sum_{r \in R} {}^{r}x_{t}^{j} = \{0, 1\}
-    \end{align*}
-    \item $^{r}\Delta_{t}^{j}$ - enhancement of the value $v$ with resources $r$ on the job $j$ per time $t$.
-    \begin{align*}
-        ^{r}\Delta_{t}^{j} = {}^{r}| v_{t}^{j} - v_{t-1}^{j}|
-    \end{align*}
-    Word definition - improvement of the solution value $v$ which can be achieved by using resources $r$ at time $t$.
-    \item $S_{t}^{j}$ - reward for improving solution value in time $t$ per job $j$.
-    Accumulation of enhancements $^{r}\Delta_{t}^{j}$ through all resources $r$ and time units $t$.
-    $R$ in following equation represents set of all available resources in the system.
-    \begin{align*}
-        S_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}\Delta_{i}^{j}
-    \end{align*}
-    \item $C_{t}^{j}$ - defines how much execution of job $j$ cost from the beginning of the execution until time $t$.
-    Sum of all allocated resources for their time for the particular job.
-    \begin{align*}
-        C_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}c \cdot {}^{r}x_{t}^{j}
-    \end{align*}
+	\item $v_{t}^{j}$ - value\todo{better example would be fine} (i.e.\ cost of the scheduled plan) of the job $j$ at the time $t$
+	      This value must be greater than zero and 
+	      \begin{align*}
+	      	\forall t, j: v_{t}^{j} \geq v_{t+1}^{j} > 0 
+	      \end{align*}
+	\item $^{r}x_{t}^{j}$ - represents assignment of the resources $r$ at time $t$ to job $j$
+	      \begin{align*}
+	      	^{r}x_{t}^{j} = \{0, 1\} 
+	      \end{align*}
+	      Each $x$ is either $1$ = indexed resources are assigned to the job at given time or $0$ = given combination does not have assignment.
+	      We assume that each job has only one such assignment at one time,
+	      which effectively means that this job is executed on the single computation node.
+	      This is defined by following constraint:
+	      \begin{align*}
+	      	\forall j, t:\; \sum_{r \in R} {}^{r}x_{t}^{j} = \{0, 1\} 
+	      \end{align*}
+	\item $^{r}\Delta_{t}^{j}$ - enhancement of the value $v$ with resources $r$ on the job $j$ per time $t$.
+	      \begin{align*}
+	      	^{r}\Delta_{t}^{j} = {}^{r}| v_{t}^{j} - v_{t-1}^{j}| 
+	      \end{align*}
+	      It is improvement of the solution value $v$ which can be achieved by using resources $r$ at time $t$.
+	      This value 
+	\item $S_{t}^{j}$ - reward for improving solution value in time $t$ per job $j$.
+	      Accumulation of enhancements $^{r}\Delta_{t}^{j}$ through all resources $r$ and time units $t$.
+	      $R$ in following equation represents set of all available resources in the system.
+	      \begin{align*}
+	      	S_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}\Delta_{i}^{j} 
+	      \end{align*}
+	\item $C_{t}^{j}$ - defines how much execution of job $j$ cost from the beginning of the execution until time $t$.
+	      Sum of all allocated resources for their time for the particular job.
+	      \begin{align*}
+	      	C_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}c \cdot {}^{r}x_{t}^{j} 
+	      \end{align*}
 \end{itemize}
 
 \subsubsection{Constraints}
 There are plenty of constraints applying to the variables.
 
 \begin{align*}
-    \forall t, j: v_{t}^{j} \geq v_{t+1}^{j} > 0
+	\forall t, j:\; v_{t}^{j} \geq v_{t+1}^{j} > 0                                                              \\     
+	\forall t, j:\; \sum_{r \in R} {}^{r}x_{t}^{j} = \{0, 1\}                                                   \\
+	\forall t, j:\; D^{j} \leq t \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0         \\
+	\forall t, j:\; P^{j} \leq C_{t}^{j} \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0 \\
+	\forall t, j, r:\; {}^{r}\Delta_{t}^{j} \geq 0                                                              \\
+	\forall j, t:\; C_{t+1}^{j} \geq C_{t}^{j}                                                                  
 \end{align*}
 
+\subsubsection{Resources reconfiguration}
+System should be capable of changing resources assignment per job.
+This will help to the system to distribute performance according to the current nodes load across whole network.
+Unfortunately, it is not always possible to reconfigure resources assignment while scheduling is being performed.
+Therefore there must be at least one time unit, between different resources assignment,
+where no resources are assigned to the job.
+In other words, if resources reconfiguration is being done in time $t$ then $\sum_{r \in R} {}^{r}x_{t}^{j} = 0$.
+
+This constraint can be defined in pseudocode,
+where $m, n \in R$, $m$ are assigned resources at the time $t$,
+this assignment can be written ass  ${}^{m}x_{t}^{j} = 1$
+and $n$ are resources that should be assigned to the job in the time $t+1$ - ${}^{n}x_{t}^{j}$.
+
+\begin{samepage}
+	\begin{algorithmic}
+		\IF {$ {}^{m}x_{t}^{j} = 1$} 
+		\IF {$m = n$}
+		\STATE ${}^{n}x_{t+1}^{j} = 1$
+		\ELSE
+		\STATE $\sum_{r \in R} {}^{r}x_{t+1}^{j} = 0$
+		\ENDIF 
+		\ENDIF 
+	\end{algorithmic}        
+\end{samepage}
+
+This constraint can defined as a mathematical function.\todo{Add mathematical definition of this constraint}
+
+\subsubsection{Optimization criteria}
+The main goal of the system is to minimize outcome value of the underlining optimization algorithm
+and at the same time to minimize cost per used resources.
+We can optimize single job or all jobs in the system at once.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{align*}
+    \max crit_{t} = \alpha \sum_{j \in J} s_{r}^{j} - (1 - \alpha) \sum_{j \in J} c_{t}^{j} \; \ldots 0 \leq \alpha \leq 1
+\end{align*}
