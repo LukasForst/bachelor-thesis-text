@@ -11,8 +11,10 @@ In the first place, used variables have to be introduced.\todo{this must be chan
 
 \subsubsection{Indexes}
 \begin{itemize}
-	\item $j$ - index used to identify something related to the execution job, in real world this is most likely job id, located in the right upper corner - $x^{j}$
-	\item $r$ - index used to identify resources, written in the left upper corner - ${}^{r}x$, whole set of resources is represented by letter $R$, therefore $r \in R$
+	\item $j$ - index used to identify something related to the execution job,
+	      in real world this is most likely job id, located in the right upper corner - $x^{j}$, 
+	      set of all jobs in the system is represented by $J$
+	\item $r$ - index used to identify resources, written in the left upper corner - ${}^{r}x$, set of resources is represented by $R$
 	\item $t$ - right bottom index represents time - $x_t$
 \end{itemize}
 
@@ -80,7 +82,7 @@ following data are returned to user after successful job execution.
 
 \subsubsection{Constraints}
 There are plenty of constraints applying to the variables.
-
+\todo{Add comment what each of this constraint means}
 \begin{align*}
 	\forall t, j:\; v_{t}^{j} \geq v_{t+1}^{j} > 0                                                              \\     
 	\forall t, j:\; \sum_{r \in R} {}^{r}x_{t}^{j} = \{0, 1\}                                                   \\
@@ -120,10 +122,20 @@ This constraint can defined as a mathematical function.\todo{Add mathematical de
 \subsubsection{Optimization criteria}
 The main goal of the system is to minimize outcome value of the underlining optimization algorithm
 and at the same time to minimize cost per used resources.
-We can optimize single job or all jobs in the system at once.
-
-
-
+We can optimize single job or sum of outcomes from all jobs in the system at once.
+First approach provides possibility to control and optimize outcome of a particular job,
+which is an advantage for single client (owner o the job),
+but it does not necessarily means that it is optimal for the whole system and vice versa.
+Optimization criteria for the single job at particular time $t$ is then
+maximization of weighted difference between the value enhancement reward 
+and cost paid for the enhancement,
+which can be described by following equation.
 \begin{align*}
-    \max crit_{t} = \alpha \sum_{j \in J} s_{r}^{j} - (1 - \alpha) \sum_{j \in J} c_{t}^{j} \; \ldots 0 \leq \alpha \leq 1
+	\max crit_{t}^{j} = \alpha \cdot S_{r}^{j} - (1 - \alpha) \cdot C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
+\end{align*}
+For optimization of system-wide resources and costs,
+all jobs execution optimization is then defined like a
+weighted sum of all rewards per jobs lowered by sum of all resources costs across the set of all jobs.
+\begin{align*}
+	\max crit_{t} = \alpha \sum_{j \in J} S_{r}^{j} - (1 - \alpha) \sum_{j \in J} C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
 \end{align*}
