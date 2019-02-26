@@ -3,8 +3,18 @@
 %% 12.02.2019
 %%
 
-\section{Formal definition}\label{sec:formal-definition}
-In the first place, used variables have to be introduced.\todo{this must be changed}
+\section{Simplified formal definition}\label{sec:formal-definition-simplified}
+This more general and simplified formal definition covers main parts of the optimization problem 
+and does not use excessive definition of all possible variables.
+
+It treats resources as homogenous set of all possible resource combination,
+therefore resources set contains all possible combination of CPU/RAM configuration that is available.
+Thanks to this simplification, resources assignment is can be binary,
+where one represents assignment and zero represents no assignment.
+
+It also omits data variable as well as underlying algorithm and resources provider index, 
+in favor of better readability.
+
 
 \subsection{Variables Definition}\label{subsec:variables-definition}
 Used variables are derived into multiple categories: \todo{Maybe change it a bit}

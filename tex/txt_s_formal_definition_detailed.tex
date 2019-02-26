@@ -3,84 +3,79 @@
 %% 12.02.2019
 %%
 
-\section{Formal definition}\label{sec:formal-definition}
-In the first place, used variables have to be introduced.\todo{this must be changed}
+\section{Detailed formal definition}\label{sec:formal-definition-detailed}
+Following detailed formal definition aims to record and model all related actions and variables in the whole optimization load balancing system.
 
-\subsection{Variables Definition}\label{subsec:variables-definition}
-\todo{Maybe write something here}
+\subsection{Variables definition}\label{subsec:detailed-variables-definition}
 
 \subsubsection{Indexes}
 \begin{itemize}
-    \item $j$ - index used to identify something related to the execution job, in real world this is most likely job id
-    \item $p$ - index used to identify particular resources provider (for example single computation node in local network
-    or \textit{AWS}\footnote{\textit{Amazon Web Services} is a subsidiary of Amazon that provides on-demand cloud computing platforms} instance)
-    \item $a$ - index for identification of particular algorithm (i.e.\
-    \textit{GLPK}\footnote{\textit{GNU Linear Programming Kit} is a software package intended for solving large-scale linear programming (LP),
-    or \textit{TASP}\footnote{\textit{Task and Asset Scheduling Platform} - proprietary optimization software developed by Blindspot Solutions, described in\ref{subsubsec:tasp}}
-    mixed integer programming (MIP), and other related problems, described in\ref{subsubsec:glpk}})
+	\item $j$ - index used to identify something related to the execution job, in real world this is most likely job id
+	\item $p$ - index used to identify particular resources provider (for example single computation node in local network
+	      or \textit{AWS}\footnote{\textit{Amazon Web Services} is a subsidiary of Amazon that provides on-demand cloud computing platforms} instance)
+	\item $a$ - index for identification of particular algorithm (i.e.\ \textit{GLPK}\footnote{\textit{GNU Linear Programming Kit} is a software package intended for solving large-scale linear programming (LP),
+	      	or \textit{TASP}\footnote{\textit{Task and Asset Scheduling Platform} - proprietary optimization software developed by Blindspot Solutions, described in\ref{subsubsec:tasp}}
+	      	mixed integer programming (MIP), and other related problems, described in\ref{subsubsec:glpk}})
 \end{itemize}
 
 \subsubsection{Input}
 Input which is specified before executing optimization job by user outside of the system.
 
 \begin{itemize}
-    \item $T_{\max}^{j}$ - maximal duration of the job execution which cannot be exceeded
-    \item $C_{\max}^{j}$ - maximal used resources cost per job, or in other words highest possible price paid for the job execution which cannot be exceeded
-    \item $a$ - algorithm which should be used to run optimization
-    \item $d^{j}$ - input data for the algorithm
+	\item $T_{\max}^{j}$ - maximal duration of the job execution which cannot be exceeded
+	\item $C_{\max}^{j}$ - maximal used resources cost per job, or in other words highest possible price paid for the job execution which cannot be exceeded
+	\item $a$ - algorithm which should be used to run optimization
+	\item $d^{j}$ - input data for the algorithm
 \end{itemize}
 
-\subsubsection{Program Output}
+\subsubsection{Program output}
 Following data are returned back to user after successful job execution.
-
+ 
 \begin{itemize}
-    \item $S^{j}$ - problem solution provided by algorithm $a$, i.e.\ planned data
-    \item $V^{j}$ - solution value provided by algorithm $a$
-    \item $T^{j}$ - time taken, duration of the actual job execution
-    \item $C^{j}$ - resource costs, how much job execution cost
+	\item $S^{j}$ - problem solution provided by algorithm $a$, i.e.\ planned data
+	\item $V^{j}$ - solution value provided by algorithm $a$
+	\item $T^{j}$ - time taken, duration of the actual job execution
+	\item $C^{j}$ - resource costs, how much job execution cost
 \end{itemize}
 
 \subsubsection{Time}
-In this paper, time is represented as series of $moments$.\todo{Maybe definition should be slightly different}
+In this detailed problem definition, 
+time is represented as series of $moments$.\todo{Maybe definition should be slightly different}
 Each moment represents time period from the time $t_i$ to time $t_{i+1}$,
 $moment$ is then written as $m_i$.
 \begin{align*}
-    |m_{i}| = t_{i+1} - t{i}
+	|m_{i}| = t_{i+1} - t{i} 
 \end{align*}
 Also, each $moment$ is defined for the one job and it is index by $j$.
 $m_{i}^{j}$ is an example of one moment $i$ which occurred during the executing job $j$.\\
 $M^{j}$ is the count of all moments, that occurred during the job $j$ execution.
 It is a fact that:
 \begin{align*}
-    T^{j} = \sum_{i = 0}^{M^{j}} | m_{i}^{j} |
+	T^{j} = \sum_{i = 0}^{M^{j}} | m_{i}^{j} | 
 \end{align*}
 Or in other words, total execution time of the job is sum of lengths of moments, that were part of the job execution.
 
 New moment must be created when resources assigned to the job are changed.
 But it is possible to create new moment without the resource change.
 
-\subsection{Constrains}\label{subsec:constrains}
-Global and job related constrains of the system.\todo{Already ready in my head}
-
-
-\subsection{Functions}\label{subsec:functions}
+\subsection{Functions}\label{subsec:detailed-functions}
 
 There are three main functions which are used in mathematical description of the system.
 
-\subsubsection{Solution Cost}
+\subsubsection{Solution cost}
 This function defines how much cost (in money) resource allocation for particular job
 and it is effectively used to express cost dependence on resources and time in any particular moment of the job execution.
 \begin{align*}
-    c_{m_{i}^{j}}^{j} = g_{p} (\, |m_{i}^{j}|,\, R_{m_{i}^{j}}^{j} \,)
+	c_{m_{i}^{j}}^{j} = g_{p} (\, |m_{i}^{j}|,\, R_{m_{i}^{j}}^{j} \,) 
 \end{align*}
 Where function $g_{p}$ defines how much cost resources $R_{m_{i}^{j}}^{j}$ allocation for time $|m_{i}^{j}|$ using resources provider $p$.
 It is defined for moment $m_{i}^{j}$ and job $j$.\\
 Therefore it is now possible to express final resource cost per job $C^{j}$.
 \begin{align*}
-    C^{j} = \sum_{i = 0}^{M} g_{p} (\, |m_{i}^{j}|, R_{m_{i}^{j}} \,)
+	C^{j} = \sum_{i = 0}^{M} g_{p} (\, |m_{i}^{j}|, R_{m_{i}^{j}} \,) 
 \end{align*}
 
-\subsubsection{Solution Value}
+\subsubsection{Solution value}
 In order to compute solution value we need two functions.
 One for value computation itself and one which will define,
 how we get data to compute such solution value.
@@ -95,7 +90,7 @@ its value depends on the duration of the execution,
 on provided data and on used computation resources.
 Generic solution therefore looks like this:
 \begin{align*}
-    s &= f_a(t, R, d)
+	s & = f_a(t, R, d) 
 \end{align*}
 The function $f_{a}$ is defined as \textit{the ability of algorithm $a$ to improve solution $d$ with used resources $R$ and time $t$ to new solution $s$}.
 
@@ -104,11 +99,11 @@ Since $d$ and $s$ have same type, we can write it indexed - because $s$ is based
 Also the function arguments are time dependent - moment index is needed.
 The final function $f_{a}$ is defined as:\todo{Pay attention to indexing -> maybe I will need to change it.}
 \begin{align*}
-    s_{m_{i+1}}^{j} &= f_{a}(\, |m_{i}^{j}|, R_{m_{i}^{j}}^{j}, s_{m_{i}^{j}}^{j}\,)\\
+	s_{m_{i+1}}^{j} & = f_{a}(\, |m_{i}^{j}|, R_{m_{i}^{j}}^{j}, s_{m_{i}^{j}}^{j}\,) \\
 \end{align*}
 And for the first algorithm iteration:
 \begin{align*}
-    s_{m_{0}}^{j} &= f_{a}(\, |m_{0}^{j}|, R_{m_{0}^{j}}^{j}, d^{j}\,)
+	s_{m_{0}}^{j} & = f_{a}(\, |m_{0}^{j}|, R_{m_{0}^{j}}^{j}, d^{j}\,) 
 \end{align*}
 Where $d$ are first data provided by user as an input of the program.
 The function $f_{a}$ only provides a way,
@@ -119,13 +114,13 @@ For that reason another evaluation function is needed.
 
 \noindent Function $g_{a}$ defines actual value of provided solution $s^{j}$.
 \begin{align*}
-    v_{m_{i}^{j}}^{j} &= h_{a}(\, s_{m_{i}^{j}}^{j} \,)
+	v_{m_{i}^{j}}^{j} & = h_{a}(\, s_{m_{i}^{j}}^{j} \,) 
 \end{align*}
 Where variable $v_{m_{i}^{j}}^{j}$ represents solution value $s$ of the job $j$ in the moment $m_{i}$.
 We assume, that after each iteration of algorithm better or at least same solution value is returned
 and function $h_{a}$ is for the job $j$ non-ascending over moments $m_{i}^{j}$.
 \begin{align*}
-    h_{a}(\, s_{m_{i+1}^{j}}^{j} \,) \leq h_{a}(\, s_{m_{i}^{j}}^{j} \,)
+	h_{a}(\, s_{m_{i+1}^{j}}^{j} \,) \leq h_{a}(\, s_{m_{i}^{j}}^{j} \,) 
 \end{align*}
 This assumption can be made simply because when multiple feasible solutions of optimization problem are found,
 algorithm always returns the cheapest one.\todo{Does this apply always?}
@@ -133,55 +128,21 @@ algorithm always returns the cheapest one.\todo{Does this apply always?}
 Because function $h_{a}$ is non-ascending,
 its optimal value is located in the last moment $M^j$ of the time series $m_{0}^{j} \dots m_{M^{j}}^{j}$.
 \begin{align*}
-    V^{j} = h_{a}(\, s_{m_{M^{j}}^{j}}^{j} \,)
+	V^{j} = h_{a}(\, s_{m_{M^{j}}^{j}}^{j} \,) 
 \end{align*}
 
-\subsection{Optimization Criteria}\label{subsec:optimization-criteria}
-\todo{And now I'm completely lost again\ldots}
+\subsection{Optimization criteria}\label{subsec:detailed-optimization-criteria}
+This leads to two optimization criteria, 
+where the system would be looking for the "ideal" end $moment$ $M$ 
+and series of configurations $R$ such as final value $V$ and $C$ is minimal.
+
 \begin{align*}
-    \min V^{j} &= h_{a}(\, s_{m_{M^{j}}^{j}}^{j} \,) = h_{a}(\, f_{a}(\, |m_{M^{j}}^{j}|, R_{m_{M^{j}}^{j}}^{j}, s_{m_{M^{j}}^{j}}^{j}\,) \,)\\
-    \min C^{j} &= \sum_{i = 0}^{M} g_{p} (\, |m_{i}^{j}|, R_{m_{i}^{j}} \,)
+	\min V^{j} & = h_{a}(\, s_{m_{M^{j}}^{j}}^{j} \,) = h_{a}(\, f_{a}(\, |m_{M^{j}}^{j}|, R_{m_{M^{j}}^{j}}^{j}, s_{m_{M^{j}}^{j}}^{j}\,) \,) \\
+	\min C^{j} & = \sum_{i = 0}^{M} g_{p} (\, |m_{i}^{j}|, R_{m_{i}^{j}} \,)                                                                   
 \end{align*}
 
+\bigskip
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\noindent Unfortunately, \todo{add more reasons why not to use this particular definition}
+this definition seems to be a bit confusing
+and therefore I present simplified definition, or another approach to the problem.
