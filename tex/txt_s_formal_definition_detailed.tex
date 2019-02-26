@@ -7,6 +7,11 @@
 Following detailed formal definition aims to record and model all related actions and variables in the whole optimization load balancing system.
 
 \subsection{Variables definition}\label{subsec:detailed-variables-definition}
+Used variables are derived into multiple categories: \todo{Maybe change it a bit}
+\textit{indexes} - that are used to identify, or specify relation of variable, 
+\textit{input variables} - those are data provided to the system as an input from client application or user,
+\textit{variables} - changed or computed during the runtime of the system.
+\todo{Maybe add note about time representation in the system}
 
 \subsubsection{Indexes}
 \begin{itemize}
@@ -140,9 +145,3 @@ and series of configurations $R$ such as final value $V$ and $C$ is minimal.
 	\min V^{j} & = h_{a}(\, s_{m_{M^{j}}^{j}}^{j} \,) = h_{a}(\, f_{a}(\, |m_{M^{j}}^{j}|, R_{m_{M^{j}}^{j}}^{j}, s_{m_{M^{j}}^{j}}^{j}\,) \,) \\
 	\min C^{j} & = \sum_{i = 0}^{M} g_{p} (\, |m_{i}^{j}|, R_{m_{i}^{j}} \,)                                                                   
 \end{align*}
-
-\bigskip
-
-\noindent Unfortunately, \todo{add more reasons why not to use this particular definition}
-this definition seems to be a bit confusing
-and therefore I present simplified definition, or another approach to the problem.
