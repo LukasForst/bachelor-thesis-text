@@ -7,7 +7,11 @@
 In the first place, used variables have to be introduced.\todo{this must be changed}
 
 \subsection{Variables Definition}\label{subsec:variables-definition}
-\todo{Maybe write something here}
+Used variables are derived into multiple categories: \todo{Maybe change it a bit}
+\textit{indexes} - that are used to identify, or specify relation of variable, 
+\textit{input variables} - those are data provided to the system as an input from client application or user,
+\textit{variables} - changed or computed during the runtime of the system.
+\todo{Maybe add note about time representation in the system}
 
 \subsubsection{Indexes}
 \begin{itemize}
@@ -19,25 +23,24 @@ In the first place, used variables have to be introduced.\todo{this must be chan
 \end{itemize}
 
 \subsubsection{Input}
-Input which is specified before executing optimization job by user outside of the system.
-
+Input which is specified before executing optimization job by the user outside of the system.
+When new execution job is requested - this is done by the user, or client application,
+following data should be provided.
 \begin{itemize}
 	\item $D^{j}$ - maximal duration of the job execution which cannot be exceeded
 	\item $P^{j}$ - maximal used resources cost per job, or in other words highest possible price paid for the job execution which cannot be exceeded
-\end{itemize}
-These are values provided by user of the load balancer.
+\end{itemize} 
 There are also constants defined before load balancer start up.
 \begin{itemize}
-	\item ${}^{r}c$ - cost of the using particular resources for one time unit
+	\item ${}^{r}c$ - cost of the using particular resources per one time unit
 \end{itemize}
-For each previously mentioned variable applies that its value is $\geq 0$.
+Each of the previously mentioned variable must be non-negative.
 
 \subsubsection{Program Output}
-Apart from result of optimization algorithm,
+Apart from result of the underlying optimization algorithm,
 following data are returned to user after successful job execution.
 
 \begin{itemize}
-	\item $V^{j}$ - solution value provided by algorithm
 	\item $T^{j}$ - time taken, duration of the actual job execution
 	\item $C^{j}$ - resource costs, how much job execution cost
 \end{itemize}
@@ -46,10 +49,13 @@ following data are returned to user after successful job execution.
 
 \begin{itemize}
 	\item $v_{t}^{j}$ - value\todo{better example would be fine} (i.e.\ cost of the scheduled plan) of the job $j$ at the time $t$
-	      This value must be greater than zero and 
+	      Value is greater than zero and it is non-increasing during the time. 
 	      \begin{align*}
 	      	\forall t, j: v_{t}^{j} \geq v_{t+1}^{j} > 0 
 	      \end{align*}
+	      It is non-increasing because optimization algorithms return always best found solution, 
+	      so when worse solution, than currently best one, is found,
+	      returned is still the best solution found.
 	\item $^{r}x_{t}^{j}$ - represents assignment of the resources $r$ at time $t$ to job $j$
 	      \begin{align*}
 	      	^{r}x_{t}^{j} = \{0, 1\} 
@@ -66,10 +72,10 @@ following data are returned to user after successful job execution.
 	      	^{r}\Delta_{t}^{j} = {}^{r}| v_{t}^{j} - v_{t-1}^{j}| 
 	      \end{align*}
 	      It is improvement of the solution value $v$ which can be achieved by using resources $r$ at time $t$.
-	      This value 
+	      This value is always non-negative since optimization algorithm always stores best found solution,
+	      and therefore $\forall j, t, r:\; {}^{r}\Delta_{t}^{j} \geq 0$. 
 	\item $S_{t}^{j}$ - reward for improving solution value in time $t$ per job $j$.
 	      Accumulation of enhancements $^{r}\Delta_{t}^{j}$ through all resources $r$ and time units $t$.
-	      $R$ in following equation represents set of all available resources in the system.
 	      \begin{align*}
 	      	S_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}\Delta_{i}^{j} 
 	      \end{align*}
@@ -78,23 +84,30 @@ following data are returned to user after successful job execution.
 	      \begin{align*}
 	      	C_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}c \cdot {}^{r}x_{t}^{j} 
 	      \end{align*}
+	      Because $C_{t}^{j}$ is defined as sum and ${}^{r}c$ is non-negative,
+	      it is true that $\forall j, t:\; C_{t+1}^{j} \geq C_{t}^{j}$.
+	      Input of the program specifies maximal cost paid for job execution as a $P^j$, 
+	      therefore it must be enforced by the system that this cost will not be exceeded.
+	      This constraint can be defined as follows.
+	      \begin{align*}
+	      	\forall t, j:\; P^{j} \leq C_{t}^{j} \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0 
+	      \end{align*}
+	      Which effectively means that when cost of job execution $C_{t}^{j}$ has reached maximal defined cost $P^{j}$,
+	      no resources can be assigned to this job.
+	\item $t$ - time, it is not only index but also variable, there are also constraints regarding time -
+	      since client application can specify deadline to job $D^{j}$,
+	      there must be additional constraint for job execution in a matter of resources assignment.
+	      \begin{align*}
+	      	\forall t, j:\; D^{j} \leq t \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0 
+	      \end{align*}
+	      When maximal time is exceeded, no additional resources can be assigned to the job execution, 
+	      which could be defined by following constraint.
 \end{itemize}
 
-\subsubsection{Constraints}
-There are plenty of constraints applying to the variables.
-\todo{Add comment what each of this constraint means}
-\begin{align*}
-	\forall t, j:\; v_{t}^{j} \geq v_{t+1}^{j} > 0                                                              \\     
-	\forall t, j:\; \sum_{r \in R} {}^{r}x_{t}^{j} = \{0, 1\}                                                   \\
-	\forall t, j:\; D^{j} \leq t \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0         \\
-	\forall t, j:\; P^{j} \leq C_{t}^{j} \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0 \\
-	\forall t, j, r:\; {}^{r}\Delta_{t}^{j} \geq 0                                                              \\
-	\forall j, t:\; C_{t+1}^{j} \geq C_{t}^{j}                                                                  
-\end{align*}
-
-\subsubsection{Resources reconfiguration}
-System should be capable of changing resources assignment per job.
-This will help to the system to distribute performance according to the current nodes load across whole network.
+\subsection{Resources reconfiguration}\label{subsec:resource-config}
+System should be capable of changing resources assignment per job in the runtime.
+This will help to distribute performance according to the current nodes load across whole network
+and allow to 
 Unfortunately, it is not always possible to reconfigure resources assignment while scheduling is being performed.
 Therefore there must be at least one time unit, between different resources assignment,
 where no resources are assigned to the job.
@@ -102,8 +115,10 @@ In other words, if resources reconfiguration is being done in time $t$ then $\su
 
 This constraint can be defined in pseudocode,
 where $m, n \in R$, $m$ are assigned resources at the time $t$,
-this assignment can be written ass  ${}^{m}x_{t}^{j} = 1$
-and $n$ are resources that should be assigned to the job in the time $t+1$ - ${}^{n}x_{t}^{j}$.
+this be written as  ${}^{m}x_{t}^{j} = 1$,
+and $n$ are resources that should be assigned to the job in the time $t+1$.
+
+\medskip
 
 \begin{samepage}
 	\begin{algorithmic}
@@ -117,11 +132,13 @@ and $n$ are resources that should be assigned to the job in the time $t+1$ - ${}
 	\end{algorithmic}        
 \end{samepage}
 
-This constraint can defined as a mathematical function.\todo{Add mathematical definition of this constraint}
+\medskip
 
-\subsubsection{Optimization criteria}
+This constraint can defined as a mathematical function.\todo{Add mathematical definition of this constraint, is it even possible?}
+
+\subsection{Optimization criteria}\label{subsec:optimization-criteria}
 The main goal of the system is to minimize outcome value of the underlining optimization algorithm
-and at the same time to minimize cost per used resources.
+and at the same time to minimize cost of used resources.
 We can optimize single job or sum of outcomes from all jobs in the system at once.
 First approach provides possibility to control and optimize outcome of a particular job,
 which is an advantage for single client (owner o the job),
