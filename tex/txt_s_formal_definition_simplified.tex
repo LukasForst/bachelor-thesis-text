@@ -118,29 +118,10 @@ Unfortunately, it is not always possible to reconfigure resources assignment whi
 Therefore there must be at least one time unit, between different resources assignment,
 where no resources are assigned to the job.
 In other words, if resources reconfiguration is being done in time $t$ then $\sum_{r \in R} {}^{r}x_{t}^{j} = 0$.
-
-This constraint can be defined in pseudocode,
-where $m, n \in R$, $m$ are assigned resources at the time $t$,
-this be written as  ${}^{m}x_{t}^{j} = 1$,
-and $n$ are resources that should be assigned to the job in the time $t+1$.
-
-\medskip
-
-\begin{samepage}
-	\begin{algorithmic}
-		\IF {$ {}^{m}x_{t}^{j} = 1$} 
-		\IF {$m = n$}
-		\STATE ${}^{n}x_{t+1}^{j} = 1$
-		\ELSE
-		\STATE $\sum_{r \in R} {}^{r}x_{t+1}^{j} = 0$
-		\ENDIF 
-		\ENDIF 
-	\end{algorithmic}        
-\end{samepage}
-
-\medskip
-
-This constraint can defined as a mathematical function.\todo{Add mathematical definition of this constraint, is it even possible?}
+This can be formalized as:
+\begin{align*}
+	\sum_{r \in R} {}^{r}x_{t}^{j} = 1 \implies \forall r \in R:\; {}^{r}x_{t}^{j} - {}^{r}x_{t + 1}^{j} \geq 0
+\end{align*}
 
 \subsection{Optimization criteria}\label{subsec:optimization-criteria}
 The main goal of the system is to minimize outcome value of the underlining optimization algorithm
@@ -162,3 +143,10 @@ weighted sum of all rewards per jobs lowered by sum of all resources costs acros
 \begin{align*}
 	\max crit_{t} = \alpha \sum_{j \in J} S_{r}^{j} - (1 - \alpha) \sum_{j \in J} C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
 \end{align*}
+
+\bigskip
+
+Whole problem is basically a integer linear programming (ILP) problem, 
+which is not completely formalized, 
+but it is only mechanical work to transcript implications into equations.
+For that reason, and better readability, I left the implications.
