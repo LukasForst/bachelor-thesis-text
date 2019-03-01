@@ -3,18 +3,11 @@
 %% 12.02.2019
 %%
 
-\section{Simplified formal definition}\label{sec:formal-definition-simplified}
-This more general and simplified formal definition covers main parts of the optimization problem 
-and does not use excessive definition of all possible variables.
-
-It treats resources as homogenous set of all possible resource combination,
-therefore resources set contains all possible combination of CPU/RAM configuration that is available.
-Thanks to this simplification, resources assignment is can be binary,
-where one represents assignment and zero represents no assignment.
-
-It also omits data variable as well as underlying algorithm and resources provider index, 
-in favor of better readability.
-
+\section{Formal definition}\label{sec:formal-definition}
+Whole definition implies that it can be represented as Integer Linear Programming (ILP).
+However, it is not entirely formalized, 
+it is only mechanical work to transcript all implications into equations.
+For that reason, and better readability, I left the implications.
 
 \subsection{Variables Definition}\label{subsec:variables-definition}
 Following indexes, inputs and variables are used in the optimization criteria.
@@ -48,7 +41,7 @@ following data are returned to user after successful job execution.
 
 \begin{itemize}
 	\item $T^{j}$ - time taken, duration of the actual job execution
-	\item $C^{j}$ - resource costs, how much job execution cost
+	\item $C^{j}$ - resource costs, how much money was actually paid for the job execution
 \end{itemize}
 
 \subsubsection{Variables}
@@ -56,97 +49,96 @@ following data are returned to user after successful job execution.
 \begin{itemize}
 	\item $v_{t}^{j}$ - value\todo{better example would be fine} (i.e.\ cost of the scheduled plan) of the job $j$ at the time $t$
 	      Value is greater than zero and it is non-increasing during the time. 
-	      \begin{align*}
+	      \begin{equation}
 	      	\forall t, j: v_{t}^{j} \geq v_{t+1}^{j} > 0 
-	      \end{align*}
+	      \end{equation}
 	      It is non-increasing because optimization algorithms return always best found solution, 
 	      so when worse solution, than currently best one, is found,
 	      returned is still the best solution found.
 	\item $^{r}x_{t}^{j}$ - represents assignment of the resources $r$ at time $t$ to job $j$
-	      \begin{align*}
+	      \begin{equation}
 	      	^{r}x_{t}^{j} = \{0, 1\} 
-	      \end{align*}
+	      \end{equation}
 	      Each $x$ is either $1$ = indexed resources are assigned to the job at given time or $0$ = given combination does not have assignment.
 	      We assume that each job has only one such assignment at one time,
 	      which effectively means that this job is executed on the single computation node.
 	      This is defined by following constraint:
-	      \begin{align*}
-	      	\forall j, t:\; \sum_{r \in R} {}^{r}x_{t}^{j} = \{0, 1\} 
-	      \end{align*}
+	      \begin{equation}
+	      	\forall j, t:\; \sum_{r \in R} {}^{r}x_{t}^{j} \leq 1 
+	      \end{equation}
 	\item $^{r}\Delta_{t}^{j}$ - enhancement of the value $v$ with resources $r$ on the job $j$ per time $t$.
-	      \begin{align*}
-	      	^{r}\Delta_{t}^{j} = {}^{r}| v_{t}^{j} - v_{t-1}^{j}| 
-	      \end{align*}
+	      \begin{equation}
+	      	^{r}\Delta_{t}^{j} = {}^{r}| v_{t}^{j} - v_{t-1}^{j}| \cdot {}^{r}x_{t}^{j}
+	      \end{equation}
 	      It is improvement of the solution value $v$ which can be achieved by using resources $r$ at time $t$.
 	      This value is always non-negative since optimization algorithm always stores best found solution,
-	      and therefore $\forall j, t, r:\; {}^{r}\Delta_{t}^{j} \geq 0$. 
-	\item $S_{t}^{j}$ - reward for improving solution value in time $t$ per job $j$.
+		  and therefore $\forall j, t, r:\; {}^{r}\Delta_{t}^{j} \geq 0$. 
+		  ${}^{r}x_{t}^{j}$ ensures that only resources, 
+		  that are actually used, are taken in account.
+	\item $S_{t}^{j}$ - reward for improving solution value until time $t$ per job $j$.
 	      Accumulation of enhancements $^{r}\Delta_{t}^{j}$ through all resources $r$ and time units $t$.
-	      \begin{align*}
-	      	S_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}\Delta_{i}^{j} 
-	      \end{align*}
+	      \begin{equation}
+	      	S_{t}^{j} = \sum_{t}\:\sum_{r \in R}\: {}^{r}\Delta_{t}^{j} 
+	      \end{equation}
 	\item $C_{t}^{j}$ - defines how much execution of job $j$ cost from the beginning of the execution until time $t$.
 	      Sum of all allocated resources for their time for the particular job.
-	      \begin{align*}
-	      	C_{t}^{j} = \sum_{i = 0}^{t}\:\sum_{r \in R}\: {}^{r}c \cdot {}^{r}x_{t}^{j} 
-	      \end{align*}
+	      \begin{equation}
+	      	C_{t}^{j} = \sum_{t}\:\sum_{r \in R}\: {}^{r}c \cdot {}^{r}x_{t}^{j} 
+	      \end{equation}
 	      Because $C_{t}^{j}$ is defined as sum and ${}^{r}c$ is non-negative,
 	      it is true that $\forall j, t:\; C_{t+1}^{j} \geq C_{t}^{j}$.
 	      Input of the program specifies maximal cost paid for job execution as a $P^j$, 
 	      therefore it must be enforced by the system that this cost will not be exceeded.
 	      This constraint can be defined as follows.
-	      \begin{align*}
-	      	\forall t, j:\; P^{j} \leq C_{t}^{j} \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0 
-	      \end{align*}
+	      \begin{equation}
+	      	\forall t, j:\; P^{j} \leq C_{t}^{j} \implies \sum_{t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{t}^{j} = 0 
+	      \end{equation}
 	      Which effectively means that when cost of job execution $C_{t}^{j}$ has reached maximal defined cost $P^{j}$,
 	      no resources can be assigned to this job.
 	\item $t$ - time, it is not only index but also variable, there are also constraints regarding time -
 	      since client application can specify deadline to job $D^{j}$,
 	      there must be additional constraint for job execution in a matter of resources assignment.
-	      \begin{align*}
-	      	\forall t, j:\; D^{j} \leq t \implies \sum_{i = t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{i}^{j} = 0 
-	      \end{align*}
+	      \begin{equation}
+	      	\forall t, j:\; D^{j} \leq t \implies \sum_{t+1}^{\infty} \, \sum_{r \in R} {}^{r}x_{t}^{j} = 0 
+	      \end{equation}
 	      When maximal time is exceeded, no additional resources can be assigned to the job execution, 
 	      which could be defined by following constraint.
 \end{itemize}
 
 \subsection{Resources reconfiguration}\label{subsec:resource-config}
 System should be capable of changing resources assignment per job in the runtime.
-This will help to distribute performance according to the current nodes load across whole network
-and allow to 
+This will help to distribute performance according to the current nodes load across whole network.
 Unfortunately, it is not always possible to reconfigure resources assignment while scheduling is being performed.
 Therefore there must be at least one time unit, between different resources assignment,
 where no resources are assigned to the job.
-In other words, if resources reconfiguration is being done in time $t$ then $\sum_{r \in R} {}^{r}x_{t}^{j} = 0$.
+In other words, if resources reconfiguration is triggered in time $t$ then $\sum_{r \in R} {}^{r}x_{t}^{j} = 0$.
 This can be formalized as:
-\begin{align*}
+\begin{equation}
 	\sum_{r \in R} {}^{r}x_{t}^{j} = 1 \implies \forall r \in R:\; {}^{r}x_{t}^{j} - {}^{r}x_{t + 1}^{j} \geq 0
-\end{align*}
+\end{equation}
 
 \subsection{Optimization criteria}\label{subsec:optimization-criteria}
 The main goal of the system is to minimize outcome value of the underlining optimization algorithm
 and at the same time to minimize cost of used resources.
 We can optimize single job or sum of outcomes from all jobs in the system at once.
 First approach provides possibility to control and optimize outcome of a particular job,
-which is an advantage for single client (owner o the job),
+which is an advantage for single client (job owner),
 but it does not necessarily means that it is optimal for the whole system and vice versa.
 Optimization criteria for the single job at particular time $t$ is then
 maximization of weighted difference between the value enhancement reward 
 and cost paid for the enhancement,
 which can be described by following equation.
-\begin{align*}
-	\max crit_{t}^{j} = \alpha \cdot S_{r}^{j} - (1 - \alpha) \cdot C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
-\end{align*}
+\begin{equation}
+	\max crit_{t}^{j} = \alpha S_{t}^{j} - (1 - \alpha) C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
+\end{equation}
 For optimization of system-wide resources and costs,
 all jobs execution optimization is then defined like a
 weighted sum of all rewards per jobs lowered by sum of all resources costs across the set of all jobs.
-\begin{align*}
-	\max crit_{t} = \alpha \sum_{j \in J} S_{r}^{j} - (1 - \alpha) \sum_{j \in J} C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
-\end{align*}
-
-\bigskip
-
-Whole problem is basically a integer linear programming (ILP) problem, 
-which is not completely formalized, 
-but it is only mechanical work to transcript implications into equations.
-For that reason, and better readability, I left the implications.
+\begin{equation}
+	\max crit_{t} = \alpha \sum_{j \in J} S_{t}^{j} - (1 - \alpha) \sum_{j \in J} C_{t}^{j} \qquad 0 \leq \alpha \leq 1 
+\end{equation}
+Based on the previous equation, 
+it is possible to define time independent optimization criterion.
+\begin{equation}
+	\max crit = \sum_{t}^{\infty} crit_{t}
+\end{equation}
