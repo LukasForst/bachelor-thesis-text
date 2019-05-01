@@ -1,4 +1,4 @@
-\documentclass{ctuthesis}
+\documentclass[twoside]{ctuthesis}
 
 % \usepackage[disable]{todonotes} % don't generate todos to pdf
 \usepackage{todonotes} % show todos in generated pdf
@@ -7,30 +7,73 @@
 
 
 \ctusetup{
-    xfaculty = F3,
-    mainlanguage = english,
-    titlelanguage = english,
-    title-english = {Unassisted project report},
-    title-czech = {Zpráva Samostatného projektu},
-    department-english = {Department of Computer Science},
-    author = {Lukáš Forst},
-    supervisor = {Ondřej Vaněk, Ph.D.},
-    month = 1,
-    year = 2019,
-}
+	mainlanguage = english,
+	otherlanguages = {czech,english},
+	title-czech = {Návrh a vývoj škálovatelného serveru pro paralelizaci běhů optimalizačních algoritmů},
+	title-english = {Design and implementation of a scalable server for parallelization of optimization algorithms execution},
+	doctype = B,
+	faculty = F3,
+	department-czech = {Katedra počítačů},
+	department-english = {Department of Computer Science},
+	author = {Lukáš Forst},
+	supervisor = {Ondřej Vaněk, Ph.D.},
+	keywords-czech = {slovo, klíč},
+    keywords-english = {word, key},
+    day = 1,
+	month = 5,
+    year = 2019
+	% specification-file = {ctutest-zadani.pdf},
+} 
 
+ 
 \ctuprocess
 
+\addto\ctucaptionsczech{%
+	\def\supervisorname{Vedoucí}%
+	\def\subfieldofstudyname{Studijní program}%
+}
+
+\ctutemplateset{maketitle twocolumn default}{
+	\begin{twocolumnfrontmatterpage}
+		\ctutemplate{twocolumn.thanks}
+		\ctutemplate{twocolumn.declaration}
+		\ctutemplate{twocolumn.abstract.in.titlelanguage}
+		\ctutemplate{twocolumn.abstract.in.secondlanguage}
+		\ctutemplate{twocolumn.tableofcontents}
+	\end{twocolumnfrontmatterpage}
+}
+
+% Abstract in Czech
+\begin{abstract-czech}
+Abstrakt v češtině\todo{This must be done}
+\end{abstract-czech}
+
+% Abstract in English
+\begin{abstract-english}
+Abstract in english\todo{This must be written as well}
+\end{abstract-english}
+
+% Acknowledgements / Podekovani
+\begin{thanks}
+Děkuji ČVUT, že mi je tak dobrou \emph{alma mater}.\todo{Translate to the english}
+\end{thanks}
+
+% Declaration / Prohlaseni
+\begin{declaration}
+Prohlašuji, že jsem předloženou práci vypracoval samostatně, a že jsem uvedl veškerou použitou literaturu.\todo{In english}
+
+V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+\end{declaration}
 
 \begin{document}
-    \maketitle
+\maketitle
+    
+\input{txt_c_intro.tex}
 
-    \input{txt_c_intro.tex}
+\input{txt_c_problem_definition.tex}
 
-    \input{txt_c_problem_definition.tex}
+\input{txt_c_sota.tex}
 
-    \input{txt_c_sota.tex}
-
-    \bibliographystyle{amsalpha}
-    \bibliography{report}
+\bibliographystyle{amsalpha}
+\bibliography{report}
 \end{document}

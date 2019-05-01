@@ -1,6 +1,4 @@
 \usepackage{graphicx}
-
-
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-templates.tex}%
@@ -167,27 +165,18 @@
 
 % Abstract template includes the Acknowledgements, Declaration and two Abstracts
 % the abstracts are accompanied by the keywords and possibly other information
-%
-% commented not necessary templates
 \ctutemplateset{maketitle.twocolumn.default}{
 	\begin{twocolumnfrontmatterpage}
-%		\ctutemplate{twocolumn.thanks}
-%	\newpage
-%		\ctutemplate{twocolumn.declaration}
-%	\clearpage
-%		\ctutemplate{twocolumn.abstract.in.titlelanguage}
-%	\newpage
-%		\ctutemplate{twocolumn.abstract.in.secondlanguage}
-%	\clearpage
+		\ctutemplate{twocolumn.thanks}
+	\newpage
+		\ctutemplate{twocolumn.declaration}
+	\clearpage
+		\ctutemplate{twocolumn.abstract.in.titlelanguage}
+	\newpage
+		\ctutemplate{twocolumn.abstract.in.secondlanguage}
+	\clearpage
 		\ctutemplate{twocolumn.tableofcontents}
-	% The "loft" template is included only if at least one of the lists is enabled
-%	\bool_if:nTF {
-%		\ctuthesis_if_switch_p:n { front-list-of-figures }
-%		|| \ctuthesis_if_switch_p:n { front-list-of-tables }
-%	} {
-%		\clearpage
-%		\ctutemplate{twocolumn.loft}
-%	} { }
+	
 	\end{twocolumnfrontmatterpage}
 }
 
