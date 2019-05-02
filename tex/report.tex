@@ -17,14 +17,14 @@
 	department-english = {Department of Computer Science},
 	author = {Lukáš Forst},
 	supervisor = {Ondřej Vaněk, Ph.D.},
-	keywords-czech = {slovo, klíč},
-    keywords-english = {word, key},
-    day = 1,
+	keywords-czech = {vyvažování zátěže, optimalizační algoritmy, Kotlin, KTor, Docker},
+    keywords-english = {load balancing, optimization algorithms, Kotlin, KTor, Docker},
+    day = 20,
 	month = 5,
-    year = 2019
-	% specification-file = {ctutest-zadani.pdf},
-} 
-
+    year = 2019,
+	specification-file = {zav_prace.pdf},
+	front-specification = true
+}
  
 \ctuprocess
 
@@ -60,9 +60,12 @@ Děkuji ČVUT, že mi je tak dobrou \emph{alma mater}.\todo{Translate to the eng
 
 % Declaration / Prohlaseni
 \begin{declaration}
-Prohlašuji, že jsem předloženou práci vypracoval samostatně, a že jsem uvedl veškerou použitou literaturu.\todo{In english}
+I declare that the presented work was developed independently and that I have listed
+all sources of information used within it in accordance with the methodical instructions
+for observing the ethical principles in the preparation of university theses.
 
-V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+\medskip
+\noindent In Prague, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \end{declaration}
 
 \begin{document}
@@ -73,6 +76,12 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \input{txt_c_problem_definition.tex}
 
 \input{txt_c_sota.tex}
+
+\input{txt_c_technologies.tex}
+
+\input{txt_c_experiments.tex}
+
+\input{txt_c_conclusion.tex}
 
 \bibliographystyle{amsalpha}
 \bibliography{report}
