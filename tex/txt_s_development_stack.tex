@@ -1,0 +1,129 @@
+\section{Development stack}\label{sec:development-stack}
+Definition of development stack
+Add that target environment is JVM 11 but it has backwards compatibility to Java 8.
+
+\subsection{Programming Language}\label{subsec:programming-language}
+The OLB is not bound to the single technology, which could limit the development stack,  
+and for that reason,
+I had a free choice while making the decision about programming language used for the OLB implementation.
+
+OLB is programmed in the next generation programming language \textbf{Kotlin}.
+This cross-platform, statically typed, general-purpose programming language is developed by JetBrains\todo{add citations}.
+Kotlin is 100\% interoperable with Java because it uses JVM\footnote{Java Virtual Machine - runtime environment for Java byte code} 
+as its runtime and it is compiled to the Java Bytecode.
+Apart from Java Bytecode, it can be also compiled to JavaScript or native code.\todo{citation needed}
+The main advantage of Kotlin is its strong and aggressive type inference,
+meaning that for the most of time,
+it is not necessary to specify used data type since Kotlin compiler is able to infer it from the context.\todo{citation needed}
+It results to concise language syntax and therefore to the faster development in general.
+
+Another great advantage is Kotlin's \textit{null safety}. 
+Kotlin compiler distinguishes between non-null types and nullable types 
+and enforces \textit{null checks}\footnote{Check whether the object being used has not null value} when the object has nullable data type.
+This feature effectively leads to less problems in code (also called \textit{bugs})
+and drastically reduces \textit{Null Pointer Exceptions}\footnote{Exception raised when code access reference that has null value}
+during the runtime.
+
+\todo{maybe add something about functional approach}
+
+\subsection{Build environment}
+As a build automation system I used Gradle, 
+which is high performance choice mainly because its incrementally build system,
+that works by tracking input and output of tasks, 
+including files changes tracking, and only running tasks, that are necessary. 
+Also, it processes only these files, that were changed between tasks execution. 
+Another reason I choose Gradle was, that it is preferred build system for Kotlin.
+
+To build the application using only Gradle,
+it is necessary to have installed at least JVM 8.
+There are pre-prepared Gradle wrapper (\textit{gradlew}) scripts,
+that are able to build the application without having the Gradle installed on the local machine.
+
+However, the preferred approach to build the application is to use Docker
+and build the application to the Docker image, 
+which can be then run inside the Docker container.
+
+\subsubsection{Docker build environment}
+To keep build clean and reusable on almost every operating system and 
+machine setup I decided to use \textbf{multistage Docker build} \todo{add link to docker label}
+which uses different base docker images for the build and for the run phase.
+Since OLB targets JVM 11 environment and uses Gradle as its build system,
+\textit{gradle:5.4.0-jdk11-slim} is used as base image for build stage.
+This image contains all necessary Gradle build tools while having smaller size than common Gradle Docker image.
+Even smaller (in terms of size) are \textit{alpine} based docker images. 
+Alpine is smallest possible Linux core, 
+which is widely used in wide range of Docker base images.
+Alpine is focused on the smallest possible size of the image, 
+while having all necessary tools build in.
+Unfortunately, there were (at the time of development) no official JVM 11 alpine images
+since there is no official stable OpenJDK\footnote{Open-source implementation of the Java Platform, Standard Edition} 
+11 build for Alpine Linux.
+
+\subsection{Runtime environment}
+There are multiple ways, how to start and run the application on the local machine.
+\begin{itemize}
+	\item As a container inside Docker system - \textbf{preferred}
+	\item Locally on JVM 11
+	\item Locally on the older JVM (but at least JVM 8)
+\end{itemize}
+
+The preferred runtime environment is Docker system, 
+where application image runs inside the created docker container,
+this is described in the next subsection.\todo{add ref to label}
+
+Although this is preferred execution approach,
+there are few other approaches,
+how to start and run the application.
+
+It is possible to start the application locally (without Docker environment) by having JVM installed directly on the machine.
+Published application setup targets JVM 11, 
+therefore for the successful application execution there must be present latest version of JVM 11.
+
+However,
+it is also possible to run the application on the previous versions of the JVM up to JVM 8.
+Using this way of application execution means,
+that it must be build directly under local JVM 8 using the Gradle build system.
+
+\subsubsection{Docker runtime environment}\label{subsubsec:docker-runtime-env}
+The build application files are copied from the Docker build stage to the Docker runtime stage.
+As the runtime base image in multistage build was used \textit{openjdk:11-jre-slim} image,
+because it is official OpenJDK 11 Docker image and therefore it is declared as stable.
+
+Because there was used \textit{gradle application plugin} while building the application, 
+startup scripts were generated by the Gradle.
+These scripts are then used to start the application itself inside the Docker container.
+
+When starting the whole application, 
+multiple services must be started up.
+Therefore, because of the containerized environment,
+where containers can not access each other,
+multiple containers must be started and virtual network connecting them together must be created.
+This process can be automated using Docker Compose.
+
+\subsubsection{Docker Compose}
+Docker Compose is an application for defining, running and managing multi-container Docker applications.
+It automatically creates Docker networks as well as Docker volumes.\todo{Maybe add more info how it works}
+With writing down the definition of multiple Docker applications to the one Docker Compose configuration file,
+it is possible to create powerful microservices architecture, 
+which can be build or started using single command.
+
+Thanks to the created Docker networks,
+containers can communicate with each other using Docker Compose service names,
+therefore they do not need to know specific IP address they are running on.
+
+Docker Compose is used in the implementation of OLB since it is designed with microservices architecture in mind.
+There are two services - Scheduling server and Scheduling client.
+Scheduling server provides ability to schedule process execution on the various computers
+and contains all core algorithms.
+Scheduling client is an example application which uses ability of scheduling server. 
+There are implemented various simulations,
+which are being executed by scheduling client.  
+
+\subsection{Framework}
+KTor something
+
+\subsubsection{Route discovery library}
+My developed library for route discovery for KTro
+
+\subsection{Build and deployment}\label{subsec:build-and-deployment}
+Info how to build everything and how to deploy it to the AWS for example.
