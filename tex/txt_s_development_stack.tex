@@ -52,7 +52,7 @@ Since OLB targets JVM 11 environment and uses Gradle as its build system,
 This image contains all necessary Gradle build tools while having smaller size than common Gradle Docker image.
 Even smaller (in terms of size) are \textit{alpine} based docker images. 
 Alpine is smallest possible Linux core, 
-which is widely used in wide range of Docker base images.
+which is widely used in the wide range of Docker base images.
 Alpine is focused on the smallest possible size of the image, 
 while having all necessary tools build in.
 Unfortunately, there were (at the time of development) no official JVM 11 alpine images
@@ -101,17 +101,17 @@ multiple containers must be started and virtual network connecting them together
 This process can be automated using Docker Compose.
 
 \subsubsection{Docker Compose}
-Docker Compose is an application for defining, running and managing multi-container Docker applications.
+Docker Compose\todo{add link via citation} is an application for defining, running and managing multi-container Docker applications.
 It automatically creates Docker networks as well as Docker volumes.\todo{Maybe add more info how it works}
 With writing down the definition of multiple Docker applications to the one Docker Compose configuration file,
-it is possible to create powerful microservices architecture, 
+it is possible to create powerful micro services architecture, 
 which can be build or started using single command.
 
 Thanks to the created Docker networks,
 containers can communicate with each other using Docker Compose service names,
 therefore they do not need to know specific IP address they are running on.
 
-Docker Compose is used in the implementation of OLB since it is designed with microservices architecture in mind.
+Docker Compose is used in the implementation of OLB since it is designed with micro services architecture in mind.
 There are two services - Scheduling server and Scheduling client.
 Scheduling server provides ability to schedule process execution on the various computers
 and contains all core algorithms.
@@ -120,7 +120,49 @@ There are implemented various simulations,
 which are being executed by scheduling client.  
 
 \subsection{Framework}
-KTor something
+Because of the overall micro services architecture of the project,
+some kind of web framework was needed.
+There are many Java based web frameworks,
+that could be used. 
+I would like to present two of them - \textit{Spring Boot}, 
+which is traditional and widely used web framework for all kind of Java web applications
+and \textit{Ktor} - relatively new, 
+lightweight Kotlin framework build upon the Kotlin Coroutines\footnote{Way of asynchronous or non-blocking programming
+that generalize subroutines for non-preemptive multitasking with using suspended/resumed task execution}.
+
+
+\subsubsection{Spring Boot}
+Spring Boot\todo{add link via citations} % https://spring.io/projects/spring-boot
+is an open source Java Spring-powered web framework.
+It takes an opinionated view of the Spring platform,
+meaning that Spring Boot automatically configure Spring and 3rd party libraries whenever possible,
+and therefore enables usage of it to wider audience.
+It is highly dependent on the starter templates feature which provide pre-prepared templates for various types of web applications.
+This for example allows user to start with already working we server
+and thus simplify the start of the application development.
+% cite https://howtodoinjava.com/spring-boot-tutorials/
+Spring Boot contains comprehensive infrastructure support for developing enterprise monolith web applications as well as micro services. 
+% cite https://github.com/spring-projects/spring-boot/tree/5aeb31700df8e15d1aa625b987ecca93385a7c2c
+
+\subsubsection{Ktor}
+Ktor\todo{add link via citation} is an open source web framework for building asynchronous servers 
+and clients in connected systems such as web applications and http services.
+It designed for quickly building web applications with minimal effort 
+and it doesn't impose a lot of technology constraints such as logging, persistent, serializing, dependency injection etc.
+It is developed by the same company as Kotlin is, JetBrains.
+
+
+\bigskip
+The final decision was to use \textbf{Ktor} as the web framework,
+mainly because of its very light implementation and native Kotlin support.
+Also, for such project, 
+the features of Spring would not be fully utilized
+and therefore the complexity of Spring could potentially slowed down the entire application.
+
+Because Ktor by default does not contain any dependency injection framework, 
+I decided to use lightweight DI\footnote{Dependency Injection} framework \textit{Koin}\todo{add link via citations}.
+This framework is written in Kotlin and have its own DSL\footnote{Domain Specific Language} for the dependency specification,
+which is very handy for the medium sized project.
 
 \subsubsection{Route discovery library}
 My developed library for route discovery for KTro
