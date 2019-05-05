@@ -6,8 +6,8 @@ However,
 the traditional Java platform programming language Java was not used.
 
 \subsection{Programming Language}\label{subsec:programming-language}
-The OLB is not bound to the single technology, which could limit the development stack,  
-and for that reason,
+The OLB\footnote{Optimization Load Balancer, name of the application}is not bound to the single technology, 
+which could limit the development stack, and for that reason,
 I had a free choice while making the decision about programming language used for the OLB implementation.
 
 OLB is programmed in the next generation programming language \textbf{Kotlin}.
@@ -29,10 +29,11 @@ during the runtime.
 \todo{maybe add something about functional approach}
 
 \subsection{Build environment}
-As a build automation system I used Gradle, 
-which is high performance choice mainly because its incrementally build system,
+The application uses Gradle as its build automation system.
+It was chosen mainly because its incrementally build system,
 that works by tracking input and output of tasks, 
-including files changes tracking, and only running tasks, that are necessary. 
+including files changes tracking, and only running tasks, that are necessary
+and thus reducing the time necessary to build the project. 
 Also, it processes only these files, that were changed between tasks execution. 
 Another reason I choose Gradle was, that it is preferred build system for Kotlin.
 
@@ -47,7 +48,9 @@ which can be then run inside the Docker container.
 
 \subsubsection{Docker build environment}
 To keep build clean and reusable on almost every operating system and 
-machine setup I decided to use \textbf{multistage Docker build} \todo{add link to docker label}
+machine setup I decided to use 
+\textbf{multistage Docker build}\footnote{Docker is a technology that performs operating-system-level virtualization,
+meaning that it uses hosts operating system kernel}
 which uses different base docker images for the build and for the run phase.
 Since OLB targets JVM 11 environment and uses Gradle as its build system,
 \textit{gradle:5.4.0-jdk11-slim} is used as base image for build stage.
