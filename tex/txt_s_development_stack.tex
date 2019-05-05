@@ -1,6 +1,9 @@
 \section{Development stack}\label{sec:development-stack}
-Definition of development stack
-Add that target environment is JVM 11 but it has backwards compatibility to Java 8.
+The development stack is based on the Java platform, 
+targeting primarily JVM 11\footnote{Java Virtual Machine - runtime environment for Java byte code}
+but including backwards compatibility with JVM 8.
+However, 
+the traditional Java platform programming language Java was not used.
 
 \subsection{Programming Language}\label{subsec:programming-language}
 The OLB is not bound to the single technology, which could limit the development stack,  
@@ -9,8 +12,7 @@ I had a free choice while making the decision about programming language used fo
 
 OLB is programmed in the next generation programming language \textbf{Kotlin}.
 This cross-platform, statically typed, general-purpose programming language is developed by JetBrains\todo{add citations}.
-Kotlin is 100\% interoperable with Java because it uses JVM\footnote{Java Virtual Machine - runtime environment for Java byte code} 
-as its runtime and it is compiled to the Java Bytecode.
+Kotlin is 100\% interoperable with Java because it uses JVM as its runtime and it is compiled to the Java Bytecode.
 Apart from Java Bytecode, it can be also compiled to JavaScript or native code.\todo{citation needed}
 The main advantage of Kotlin is its strong and aggressive type inference,
 meaning that for the most of time,
@@ -18,7 +20,7 @@ it is not necessary to specify used data type since Kotlin compiler is able to i
 It results to concise language syntax and therefore to the faster development in general.
 
 Another great advantage is Kotlin's \textit{null safety}. 
-Kotlin compiler distinguishes between non-null types and nullable types 
+Kotlin compiler distinguishes between non-nullable types and nullable types 
 and enforces \textit{null checks}\footnote{Check whether the object being used has not null value} when the object has nullable data type.
 This feature effectively leads to less problems in code (also called \textit{bugs})
 and drastically reduces \textit{Null Pointer Exceptions}\footnote{Exception raised when code access reference that has null value}
@@ -239,6 +241,3 @@ The programmer does not need handle it by himself.
 
 For the library startup I designed a builder class using fluent builder pattern \inlinecode{ApplicationDependencyBuilder}.
 Usage of this class can be found in the \inlinecode{ServerStarter.kt}.
-
-\subsection{Build and deployment}\label{subsec:build-and-deployment}
-Info how to build everything and how to deploy it to the AWS for example.

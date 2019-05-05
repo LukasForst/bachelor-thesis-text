@@ -1,48 +1,16 @@
 \documentclass{ctuthesis}
 
+\usepackage[utf8]{inputenc} % input in utf8
 % \usepackage[disable]{todonotes} % don't generate todos to pdf
 \usepackage{todonotes} % show todos in generated pdf
-\usepackage{indentfirst}
-\usepackage[linesnumbered,boxed]{algorithm2e}
-\usepackage{listings} 
+\usepackage{indentfirst} % indent every time after new line
+\usepackage{amsmath} % math extensions
+\usepackage{xcolor} % various colors used in listings and in template
 
-\ctusetup{
-mainlanguage = english,
-otherlanguages = {czech,english},
-title-czech = {Návrh a vývoj škálovatelného serveru pro paralelizaci běhů optimalizačních algoritmů},
-title-english = {Design and implementation of a scalable server for parallelization of optimization algorithms execution},
-doctype = B,
-faculty = F3,
-department-czech = {Katedra počítačů},
-department-english = {Department of Computer Science},
-author = {Lukáš Forst},
-supervisor = {Ing. Ondřej Vaněk, Ph.D.},
-keywords-czech = {vyvažování zátěže, optimalizační algoritmy, Kotlin, Ktor, Docker},
-keywords-english = {load balancing, optimization algorithms, Kotlin, Ktor, Docker},
-day = 20,
-month = 5,
-year = 2019,
-specification-file = {zav_prace.pdf},
-front-specification = true
-}
- 
-\ctuprocess
- 
-\addto\ctucaptionsczech{%
-	\def\supervisorname{Vedoucí}%
-	\def\subfieldofstudyname{Studijní program}%
-}
+\usepackage[linesnumbered,boxed]{algorithm2e} % algorithm engine, lines are numbered and it is in box
+\SetKwInput{KwInput}{Input} % set keyword for algorithm2e
 
-\ctutemplateset{maketitle twocolumn default}{
-	\begin{twocolumnfrontmatterpage}
-		\ctutemplate{twocolumn.thanks}
-		\ctutemplate{twocolumn.declaration}
-		\ctutemplate{twocolumn.abstract.in.titlelanguage}
-		\ctutemplate{twocolumn.abstract.in.secondlanguage}
-		\ctutemplate{twocolumn.tableofcontents}
-	\end{twocolumnfrontmatterpage}
-}
-
+\usepackage{listings} % programming examples
 % Kotlin code in the document
 \lstdefinelanguage{Kotlin}{
   comment=[l]{//},
@@ -61,11 +29,46 @@ front-specification = true
   stringstyle={\color[RGB]{0 128 0}\ttfamily},
   backgroundcolor=\color[RGB]{244 244 244}
 }
-
+% online kotlin code
 \newcommand{\inlinecode}[1]{\colorbox[RGB]{244,244,244}{\lstinline[language=Kotlin]$#1$}}
 
-% set keyword for listing
-\SetKwInput{KwInput}{Input}
+%template setup
+\ctusetup{
+  mainlanguage = english,
+  otherlanguages = {czech,english},
+  title-czech = {Návrh a vývoj škálovatelného serveru pro paralelizaci běhů optimalizačních algoritmů},
+  title-english = {Design and implementation of a scalable server for parallelization of optimization algorithms execution},
+  doctype = B,
+  faculty = F3,
+  department-czech = {Katedra počítačů},
+  department-english = {Department of Computer Science},
+  author = {Lukáš Forst},
+  supervisor = {Ing. Ondřej Vaněk, Ph.D.},
+  keywords-czech = {vyvažování zátěže, optimalizační algoritmy, Kotlin, Ktor, Docker},
+  keywords-english = {load balancing, optimization algorithms, Kotlin, Ktor, Docker},
+  day = 20,
+  month = 5,
+  year = 2019,
+  specification-file = {zav_prace.pdf},
+  front-specification = true
+}
+ 
+\ctuprocess
+ 
+\addto\ctucaptionsczech{%
+	\def\supervisorname{Vedoucí}%
+	\def\subfieldofstudyname{Studijní program}%
+}
+
+\ctutemplateset{maketitle twocolumn default}{
+	\begin{twocolumnfrontmatterpage}
+		\ctutemplate{twocolumn.thanks}
+		\ctutemplate{twocolumn.declaration}
+		\ctutemplate{twocolumn.abstract.in.titlelanguage}
+		\ctutemplate{twocolumn.abstract.in.secondlanguage}
+		\ctutemplate{twocolumn.tableofcontents}
+	\end{twocolumnfrontmatterpage}
+}
 
 % Abstract in Czech
 \begin{abstract-czech}
