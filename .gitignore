@@ -1,6 +1,7 @@
 auxil/
 out/
-tex/report.pdf
+tex/report*.pdf
+tex/*.gz(busy)
 
 # Created by https://www.gitignore.io/api/tex,latex,jetbrains+all
 # Edit at https://www.gitignore.io/?templates=tex,latex,jetbrains+all

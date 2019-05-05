@@ -216,7 +216,7 @@ Following algorithm is used to find and register all routes used in the project.
 		register \textbf{routeInstance} in instance of \inlinecode{Application} \;
 	}
 	\KwResult{All routes are registered and ready to use}
-\end{algorithm}
+\end{algorithm} 
 \medskip \noindent
 The implementation of the simple route is then following:
 \medskip
@@ -234,8 +234,11 @@ class HelloRoute(sr: Service) : RouteBase("hello") {
 \end{lstlisting}
 
 \medskip \noindent
-something
- 
+The route is automatically instantiated and registered by the Routes discovery library.
+The programmer does not need handle it by himself.
+
+For the library startup I designed a builder class using fluent builder pattern \inlinecode{ApplicationDependencyBuilder}.
+Usage of this class can be found in the \inlinecode{ServerStarter.kt}.
 
 \subsection{Build and deployment}\label{subsec:build-and-deployment}
 Info how to build everything and how to deploy it to the AWS for example.
