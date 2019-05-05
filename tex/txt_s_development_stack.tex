@@ -165,7 +165,77 @@ This framework is written in Kotlin and have its own DSL\footnote{Domain Specifi
 which is very handy for the medium sized project.
 
 \subsubsection{Route discovery library}
-My developed library for route discovery for KTro
+The default way, how to create a HTTP endpoint (Ktor calls them \textit{routes}),
+which can receive/handle HTTP requests is registering it within the \inlinecode{Application} context.
+The \inlinecode{Application} context is accessible by its instance that is given to user when the Ktor is being started.
+This means that no \textit{route} can be registered without using instance of \inlinecode{Application}.
+
+During the development of the application and using Ktor framework, 
+I decided that this way of registering routes was not something I would like to be using,
+mainly because it did not allowed to have simple class serving only as a route without having to inject \textit{Application} instance.
+Also, 
+since routes must be registered during the application startup,
+using the new class for each route would mean to create instance of the class and calling method to register the routes manually.
+Another reason I did not like the Ktor default approach was 
+that I personally prefer to inject class dependencies using construct injection instead of using setters injection.
+\begin{itemize}
+	\item Constructor dependency injection - using constructor of the class to set all instances of the objects, that class uses.
+	      The main advantage is that the instance of class is always in a valid state, because it has all dependencies resolved during the instance creation.
+	\item Setter dependency injection - the dependent objects are provided by the setter methods.
+	      This gives the freedom to manipulate the state of the dependency references at any time.
+	      However, it is possible to use the instance without setting the dependencies which could lead to the undefined behavior or to the \textit{Null Pointer Exceptions}
+\end{itemize}
+
+To solve this \inlinecode{Application} instance dependency and to enable constructor dependency injection approach,
+I decided to implement simple library which would solve this issue for me.
+I came up with different way how to register various types of application's routes using the annotations, 
+reflection and dependency injection strategy.
+
+\medskip \noindent
+Preconditions for successful usage of the library are following:
+\begin{itemize}
+	\item \textit{Koin}\todo{citation} - dependency injection framework which is used for resolving dependencies needed in the routes
+	\item \textit{Reflection library} - library used for runtime lookup for classes with specific annotation
+	this one https://github.com/ronmamo/reflections \todo{link using citations}
+	\item Using the \inlinecode{@Route} annotation on the class that is meant to be route,
+	the class has to also inherit from \inlinecode{RouteBase}
+	\item Registering all necessary routes dependencies in \textit{Koin} modules during the application startup
+	\item Provide base package name where routes are placed.
+\end{itemize}
+
+\medskip \noindent
+Following algorithm is used to find and register all routes used in the project.
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	\KwInput{Package name, where all routes are stored}
+	\textbf{routes} $\leftarrow$ find all classes annotated as \inlinecode{@Route} in provided package name\;
+	\For{\textbf{route} in \textbf{routes}}{
+		\textbf{dependencies} $\leftarrow$ obtain dependencies needed for creating instance of \textbf{route}\;
+		\textbf{routeInstance} $\leftarrow$ create instance of \textbf{route} using \textbf{dependencies}\;
+		register \textbf{routeInstance} in instance of \inlinecode{Application} \;
+	}
+	\KwResult{All routes are registered and ready to use}
+\end{algorithm}
+\medskip \noindent
+The implementation of the simple route is then following:
+\medskip
+\begin{lstlisting}[language=Kotlin]
+@Route
+class HelloRoute(sr: Service) : RouteBase("hello") {
+    init {
+        route {
+            get {
+                call.respond(sr.sayHello())
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\medskip \noindent
+something
+ 
 
 \subsection{Build and deployment}\label{subsec:build-and-deployment}
 Info how to build everything and how to deploy it to the AWS for example.
