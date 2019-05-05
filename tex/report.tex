@@ -1,18 +1,20 @@
 \documentclass{ctuthesis}
 
+% basic packages
 \usepackage[utf8]{inputenc} % input in utf8
-% \usepackage[disable]{todonotes} % don't generate todos to pdf
-\usepackage{todonotes} % show todos in generated pdf
-\usepackage{indentfirst} % indent every time after new line
+\usepackage{cite} % bibtex
 \usepackage{amsmath} % math extensions
+
+% fancy packages
+\usepackage{indentfirst} % indent every time after new line
 \usepackage{xcolor} % various colors used in listings and in template
 
+% specific packages
 \usepackage[linesnumbered,boxed]{algorithm2e} % algorithm engine, lines are numbered and it is in box
 \SetKwInput{KwInput}{Input} % set keyword for algorithm2e
 
 \usepackage{listings} % programming examples
-% Kotlin code in the document
-\lstdefinelanguage{Kotlin}{
+\lstdefinelanguage{Kotlin}{ % Kotlin code in the document
   comment=[l]{//},
   commentstyle={\color{gray}\ttfamily},
   emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
@@ -29,8 +31,12 @@
   stringstyle={\color[RGB]{0 128 0}\ttfamily},
   backgroundcolor=\color[RGB]{244 244 244}
 }
-% online kotlin code
-\newcommand{\inlinecode}[1]{\colorbox[RGB]{244,244,244}{\lstinline[language=Kotlin]$#1$}}
+
+\newcommand{\inlinecode}[1]{\colorbox[RGB]{244,244,244}{\lstinline[language=Kotlin]$#1$}} % online kotlin code
+
+% TODO remove when ready
+% \usepackage[disable]{todonotes} % don't generate todos to pdf
+\usepackage{todonotes} % show todos in generated pdf
 
 %template setup
 \ctusetup{
