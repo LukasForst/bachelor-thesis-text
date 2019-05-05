@@ -3,8 +3,9 @@
 % \usepackage[disable]{todonotes} % don't generate todos to pdf
 \usepackage{todonotes} % show todos in generated pdf
 \usepackage{indentfirst}
-\usepackage{algorithmic}
+\usepackage{algorithm2e}
 
+\usepackage{listings}
 
 \ctusetup{
 	mainlanguage = english,
@@ -27,7 +28,7 @@
 }
  
 \ctuprocess
-
+ 
 \addto\ctucaptionsczech{%
 	\def\supervisorname{Vedoucí}%
 	\def\subfieldofstudyname{Studijní program}%
@@ -42,6 +43,27 @@
 		\ctutemplate{twocolumn.tableofcontents}
 	\end{twocolumnfrontmatterpage}
 }
+
+% Kotlin code in the document
+
+\lstdefinelanguage{Kotlin}{
+  comment=[l]{//},
+  commentstyle={\color{gray}\ttfamily},
+  emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
+  emphstyle={\color[RGB]{255 168 109}},
+  identifierstyle=\color{black},
+  keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
+  keywordstyle={\color[RGB]{204,120,50}\bfseries},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  ndkeywords={@Route, @Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String},
+  ndkeywordstyle={\color[RGB]{204,120,50}\bfseries},
+  sensitive=true,
+  stringstyle={\color[RGB]{106 135 89}\ttfamily},
+}
+\newcommand{\inlinecode}[1]{\colorbox{rgb:red,43;green,43;blue,43}{\lstinline[language=Kotlin]$#1$}}
+
 
 % Abstract in Czech
 \begin{abstract-czech}
