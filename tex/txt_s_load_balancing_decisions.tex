@@ -1,3 +1,30 @@
 \section{Load balancing decisions}\label{sec:load-balancing-decisions}
 
-Used library - https://www.optaplanner.org/
+To make most informed load balancing decisions while scheduling multiple optimization algorithms,
+the application uses dynamic scheduling with centralized node running load balancing algorithm.
+
+The application also should take advantage of knowing the exact maximal time of execution thanks to the input parameter $D^{j}$ 
+defined in section \ref{subsubsec:formal-input}.
+Thanks to this parameter, 
+it is possible to create scheduling decisions for much larger time horizon, 
+because algorithm can know,
+what workload expect in the future.
+
+The definition formalized in section \ref{sec:formal-definition} implies 
+that it is possible to use integer linear programming solver, 
+because the problem itself is defined as integer linear programming problem.
+That is indeed possible, 
+but after careful consideration I rather decided to use heuristic approach.
+The main reason for selecting this type of optimization algorithm is,
+that it provides suitable results during the whole runtime.
+This could be very handy when the time for load balancing decisions is tight
+and in such case, the integer linear solver would not have enough time to provide suitable solution,
+because it would not be optimal at all.
+Also, 
+it is easier to maintain and modify heuristic algorithm than the linear one
+and constraint modification in the future would be easier and more flexible.
+
+The optimization solver, I chose for the application,
+was previously mentioned (\ref{subsubsec:heuristic-algs-optaplanner}) optimization engine OptaPlanner.
+Unlike TASP (\ref{subsubsec:tasp}), the OptaPlanner is open sourced and can be freely used for development.
+The implementation based on OptaPlanner is described in section \ref{sec:load-balancing-optaplanner}.
