@@ -10,6 +10,8 @@
 \usepackage{indentfirst} % indent every time after new line
 \usepackage{xcolor} % various colors used in listings and in template
 
+\hypersetup{hidelinks=true} % disable hideous link borders
+
 % specific packages
 \usepackage[linesnumbered,boxed]{algorithm2e} % algorithm engine, lines are numbered and it is in box
 \SetKwInput{KwInput}{Input} % set keyword for algorithm2e
@@ -57,10 +59,10 @@
 }
  
 \abstractCS{
-	abstract cs
+	abstract cs\todo{czech abstract here}
 }
 \abstractEN{
-	abstract en
+	abstract en\todo{en abstract there}
 }
 
 \begin{document}
@@ -78,5 +80,5 @@
 \input{txt_c_conclusion.tex}
 
 \bibliographystyle{amsalpha}
-\bibliography{report}
+\bibliography{literature}
 \end{document}
