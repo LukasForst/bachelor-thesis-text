@@ -37,7 +37,8 @@
 \fi
 
 \LoadClass[a4paper,twoside]{memoir}[2008/08/07]
-\setsecnumdepth{subsubsection}
+\setsecnumdepth{subsection}
+\setcounter{tocdepth}{2} % do not include subsubsections into the content
 \chapterstyle{madsen}
 
 \RequirePackage{babel}[2008/07/06]
