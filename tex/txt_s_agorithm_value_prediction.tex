@@ -1,3 +1,60 @@
 \section{Algorithm value prediction}\label{sec:algorithm-value-prediction}
 
-Used library - https://github.com/finmath/finmath-lib
+For the proper optimization and load balancing strategy decisions,
+algorithm creating these decisions should be able to estimate impact of assigned resources to the job-value development.
+Unfortunately, 
+it is not possible to exactly predict the value development,
+because the optimization algorithms are stochastic 
+and therefore there is no guarantee that they will eventually find a better solution
+or possible how fast they will be able to do that.
+That said, 
+the only thing that is guaranteed is that the job value function over time period is monotonically non-increasing.
+
+However,
+since it is not necessary to have exact prediction values,
+we can roughly approximate the job value function as the hyperbola function.
+Using this approximation means,
+that value prediction algorithm is trying to fit time series data into hyperbola.\todo{check this expression, it does not seems right}
+
+\subsection{Hyperbola time series fitting}
+The generic equation for expressing hyperbola function on two dimensional graph is following.
+\begin{equation}
+    a + \dfrac{b}{x+c} = y
+\end{equation}
+Where $a,b,c$ are parameters and $x,y$ are axis values.
+For usage in computer algorithm,
+it is better to transform the equation into the form, 
+where there is no division.
+Apart from the better performance in favor of multiplication\cite{LeFevre1999},
+it is possible that the state when $x = -c$ occurs.
+If there is the division,
+the resulting value will be infinity,
+which breaks next algorithm iterations.
+
+Instead,
+it is better to use following form, 
+where there is no division and $0$ as a result is not a problem for the following algorithm iterations.
+\begin{equation}\label{eq:final-hyperbola-fc}
+    ax + ac + b - yc = yx
+\end{equation}
+
+Since the algorithm value prediction should be computed as fast as possible
+and it is not necessary to have the precise value,
+I decided to use mathematics optimization approach transforming the problem into non-linear least squares problem.
+
+Non-linear least squares problems are often solved by the iteration algorithms 
+such as Gauss-Newton algorithm\cite{gratton2007approximate} and Levenberg–Marquardt algorithm\cite{marquardt1963algorithm}.
+The second mentioned non-linear algorithm is more robust than the Gauss-Newton, 
+because of the Marquardt parameter\cite{marquardt1963algorithm},
+which means that in many cases it finds a solution even if it starts very far off the final minimum.
+
+Using Levenberg–Marquardt algorithm means, 
+that it is necessary to know the derivation of the function, 
+algorithm is trying to fit in.
+Derivation of the used function \ref{eq:final-hyperbola-fc} is then following.
+\begin{equation}\label{eq:final-hyperbola-fd}
+    f'(x) = (c+x, 1, a-y)
+\end{equation}
+
+As the target values, are used $x \cdot y$.
+As the parameters, that Levenberg–Marquardt algorithm is trying to fit in are used $a,b,c$.

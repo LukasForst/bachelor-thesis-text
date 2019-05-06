@@ -1,0 +1,21 @@
+\section{Algorithms values prediction}\label{sec:impl-algorithms-values-predictions}
+The implementation of Levenberg–Marquardt algorithm is not the aim of this paper,
+for that reason the application uses Java compatible library, 
+which contains implementation Levenberg–Marquardt algorithm 
+and provides way, 
+how to use it.
+
+OLB uses two different libraries Apache Commons Mathematics Library\cite{web:apacheCommonsMath}
+and Mathematical Finance Library\cite{web:finmathLib}.
+Each of them implement \inlinecode{HyperbolicRegression} abstract class and they can be exchanged in the application when decided.
+The reason, there are two different implementations and two different libraries,
+is that their performance can differ in distinguish scenarios.
+By default, the Mathematical Finance Library is used, 
+because it provides better results in runtime predictions\footnote{
+    There is a Python code, 
+    which can provide graphs from values predictions, 
+    please see \inlinecode{plot_predictions.py} 
+    and \inlinecode{pw.forst.olb.simulation.prediction} package.
+}.
+The implementations can be found as \inlinecode{ApacheHyperbolicRegression} class for Apache Commons Mathematics Library
+and \inlinecode{FinMathRegression} class for Mathematical Finance Library.

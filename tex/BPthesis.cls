@@ -473,8 +473,6 @@ sp\^ osobom, ktor\'y nezni\v zuje hodnotu Diela (vr\'atane komer\v cn\'eho vyu\v
 		\noindent \textit{T\'ato pr\'aca vznikla ako \v skolsk\'e dielo na  FIT \v CVUT v Prahe. Pr\'aca je chr\'anen\'a medzin\'arodn\'ymi predpismi a zmluvami o autorskom pr\'ave a pr\'avach s\'uvisiacich s autorsk\'ym pr\'avom. Na jej vyu\v zitie, s~v\'ynimkou bezplatn\'ych z\'akonn\'ych licenci\'\i, je nutn\'y s\'uhlas autora.}}\else{
 		\noindent \textit{This thesis is school work as defined by Copyright Act of the Czech Republic. It has been submitted at Czech Technical University in Prague, Faculty of Electrical Engineering. The thesis is protected by the Copyright Act and its usage without author's permission is prohibited (with exceptions defined by the Copyright Act).}
 	}\fi\fi
-	
-	\if\@lang1{\subsection{Odkaz na tuto pr{\' a}ci} \theauthorFN{}, \theauthorGN{}. \textit{\thetitle{}}. \thesistype{}. Praha: {\v C}esk\'e vysok\'e u\v cen\'\i{} technick\'e v~Praze, Fakulta informa{\v c}n{\' i}ch technologi{\' i}, \the\year.\if@websitedefined{ Dostupn\'y tak\'e z~WWW: $\langle$\url{\thewebsite}$\rangle$.}\fi}\else\if\@lang2{\subsection{Odkaz na t\'uto pr{\' a}cu} \theauthorFN{}, \theauthorGN{}. \textit{\thetitle{}}. \thesistype{}. Praha: {\v C}esk\'e vysok\'e u\v cen\'\i{} technick\'e v~Praze, Fakulta informa{\v c}n{\' i}ch technologi{\' i}, \the\year.\if@websitedefined{ Dostupn\'y aj z~WWW: $\langle$\url{\thewebsite}$\rangle$.}\fi}\else{\subsection{Citation of this thesis} \theauthorFN{}, \theauthorGN{}. \textit{\thetitle{}}. \thesistype{}. Czech Technical University in Prague, Faculty of Electrical Engineering, \the\year.\if@websitedefined{ Also available from: $\langle$\url{\thewebsite}$\rangle$.}\fi}\fi\fi
 }
 
 \DeclareRobustCommand{\abstractpage}{
