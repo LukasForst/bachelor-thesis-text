@@ -1,4 +1,4 @@
-\documentclass{ctuthesis}
+\documentclass[thesis=B,english]{BPthesis}[2012/06/26]
 
 % basic packages
 \usepackage[utf8]{inputenc} % input in utf8
@@ -40,70 +40,33 @@
 \usepackage{todonotes} % show todos in generated pdf
 
 %template setup
-\ctusetup{
-  mainlanguage = english,
-  otherlanguages = {czech,english},
-  title-czech = {Návrh a vývoj škálovatelného serveru pro paralelizaci běhů optimalizačních algoritmů},
-  title-english = {Design and implementation of a scalable server for parallelization of optimization algorithms execution},
-  doctype = B,
-  faculty = F3,
-  department-czech = {Katedra počítačů},
-  department-english = {Department of Computer Science},
-  author = {Lukáš Forst},
-  supervisor = {Ing. Ondřej Vaněk, Ph.D.},
-  keywords-czech = {vyvažování zátěže, optimalizační algoritmy, Kotlin, Ktor, Docker},
-  keywords-english = {load balancing, optimization algorithms, Kotlin, Ktor, Docker},
-  day = 20,
-  month = 5,
-  year = 2019,
-  specification-file = {zav_prace.pdf},
-  front-specification = true
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\department{Department of Computer Science}
+\title{Design and implementation of a scalable server for parallelization of optimization algorithms execution}
+\authorGN{Lukáš}
+\authorFN{Forst} 
+\authorWithDegrees{Lukáš Forst}
+\author{Lukáš Forst}
+\supervisor{Ing. Ondřej Vaněk, Ph.D.}
+\placeForDeclarationOfAuthenticity{Prague}
+\declarationOfAuthenticityOption{1} % 1-6
+\keywordsCS{vyvažování zátěže, optimalizační algoritmy, Kotlin, Ktor, Docker}
+\keywordsEN{load balancing, optimization algorithms, Kotlin, Ktor, Docker}   
+
+\acknowledgements{
+  Thank you people!\todo{add somtething here}
 }
  
-\ctuprocess
- 
-\addto\ctucaptionsczech{%
-	\def\supervisorname{Vedoucí}%
-	\def\subfieldofstudyname{Studijní program}%
+\abstractCS{
+	abstract cs
 }
-
-\ctutemplateset{maketitle twocolumn default}{
-	\begin{twocolumnfrontmatterpage}
-		\ctutemplate{twocolumn.thanks}
-		\ctutemplate{twocolumn.declaration}
-		\ctutemplate{twocolumn.abstract.in.titlelanguage}
-		\ctutemplate{twocolumn.abstract.in.secondlanguage}
-		\ctutemplate{twocolumn.tableofcontents}
-	\end{twocolumnfrontmatterpage}
+\abstractEN{
+	abstract en
 }
-
-% Abstract in Czech
-\begin{abstract-czech}
-Abstrakt v češtině\todo{This must be done}
-\end{abstract-czech}
-
-% Abstract in English
-\begin{abstract-english}
-Abstract in english\todo{This must be written as well}
-\end{abstract-english}
-
-% Acknowledgements / Podekovani
-\begin{thanks}
-Děkuji ČVUT, že mi je tak dobrou \emph{alma mater}.\todo{Translate to the english}
-\end{thanks}
-
-% Declaration / Prohlaseni
-\begin{declaration}
-I declare that the presented work was developed independently and that I have listed
-all sources of information used within it in accordance with the methodical instructions
-for observing the ethical principles in the preparation of university theses.
-
-\bigskip
-\noindent In Prague, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
-\end{declaration}
 
 \begin{document}
-\maketitle
     
 \input{txt_c_intro.tex}
 
