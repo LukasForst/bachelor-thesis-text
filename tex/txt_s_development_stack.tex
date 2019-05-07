@@ -11,12 +11,12 @@ which could limit the development stack, and for that reason,
 I had a free choice while making the decision about programming language used for the OLB implementation.
 
 OLB is programmed in the next generation programming language \textbf{Kotlin}.
-This cross-platform, statically typed, general-purpose programming language is developed by JetBrains\todo{add citations}.
+This cross-platform, statically typed, general-purpose programming language is developed by JetBrains\cite{kotlinReference}.
 Kotlin is 100\% interoperable with Java because it uses JVM as its runtime and it is compiled to the Java Bytecode.
-Apart from Java Bytecode, it can be also compiled to JavaScript or native code.\todo{citation needed}
+Apart from Java Bytecode, it can be also compiled to JavaScript or native code.\cite{kotlinReference}
 The main advantage of Kotlin is its strong and aggressive type inference,
 meaning that for the most of time,
-it is not necessary to specify used data type since Kotlin compiler is able to infer it from the context.\todo{citation needed}
+it is not necessary to specify used data type since Kotlin compiler is able to infer it from the context.\cite{kotlinReference}
 It results to concise language syntax and therefore to the faster development in general.
 
 Another great advantage is Kotlin's \textit{null safety}. 
@@ -25,8 +25,6 @@ and enforces \textit{null checks}\footnote{Check whether the object being used h
 This feature effectively leads to less problems in code (also called \textit{bugs})
 and drastically reduces \textit{Null Pointer Exceptions}\footnote{Exception raised when code access reference that has null value}
 during the runtime.
-
-\todo{maybe add something about functional approach}
 
 \subsection{Build environment}
 The application uses Gradle as its build automation system.
@@ -74,8 +72,7 @@ There are multiple ways, how to start and run the application on the local machi
 
 The preferred runtime environment is Docker system, 
 where application image runs inside the created docker container,
-this is described in the next subsection.\todo{add ref to label}
-
+this is described in the next subsection.
 Although this is preferred execution approach,
 there are few other approaches,
 how to start and run the application.
@@ -106,8 +103,8 @@ multiple containers must be started and virtual network connecting them together
 This process can be automated using Docker Compose.
 
 \subsubsection{Docker Compose}
-Docker Compose\todo{add link via citation} is an application for defining, running and managing multi-container Docker applications.
-It automatically creates Docker networks as well as Docker volumes.\todo{Maybe add more info how it works}
+Docker Compose\cite{dockerComposeReference} is an application for defining, running and managing multi-container Docker applications.
+It automatically creates Docker networks as well as Docker volumes.
 With writing down the definition of multiple Docker applications to the one Docker Compose configuration file,
 it is possible to create powerful micro services architecture, 
 which can be build or started using single command.
@@ -137,23 +134,20 @@ that generalize subroutines for non-preemptive multitasking with using suspended
 
 
 \subsubsection{Spring Boot}
-Spring Boot\todo{add link via citations} % https://spring.io/projects/spring-boot
-is an open source Java Spring-powered web framework.
+Spring Boot\cite{springBootReference} is an open source Java Spring-powered web framework.
 It takes an opinionated view of the Spring platform,
 meaning that Spring Boot automatically configure Spring and 3rd party libraries whenever possible,
 and therefore enables usage of it to wider audience.
 It is highly dependent on the starter templates feature which provide pre-prepared templates for various types of web applications.
 This for example allows user to start with already working we server
-and thus simplify the start of the application development.
-% cite https://howtodoinjava.com/spring-boot-tutorials/
-Spring Boot contains comprehensive infrastructure support for developing enterprise monolith web applications as well as micro services. 
-% cite https://github.com/spring-projects/spring-boot/tree/5aeb31700df8e15d1aa625b987ecca93385a7c2c
+and thus simplify the start of the application development\cite{springBootTutorial}.
+Spring Boot contains comprehensive infrastructure support for developing enterprise monolith web applications as well as micro services\cite{springBootGithubReference}.
 
 \subsubsection{Ktor}
-Ktor\todo{add link via citation} is an open source web framework for building asynchronous servers 
+Ktor\cite{ktorWebPage} is an open source web framework for building asynchronous servers 
 and clients in connected systems such as web applications and http services.
 It designed for quickly building web applications with minimal effort 
-and it doesn't impose a lot of technology constraints such as logging, persistent, serializing, dependency injection etc.
+and it doesn't impose a lot of technology constraints such as logging, persistent, serializing, dependency injection etc.\cite{ktorApiReference}
 It is developed by the same company as Kotlin is, JetBrains.
 
 
@@ -165,7 +159,7 @@ the features of Spring would not be fully utilized
 and therefore the complexity of Spring could potentially slowed down the entire application.
 
 Because Ktor by default does not contain any dependency injection framework, 
-I decided to use lightweight DI\footnote{Dependency Injection} framework \textit{Koin}\todo{add link via citations}.
+I decided to use lightweight DI\footnote{Dependency Injection} framework \textit{Koin}\cite{koinGithub}.
 This framework is written in Kotlin and have its own DSL\footnote{Domain Specific Language} for the dependency specification,
 which is very handy for the medium sized project.
 
@@ -199,9 +193,8 @@ reflection and dependency injection strategy.
 \medskip \noindent
 Preconditions for successful usage of the library are following:
 \begin{itemize}
-	\item \textit{Koin}\todo{citation} - dependency injection framework which is used for resolving dependencies needed in the routes
-	\item \textit{Reflection library} - library used for runtime lookup for classes with specific annotation
-	this one https://github.com/ronmamo/reflections \todo{link using citations}
+	\item \textit{Koin}\cite{koinGithub} - dependency injection framework which is used for resolving dependencies needed in the routes
+	\item \textit{Reflection library}\cite{reflectionsGithub} - library used for runtime lookup for classes with specific annotation
 	\item Using the \inlinecode{@Route} annotation on the class that is meant to be route,
 	the class has to also inherit from \inlinecode{RouteBase}
 	\item Registering all necessary routes dependencies in \textit{Koin} modules during the application startup

@@ -1,8 +1,17 @@
 \chapter{Experiments}\label{c:experiments}
 
-some experiments go here
+To extensively test the application,
+there are two modules, 
+that contain simulation codes used for testing -
+\inlinecode{simulation} and \inlinecode{remote-scheduler} modules.
+Simulation engine and all simulation use cases are located in simulation module.
+The second mentioned module contains server, 
+which runs simulations on remote API. 
+This is especially useful when testing whole scheduling environment for example in Docker Compose network
+and it is as closest as possible to real life environment,
+which should be running in micro services architecture.
 
 \input{txt_s_generated_data.tex}
 
 \section{Simulations}
-Simulation module, particular simulation scenarios, scenarios execution
+Simulation module, particular simulation scenarios, scenarios execution\todo{here write how i did it}
