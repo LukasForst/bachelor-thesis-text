@@ -1,15 +1,42 @@
 \chapter{Conclusion}\label{ch:conclusion}
-Sum up of the project, what worked etc.
+This thesis focused mainly on the core of the proposed load balancing system
+and outlined the way,
+how to make more informative decisions while scheduling optimization algorithms execution in heterogenous system.
+
+The experiments showed,
+that this kind of tasks scheduling is possible to use and sustainable in larger systems.
+
+aaaaaaaaaaa\todo{here}
 
 \section{Future work}\label{sec:future-work}
-What next
+Although the core part of the scheduling server for optimization algorithm was developed in this thesis,
+there is lot of work being left.
+The main missing part is an execution module, 
+which would transform the created plan into physical actions performed in the infrastructure 
+like running, stopping and moving the jobs between the physical execution nodes.
 
-\subsubsection{Documentation}
-Add some documentation because right now it is kinda mess.
+\subsubsection{Infrastructure development}
+When the previously mentioned execution module is implemented,
+the solution can be deployed into real life environment and properly tested.
+Proposition is to make optimization algorithms running as Docker containers 
+and the execution module would operate with Docker machines,
+which would be running on the execution nodes. 
+In this way, 
+the assigned resources would be very easily changed on one execution node.
+Migration to the next execution node would not be problem as well, 
+since containers could be wrapped and transported through the network.
 
-\subsubsection{Infrastrucutre development}
-How to complete ultimate goal where presented solution will distribute
-work across all servers using docker and stuff
+\subsubsection{Documentation and unit testing}
+Another thing, that must be improved, is documentation as well as unit testing of the application.
+Unfortunately, the current lack of code documentation could discourage from future development of the system.
+As for the unit tests, 
+only crucial parts of application such as extension functions and prediction module are at least partially unit tested.
+The goal is to have documented and tested whole core module,
+which is responsible for the scheduling itself and public APIs of server modules. 
 
-\subsubsection{Route discovery library}
-Develop and ultimately publish route discovery library for KTor
+\subsubsection{Routes discovery library}
+Routes discovery library was very handy during the development of application's server parts 
+and I believe that this way of routes registration in Ktor would suit to many developers as well.
+
+Therefore I would like to refactor it from the base project 
+and create open source project which will ensure future library development.
