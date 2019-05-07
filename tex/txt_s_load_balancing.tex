@@ -44,7 +44,8 @@ This could potentially lead to performance issues in the whole system because so
 
 Another drawback of this approach is that hardware resources are allocated only once in the execution time.
 Since optimization jobs are very heterogeneous, they sometimes have different power requirements during the execution.
-For example \textit{TASP}\footnote{\textbf{Task and Asset Scheduling Platform} - proprietary optimization software developed by Blindspot Solutions, described in\ref{subsubsec:tasp}}
+For example \textit{TASP}\footnote{\textbf{Task and Asset Scheduling Platform} - proprietary optimization software developed by Blindspot Solutions,
+described in section \ref{subsubsec:tasp}}
 uses only one thread when creating feasible plan in the first algorithm iteration - this task relays only on single core performance.
 However, when first iteration is completed, all following can be done by multiple threads,
 therefore it could be useful to execute first iteration on a machine with better single core performance

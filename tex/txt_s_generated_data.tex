@@ -1,2 +1,18 @@
-\section{Optimization Algorithms data}\label{sec:optimization-algorithms-data}
-something about how I generated data from TASP 
+\section{Optimization algorithms data}\label{sec:optimization-algorithms-data}
+For the proper testing environment,
+the real runtime data of some optimization algorithm were needed.
+I decided to use TASP (mentioned in subsection \ref{subsubsec:tasp}) as an example heuristic algorithm
+which execution could be potentially scheduled by the instance of optimization load balancer.
+I did not implement new TASP instance,
+instead I used instances from Stochastic Dynamic Vehicle Routing Problem master's thesis by Petr Eichler\cite{Eichler:Petr:2003}.
+
+These instances solve real life vehicle routing problem 
+and mainly for that reason are ideal for testing purposes.
+I slightly modified the code from thesis for observation purposes
+and added time measuring functionality,
+which tracked time between the algorithm's iterations and the current job value in each iteration.
+ 
+
+% The structured data can be found in \inlinedata{jobs-data/input} folder in the project.
+
+% something about how I generated data from TASP\cite{Eichler:Petr:2003}
