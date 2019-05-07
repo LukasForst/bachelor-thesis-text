@@ -3,14 +3,10 @@ This thesis focused mainly on the core of the proposed load balancing system
 and outlined the way,
 how to make more informative decisions while scheduling optimization algorithms execution in heterogenous system.
 
-The experiments showed,
-that this kind of tasks scheduling is possible to use and sustainable in larger systems.
-
-aaaaaaaaaaa\todo{here}
-
-\section{Future work}\label{sec:future-work}
 Although the core part of the scheduling server for optimization algorithm was developed in this thesis,
 there is lot of work being left.
+
+\section{Future work}\label{sec:future-work}
 The main missing part is an execution module, 
 which would transform the created plan into physical actions performed in the infrastructure 
 like running, stopping and moving the jobs between the physical execution nodes.
@@ -40,3 +36,24 @@ and I believe that this way of routes registration in Ktor would suit to many de
 
 Therefore I would like to refactor it from the base project 
 and create open source project which will ensure future library development.
+I would like to also make it more generic,
+because right know, 
+it depends on specific Ktor and Koin version.
+Although Ktor dependency is necessary
+since it is library developed specifically for Ktor,
+Koin should be replaced by generic way, 
+how to obtain dependencies for routes.
+
+I believe in future usage and development of the library
+and I hope, 
+that there will be many future developers,
+that will agree with me.
+
+
+\subsubsection{Extension functions}
+During the application development,
+I created and tested many Kotlin extension functions.
+These functions are mainly not domain specific
+and for that reason I decided that it would be fine to publish them as well as Routes discovery library.
+These extensions could be useful when starting new project,
+because they are able to perform many operations in single line of Kotlin code.
