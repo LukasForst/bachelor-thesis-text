@@ -171,7 +171,7 @@ which is very handy for the medium sized project.
 
 \subsubsection{Route discovery library}
 The default way, how to create a HTTP endpoint (Ktor calls them \textit{routes}),
-which can receive/handle HTTP requests is registering it within the \inlinecode{Application} context.
+which can handle HTTP requests is registering it within the \inlinecode{Application} context.
 The \inlinecode{Application} context is accessible by its instance that is given to user when the Ktor is being started.
 This means that no \textit{route} can be registered without using instance of \inlinecode{Application}.
 
@@ -213,14 +213,14 @@ Following algorithm is used to find and register all routes used in the project.
 
 \begin{algorithm}[H]
 	\SetAlgoLined
-	\KwInput{Package name, where all routes are stored}
+	\Input{Package name, where all routes are stored}
 	\textbf{routes} $\leftarrow$ find all classes annotated as \inlinecode{@Route} in provided package name\;
 	\For{\textbf{route} in \textbf{routes}}{
 		\textbf{dependencies} $\leftarrow$ obtain dependencies needed for creating instance of \textbf{route}\;
 		\textbf{routeInstance} $\leftarrow$ create instance of \textbf{route} using \textbf{dependencies}\;
 		register \textbf{routeInstance} in instance of \inlinecode{Application} \;
 	}
-	\KwResult{All routes are registered and ready to use}
+	\Output{All routes are registered and ready to use}
 \end{algorithm} 
 \medskip \noindent
 The implementation of the simple route is then following:

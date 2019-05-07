@@ -1,2 +1,67 @@
-\section{OLB Algorithm}\label{sec:olb-algorithm}
-how this shit works
+\section{Complete application algorithm}\label{sec:olb-algorithm}
+
+There are two possible ways, 
+how to create execution plan with load balancing decisions.
+The first should be used when no scheduled optimization algorithm runtime data are available.
+Typically, when system is starting up
+and no job is being currently scheduled.
+The second aims to provide more informed decisions by using jobs runtime data with job-value function history.
+Thanks to this provided history,
+load balancing algorithm is able to take in account the prediction of future job-value function development.
+
+Common thing for the two scheduling ways is,
+that they need to receive data set, 
+convert it into inner core representation
+and after plan creation send the scheduled data to the client.
+
+The final algorithm is then following, 
+the two phases are described below.
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \textbf{jobsDomain} $\leftarrow$ gather jobs from waiting queue\;
+    \textbf{plan} $\leftarrow$ execute initial initial plan creation on \textbf{jobsDomain}\;
+	\While{job to schedule exists} {
+        \textbf{waitingJobs} $\leftarrow$ gather jobs from waiting queue\;
+        \textbf{jobsExecutionData} $\leftarrow$ gather runtime information about jobs runtime\;
+        \textbf{plan} $\leftarrow$ enhance \textbf{plan} with \textbf{jobsExecutionData} 
+        and \textbf{waitingJobs} $\cap$ \textbf{jobsDomain}\;
+	}
+\end{algorithm} 
+
+\subsection{Initial plan creation}\label{subsec:initial-plan-creation}
+
+In the initial plan creation phase, 
+there are no data to begin with.
+Therefore the prediction functionality is not used.
+Also, 
+the predictions dependents constraints in core OptaPlanner wrapper implementation are skipped. 
+
+The following algorithm steps are used when the initial plan creation is executed. 
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	\Input{jobs, scheduling properties}
+	\textbf{jobsToSchedule} $\leftarrow$ convert given jobs to inner core representation\;
+	\textbf{plan} $\leftarrow$ start OptaPlanner scheduling with \textbf{jobsToSchedule}\;
+	convert created \textbf{plan} to output data\;
+	\Output{Time schedule for each job}
+\end{algorithm} 
+
+\subsection{Plan enhancement}\label{subsec:plan-enhancement}
+During the plan enhancement scheduling stage are used all available information for more informed decisions.
+
+Following pseudocode describes behavior of the program when the plan enhancement phase is triggered.
+The obsolete data are jobs,
+that were already scheduled and executed,
+or are due their scheduling history unschedulable (their $D^{j}$ or $P^{j}$ exceeded).
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+    \Input{jobs, scheduling properties, job history}
+    \textbf{jobsDomain} $\leftarrow$ filter obsolete data from jobs\;
+    \textbf{jobsToSchedule} $\leftarrow$ convert \textbf{jobsDomain} to inner core representation\;
+    \textbf{predictions} $\leftarrow$ create predictions of job-value function based on job history data\;
+	\textbf{plan} $\leftarrow$ start OptaPlanner scheduling with \textbf{jobsToSchedule} and \textbf{predictions}\;
+	convert created \textbf{plan} to output data\;
+	\Output{Time schedule for each job}
+\end{algorithm} 

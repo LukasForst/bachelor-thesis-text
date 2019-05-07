@@ -16,6 +16,14 @@ we can roughly approximate the job value function as the hyperbola function.
 Using this approximation means,
 that value prediction algorithm is trying to fit time series data into hyperbola.\todo{check this expression, it does not seems right}
 
+Moreover, 
+it is not possible to use the time as $x$ axis,
+because it would not be possible to extract information about 
+how adding more available performance will modify the predicted job value function.
+For that reason,
+it is better to use the number of iterations, that optimization algorithm performed,
+instead of time unit.
+
 \subsection{Hyperbola time series fitting}
 The generic equation for expressing hyperbola function on two dimensional graph is following.
 \begin{equation}
