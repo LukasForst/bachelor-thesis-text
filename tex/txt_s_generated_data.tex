@@ -11,8 +11,11 @@ and mainly for that reason are ideal for testing purposes.
 I slightly modified the code from thesis for observation purposes
 and added time measuring functionality,
 which tracked time between the algorithm's iterations and the current job value in each iteration.
- 
 
-% The structured data can be found in \inlinedata{jobs-data/input} folder in the project.
-
-% something about how I generated data from TASP\cite{Eichler:Petr:2003}
+In overall,
+I run and measured 56 different instances of TASP.
+The measurement can be found in \inlinedata{jobs-data/input} folder in the project
+and they are being used in the simulations,
+where the simulation module randomly selects for each job one file with runtime data
+and assigns it to the job, that is being scheduled.
+The data are then effectively used as input data for the scheduling algorithm.
