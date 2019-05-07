@@ -3,6 +3,9 @@ This thesis focused mainly on the core of the proposed load balancing system
 and outlined the way,
 how to make more informative decisions while scheduling optimization algorithms execution in heterogenous system.
 
+The solution with 6767 lines of Kotlin 
+code\footnote{Lines provided by \inlinecode{find . -name "*.kt" | xargs cat | wc -l} bash command in root folder of the project} 
+proved, that it is possible to use it as load balancing algorithm for optimization algorithms.
 Although the core part of the scheduling server for optimization algorithm was developed in this thesis,
 there is lot of work being left.
 
@@ -12,8 +15,8 @@ which would transform the created plan into physical actions performed in the in
 like running, stopping and moving the jobs between the physical execution nodes.
 
 \subsubsection{Infrastructure development}
-When the previously mentioned execution module is implemented,
-the solution can be deployed into real life environment and properly tested.
+As soon as the previously mentioned execution module is implemented,
+the application can be deployed into real life environment and properly tested.
 Proposition is to make optimization algorithms running as Docker containers 
 and the execution module would operate with Docker machines,
 which would be running on the execution nodes. 
