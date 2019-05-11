@@ -1,2 +1,13 @@
 \section{Load balancing decisions with OptaPlanner}\label{sec:load-balancing-optaplanner}
-The load balancing decisions are made while \todo{write this section}
+The load balancing decisions are made while \todo{write this section} 
+
+
+The scheduling itself has two main phases.
+\textit{Construction heuristics}, that tries to build initial solution in a finite length of time.
+This partial solution is not always feasible, 
+but it finds it fast and then leaves it to next phase.
+\textit{Local search} with metaheuristics that can enhance the partial solution found in previous phase.
+
+OptaPlanner contains various types of construction heuristics (i.e. \textit{first fit}, \textit{weakest fit} and \textit{strongest fit})
+as well as local search metaheuristics such as \textit{hill climbing}, \textit{tabu search} and \textit{simulated annealing}.
+
