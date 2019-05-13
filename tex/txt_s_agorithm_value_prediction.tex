@@ -1,12 +1,12 @@
 \section{Algorithm value prediction}\label{sec:algorithm-value-prediction}
 
-For the proper optimization and load balancing strategy decisions,
+To have the most informed decisions while creating load balancing decisions,
 algorithm creating these decisions should be able to estimate impact of assigned resources to the job-value development.
 Unfortunately, 
-it is not possible to exactly predict the value development,
-because the optimization algorithms are stochastic 
+it is not possible to exactly predict the value function,
+because for instance optimization algorithms based on heuristics and metaheuristics are stochastic 
 and therefore there is no guarantee that they will eventually find a better solution
-or possible how fast they will be able to do that.
+or how fast they will be able to do that.
 That said, 
 the only thing that is guaranteed is that the job value function over time period is monotonically non-increasing.
 

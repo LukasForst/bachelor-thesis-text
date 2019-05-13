@@ -7,7 +7,8 @@ how to use it.
 
 OLB uses two different libraries Apache Commons Mathematics Library\cite{web:apacheCommonsMath}
 and Mathematical Finance Library\cite{web:finmathLib}.
-Each of them implement \inlinecode{HyperbolicRegression} abstract class and they can be exchanged in the application when decided.
+The both libraries have custom wrapper which implements \inlinecode{HyperbolicRegression} abstract class 
+and they can be exchanged in the application when decided.
 The reason, there are two different implementations and two different libraries,
 is that their performance can differ in distinguish scenarios.
 By default, the Mathematical Finance Library is used, 
