@@ -121,7 +121,7 @@ Scheduling client is an example application which uses ability of scheduling ser
 There are implemented various simulations,
 which are being executed by scheduling client.  
 
-\subsection{Framework}
+\subsection{Framework}\label{subsec:framework}
 Because of the overall micro services architecture of the project,
 some kind of web framework was needed.
 There are many Java based web frameworks,
@@ -143,7 +143,7 @@ This for example allows user to start with already working we server
 and thus simplify the start of the application development\cite{springBootGithubReference}.
 Spring Boot contains comprehensive infrastructure support for developing enterprise monolith web applications as well as micro services\cite{springBootGithubReference}.
 
-\subsubsection{Ktor}
+\subsubsection{Ktor}\label{subsubsec:ktor}
 Ktor\cite{ktorWebPage} is an open source web framework for building asynchronous servers 
 and clients in connected systems such as web applications and http services.
 It designed for quickly building web applications with minimal effort 
@@ -217,7 +217,9 @@ Following algorithm is used to find and register all routes used in the project.
 \end{algorithm} 
 \medskip \noindent
 The implementation of the simple route is then following:
+
 \medskip
+\begin{samepage}
 \begin{lstlisting}[language=Kotlin]
 @Route
 class HelloRoute(sr: Service) : RouteBase("hello") {
@@ -230,6 +232,7 @@ class HelloRoute(sr: Service) : RouteBase("hello") {
     }
 }
 \end{lstlisting}
+\end{samepage}
 
 \medskip \noindent
 The route is automatically instantiated and registered by the Routes discovery library.
