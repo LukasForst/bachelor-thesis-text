@@ -1,0 +1,13 @@
+\section{Simulations}\label{sec:simulations}
+
+There are two main randomized simulation scenarios inside simulation module 
+(module described in \ref{subsec:simulations-architecture}).
+Both simulation can be started up locally or
+using \inlinecode{docker-compose} microservices runtime environment.
+
+First simulation is designed to use only first scheduling stage described in section \ref{sec:olb-algorithm}
+and create static initial plan which is then not modified.
+This simulation is implemented in \inlinecode{OnePlanningRoundMain} class
+and can be easily modified.
+Input data for this test are created randomly,
+based on number of scheduled jobs and given planning horizon (how much steps ahead should scheduler count with).

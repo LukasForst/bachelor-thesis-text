@@ -25,6 +25,38 @@ and enhances it by worse step strategy,
 when at each step worsening moves can be accepted if no improving move is available.
 In addition, prohibitions are introduced to discourage the search from coming back to previously-visited solutions\cite{glover1989tabu}.
 
+\subsection{Formalized definition representation}
+In this section,
+I would like to provide mapping between formalized problem definition described in section \ref{sec:formal-definition}
+and actual implementation in code.
+
+Each job, which is indexed in definition as $j$,
+implements \inlinecode{Job} interface 
+and effectively in core representation it is \inlinecode{PlanningJob} class which is being scheduled.
+Input variables $D^{j}$ and $P^{j}$ are specified as \inlinecode{JobParameters} property of \inlinecode{Job} interface.
+
+Resources $r$ are implemented as sealed class \inlinecode{Resources} composing of \inlinecode{CpuResources} and \inlinecode{MemoryResources}.
+Resources belong to resources pools,
+which can be imagined as physical computers or virtual machines.
+Resource pools then cary information about cost ${}^{r}c$ of underlying resources.
+The pools are represented as \inlinecode{ResourcesPool} interface with corresponding implementation classes.
+
+Job value during time $v_{t}^{j}$ is implemented as \inlinecode{JobValue}
+and belongs to interface \inlinecode{JobWithHistory},
+that describes any job,
+that has some historical information (like job value development and scheduling data).
+Job value related information uses \inlinecode{AssignmentsEvaluation} during scheduling to compute reward for scheduler with value $S_{t}^{j}$.
+
+Resources cost $C_{t}^{j}$ value is used in cost constraint \inlinecode{CostEvaluation} for comparison with $P^{j}$.
+In similar constraint \inlinecode{TimeEvaluation}, $t$ value is compared with $D^{j}$ to check whether all specified constraints are satisfied.
+
+Scheduling output is always \inlinecode{AllocationPlan}.
+It contains job domain, resources domain, overall cost
+and created time schedule.
+From the latest, 
+values $T^{j}$ and $C^{j}$ can be computed very easily,
+therefore are not present directly in interface as properties.
+
 \subsection{Implementation}
 Whole scheduling implementation can be found in module \inlinecode{core}.
 Moreover, 
