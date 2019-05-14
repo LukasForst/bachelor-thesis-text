@@ -11,13 +11,10 @@ For first simulation data and input please refer to \inlinecode{OnePlanningRound
 for second to \inlinecode{RuntimeSimulation}.
 
 Simulation's output (produced solution) is printed to standard output.
-And has following structure.
-
-This is an output example produced by simulation with 5 jobs scheduled at once.
+Data displayed in listing~\ref{lst:data-example} are an output produced by simulation with 5 jobs being scheduled at once.
 \medskip
 \begin{samepage}
-\begin{lstlisting}[language=Kotlin]
-    0 iteration:
+\begin{lstlisting}[caption={Simulation data output},label={lst:data-example},language=Kotlin]
                 Times:||  0| 60|120|180|240|300|360|
     ----------------- || --|---|---|---|---|---|---|
         Cost: 1 + 0.02||  2|  2|  4|  3|  3|  2|  2|
@@ -35,6 +32,20 @@ This is an output example produced by simulation with 5 jobs scheduled at once.
     Total plan cost: CostImpl(value=321.08)$
 \end{lstlisting}
 \end{samepage}
+\medskip \noindent
+\inlinecode{Times} axis shows time units ($t$ value described in section \ref{sec:formal-definition}) in seconds.
+Second, vertical axis, visualizes resources.
+Name, \inlinecode{Cost: 1 + 0.02} is name of the resources provider (explained in section \ref{subsec:formalized-definition-representation}),
+and each line is one usage unit - meaning that it could be one physical core or for example percentage of shared processor.
+In implementation, this value is referred as CPU core,
+but in fact, it is dimensionless value expressing usage of some system.
+
+Each cell contains either number or is empty.
+Number is job ID and indicates, that this resource is allocated to job with displayed ID.
+This is effectively $^{r}x_{t}^{j}$ value explained in section \ref{subsec:variables-definition}.
+
+Total plan cost is then sum of all particular costs of all jobs - their resources allocations.
+Therefore this is the cost of created plan.
 
 First simulation is designed to use only first scheduling stage described in section \ref{sec:olb-algorithm}
 and create static initial plan which is then not modified.
