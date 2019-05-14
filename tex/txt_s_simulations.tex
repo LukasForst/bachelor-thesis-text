@@ -2,12 +2,40 @@
 
 There are two main randomized simulation scenarios inside simulation module 
 (module described in \ref{subsec:simulations-architecture}).
-Both simulation can be started up locally or
+Both simulation can be started up locally using \inlinecode{SimulationExecutor} or
 using \inlinecode{docker-compose} microservices runtime environment.
+Input data for tests are created randomly,
+based on number of scheduled jobs and given planning horizon (how much steps ahead should scheduler count with).
+The number of scheduled jobs can be easily edited directly in code.
+For first simulation data and input please refer to \inlinecode{OnePlanningRoundSimulation},
+for second to \inlinecode{RuntimeSimulation}.
+
+Simulation's output (produced solution) is printed to standard output.
+And has following structure.
+
+This is an output example produced by simulation with 5 jobs scheduled at once.
+\medskip
+\begin{samepage}
+\begin{lstlisting}[language=Kotlin]
+    0 iteration:
+                Times:||  0| 60|120|180|240|300|360|
+    ----------------- || --|---|---|---|---|---|---|
+        Cost: 1 + 0.02||  2|  2|  4|  3|  3|  2|  2|
+        Cost: 1 + 0.02||  2|  2|  4|  3|  3|  2|  2|
+        Cost: 1 + 0.02||  2|  2|  4|  3|  3|  2|  2|
+        Cost: 1 + 0.02||  3|  4|  4|  3|  3|  2|  2|
+        Cost: 1 + 0.02||  4|  4|  4|  3|  3|  2|  2|
+
+      Cost: 1.5 + 0.02||  1|  1|  1|  2|   |   |   |
+      Cost: 1.5 + 0.02||  1|  1|  1|  2|   |   |   |
+
+     Cost: 10.0 + 0.05||  0|  0|   |   |   |   |   |
+     Cost: 10.0 + 0.05||  0|  0|   |   |   |   |   |
+
+    Total plan cost: CostImpl(value=321.08)$
+\end{lstlisting}
+\end{samepage}
 
 First simulation is designed to use only first scheduling stage described in section \ref{sec:olb-algorithm}
 and create static initial plan which is then not modified.
-This simulation is implemented in \inlinecode{OnePlanningRoundMain} class
-and can be easily modified.
-Input data for this test are created randomly,
-based on number of scheduled jobs and given planning horizon (how much steps ahead should scheduler count with).
+This simulation is implemented in \inlinecode{OnePlanningRoundSimulation} class.
