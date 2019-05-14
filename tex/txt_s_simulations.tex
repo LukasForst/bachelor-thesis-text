@@ -44,9 +44,11 @@ Each cell contains either number or is empty.
 Number is job ID and indicates, that this resource is allocated to job with displayed ID.
 This is effectively $^{r}x_{t}^{j}$ value explained in section \ref{subsec:variables-definition}.
 
-Total plan cost is then sum of all particular costs of all jobs - their resources allocations.
+Total plan cost is sum of all particular costs of all jobs - their resources allocations.
 Therefore this is the cost of created plan.
 
 First simulation is designed to use only first scheduling stage described in section \ref{sec:olb-algorithm}
 and create static initial plan which is then not modified.
 This simulation is implemented in \inlinecode{OnePlanningRoundSimulation} class.
+
+TODO - more information about simulations
