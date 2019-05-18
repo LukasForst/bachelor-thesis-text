@@ -1,0 +1,6 @@
+- abstract
+- prepsat introduction
+- diagram do problem formalization
+- complete application algorithm
+- obrazky v svg
+- popsat simulace
