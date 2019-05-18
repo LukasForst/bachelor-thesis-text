@@ -5,11 +5,44 @@ performance requirements are quite high and are fully utilized only while workin
 Optimization algorithm is not running all the time and for that reason hardware resources are mainly unused.
 These unused resources could be potentially used by another instance of algorithm
 or can be shutdown completely to reduce hosting costs.
-
-Also adding more time to job execution does not always bring better solution
+Also adding more time to the job execution does not always bring better solution
 but it certainly costs more.
-Therefore proposed load balancer must be able to stop execution when solution value
-is not getting better in comparison with scheduling costs.
+
+The figure \ref{fig:problem-scheme} displays standard case,
+when application is deployed on the server.
+Because the application uses optimization algorithm, 
+the server must be powerful enough to deliver suitable results.
+This also means,
+that the server resources must be allocated to the application and to nothing else,
+which leads to the resource wasting.
+\begin{figure}[ht] 
+    \includegraphics[scale=0.7]{i_problem_scheme_without.pdf} 
+    \centering
+    \caption{Problem visualization}
+    \label{fig:problem-scheme}
+\end{figure}
+
+The next figure \ref{fig:problem-with-load-balancer} visualizes scenario when the load balancer is used.
+Instead of using powerful servers for each of the applications,
+it is enough to use small server or even deploy multiple applications on the one machine.
+This can be done thanks to the outsourcing of the optimization jobs to the external servers with more computational power.
+\begin{figure}[ht] 
+    \includegraphics[width=\textwidth]{i_problem_scheme_jobs.pdf} 
+    \centering
+    \caption{Problem visualization with the load balancer}
+    \label{fig:problem-with-load-balancer}
+\end{figure}
+The circles are optimization jobs,
+that were triggered by the same colored applications
+and are being executed on the different servers in the cloud.
+
+Moreover,
+as can be seen in the figure \ref{fig:problem-with-load-balancer},
+these servers do not need to be allocated all the time.
+Most resources providers, 
+such as AWS\cite{awsReference} or Azure\cite{azureReference} allow to reallocate hardware on the fly.
+This leads to potentially significant cost savings 
+and ultimately to the more effective infrastructure.
 
 \input{txt_s_formal_definition.tex}
 

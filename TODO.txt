@@ -1,5 +1,4 @@
 - abstract
 - prepsat introduction
-- diagram do problem formalization
 - complete application algorithm
 - popsat simulace
