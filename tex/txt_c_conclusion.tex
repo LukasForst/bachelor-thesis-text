@@ -1,14 +1,16 @@
 \chapter{Conclusion}\label{ch:conclusion}
-This thesis brings overview of the state of the art solutions for load balancing systems
-and proposes, describes and brings implementation of the new method 
-of the process of making the load balancing decisions when the process domain of optimization algorithms is well known. 
+All goals of this thesis were fulfilled.
+This thesis extensively studied 
+and analyzed the state-of-the-art solution for the load balancing systems in the section \ref{sec:load-balancing}. 
+It also brought an overview of various optimization problems, techniques and algorithms 
+that are being used to solve diverse problems in section \ref{sec:optimization-algorithms}.
 
-
-This thesis focused on the new way,
-how to execute load balancing decisions when scheduling  load balancing system
-and brings new way of the load balancing on top of the specific optimization jobs domain.
-It also proposed and tested the method,
-how to make more informative decisions while scheduling optimization algorithms execution in heterogenous system.
+Apart from the analysis of existing solutions and problems,
+the thesis described and formalized the problem of the load balancing of optimization algorithms in chapter \ref{ch:problem-formalization}.
+Solution of the formalized problem was then proposed in the chapter \ref{ch:solution-design}.
+The main goal of the thesis was then fulfilled in the following chapter \ref{ch:implementation},
+where the implementation of the new system was described.
+This implementation is attached to the thesis.
 
 The solution with 6767 lines of Kotlin 
 code\footnote{Lines provided by \inlinecode{find . -name "*.kt" | xargs cat | wc -l} bash command in root folder of the project} 
@@ -18,8 +20,7 @@ proved, that it is possible to use it as load balancing algorithm for optimizati
 To achieve production ready load balancing system, 
 an execution module, 
 which would transform the created plan into physical actions 
-(like running, stopping and moving the jobs between the physical execution nodes)
-performed in the infrastructure,
+such as running, stopping and moving the jobs between the physical execution nodes,
 is needed.
 
 \subsubsection{Infrastructure development}
