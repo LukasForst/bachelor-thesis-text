@@ -1,11 +1,11 @@
 \section{Architecture}\label{sec:architecture}
 
-Although this paper focuses only on scheduling system's core,
-the architecture keeps in mind future work on whole infrastructure.
-Therefore us the system's architecture based on the idea of cooperating microservices,
+Although this paper aims on the scheduling system's core,
+the architecture keeps in mind future work outlined in the section \ref{sec:future-work}.
+Therefore the system's architecture  is based on the idea of cooperating microservices,
 where each service has control over specific part of the infrastructure. 
 
-Microservice architecture is an software design architectural style 
+Microservice architecture is a software design architectural style 
 that structures an application as a collection of loosely coupled services that 
 are organized around system's business capabilities\cite{namiot2014micro} 
 and are independently deployable with enabled continuous delivery\cite{balalaie2016microservices}.
@@ -50,14 +50,10 @@ is composed of API, converter, predictions and scheduler module.
 Scheduling server provides HTTP API access to the core
 and serves as microservice base.
 Server module is based on Ktor framework (described in section \ref{subsec:framework})
-that runs under the hood and provides HTTP functionality.
-
-In the current implementation,
-server API accepts binary serialized data transfer objects
-instead of common JSON or XML.
-This is because of number of interfaces and loosely coupled data objects,
+that runs under the hood and provides HTTP functionality.,
+The server API uses binary serialization and accepts data transfer objects used in the solutions.
+This is because of the number of interfaces and loosely coupled data objects,
 that are being used in the application.
-Migration to JSON technology is addressed in future work in section \ref{sec:future-work}.
 
 \subsubsection{Simulations architecture}\label{subsec:simulations-architecture}
 Simulations module (project module \inlinecode{simulations}) is designed as another microservice to simulate future load balancing system's behavior.

@@ -1,15 +1,17 @@
 \newpage
 \section{Resulting problem}\label{sec:resulting-problem}
-Taken together,
-optimization algorithms load balancing problem results in computational task scheduling optimization problem.
-Proposed formal definition (\ref{sec:formal-definition}) implies that problem is in fact, 
+Proposed formal definition (\ref{sec:formal-definition}) implies that problem is 
 integer linear problem with job execution cost as its main optimization criteria. 
-These kind of problems are solvable by various types of linear programming solvers.
+These problems are solvable by various types of mixed integer linear programming solvers.
 Linear optimization and its characteristics are outlined in previous section \ref{subsec:linear-optimization}.
 
 However,
 apart from load balancing decisions,
 the problem brings another challenges in time series prediction during the job executions.
-In the following chapter \ref{ch:solution-design},
-I would like to describe how I managed to solve the main optimization problem
-and related time series prediction.
+This problem arises because algorithm, by definition presented in section \ref{sec:formal-definition},
+estimates enhancement of the job's solution value when the job uses particular resources in the next ime period.
+In other words, 
+algorithm needs to estimate impact of using particular resources in the next time period on solution value function development.
+The definition in section \ref{sec:formal-definition} describes it as $^{r}\Delta_{t}^{j}$ variable.
+Based on the $^{r}\Delta_{t}^{j}$ value, the reward for improving solution value $S_{t}^{j}$ is computed.
+This reward is used when the load balancing decisions are being made to reflect the suitability of current execution plan solution.

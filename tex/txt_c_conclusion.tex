@@ -1,22 +1,30 @@
 \chapter{Conclusion}\label{ch:conclusion}
-This thesis focused mainly on the core of the proposed load balancing system
-and outlined the way,
+This thesis brings overview of the state of the art solutions for load balancing systems
+and proposes, describes and brings implementation of the new method 
+of the process of making the load balancing decisions when the process domain of optimization algorithms is well known. 
+
+
+This thesis focused on the new way,
+how to execute load balancing decisions when scheduling  load balancing system
+and brings new way of the load balancing on top of the specific optimization jobs domain.
+It also proposed and tested the method,
 how to make more informative decisions while scheduling optimization algorithms execution in heterogenous system.
 
 The solution with 6767 lines of Kotlin 
 code\footnote{Lines provided by \inlinecode{find . -name "*.kt" | xargs cat | wc -l} bash command in root folder of the project} 
 proved, that it is possible to use it as load balancing algorithm for optimization algorithms.
-Although the core part of the scheduling server for optimization algorithm was developed in this thesis,
-there is lot of work being left.
 
 \section{Future work}\label{sec:future-work}
-The main missing part is an execution module, 
-which would transform the created plan into physical actions performed in the infrastructure 
-like running, stopping and moving the jobs between the physical execution nodes.
+To achieve production ready load balancing system, 
+an execution module, 
+which would transform the created plan into physical actions 
+(like running, stopping and moving the jobs between the physical execution nodes)
+performed in the infrastructure,
+is needed.
 
 \subsubsection{Infrastructure development}
 As soon as the previously mentioned execution module is implemented,
-the application can be deployed into real life environment and properly tested.
+the application can be deployed into real life environment.
 Proposition is to make optimization algorithms running as Docker containers 
 and the execution module would operate with Docker machines,
 which would be running on the execution nodes. 
@@ -29,14 +37,6 @@ Another infrastructure related missing feature in current solution is full REST 
 Currently only binary serialization is supported.
 In the future, 
 full REST with JSON as its transport format should be supported.
-
-\subsubsection{Documentation and unit testing}
-Another thing, that must be improved, is documentation as well as unit testing of the application.
-Unfortunately, the current lack of code documentation could discourage from future development of the system.
-As for the unit tests, 
-only crucial parts of application such as extension functions and prediction module are at least partially unit tested.
-The goal is to have documented and tested whole core module,
-which is responsible for the scheduling itself and public APIs of server modules. 
 
 \subsubsection{Routes discovery library}
 Routes discovery library was very handy during the development of application's server parts 
