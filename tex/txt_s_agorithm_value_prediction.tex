@@ -1,20 +1,24 @@
 \section{Solution value prediction}\label{sec:algorithm-value-prediction}
 
 To have the most informed decisions while creating load balancing decisions,
-algorithm creating these decisions needs to be able to estimate impact of assigned resources to the development of the solution value of the job.
+algorithm creating these decisions needs to be able to estimate the impact of an assigned resources to the development of the solution value of the job.
+Therefore in time $t$ it needs to estimate value of the solution value function $v_{t+1}^{j}$.
 The definition in section \ref{sec:formal-definition} describes this estimated impact as $^{r}\Delta_{t}^{j}$ variable.
 The reward for improving solution value $S_{t}^{j}$ is then computed based on this $^{r}\Delta_{t}^{j}$ value.
-This reward is used when the load balancing decisions are being made to reflect the suitability of current execution plan solution.
+This reward is then used when the load balancing decisions are being made to reflect the suitability of the current execution plan solution.
 
 Unfortunately, 
 it is practically impossible to predict the values exactly.
 For instance, heuristics and metaheuristics optimization algorithms are usually stochastic 
-and therefore there is no guarantee that they eventually find a better solution than the current one.
+and therefore there is \textbf{no guarantee} that they eventually find a better solution than the current one.
 That said, 
-the only thing that is guaranteed is that the job value function over time period is monotonically non-increasing.
+the only thing that is guaranteed is that the solution value function of the job over time period is monotonically non-increasing.
 Empirically,
-the convergence of the solution value value towards an optimal solution has hyperbolic shape.
-This assumption was made after analysis of the runtime solution value data from optimization algorithms described in section \ref{sec:optimization-algorithms-data}.
+the convergence of the solution value towards an optimal solution has hyperbolic shape.
+This assumption was made after the analysis of the runtime solution value data from optimization algorithms described in section \ref{sec:optimization-algorithms-data}.
+In addition, 
+the script, which is able to visualize, the solution value function during the time was developed.
+This Python script is part of the implementation and can be found in the \inlinecode{scripts} folder inside the root of the project.
 
 Moreover, 
 it is not possible to use the time as $x$ axis,

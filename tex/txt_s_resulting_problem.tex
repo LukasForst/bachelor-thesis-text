@@ -9,9 +9,10 @@ However,
 apart from load balancing decisions,
 the problem brings another challenges in time series prediction during the job executions.
 This problem arises because algorithm, by definition presented in section \ref{sec:formal-definition},
-estimates enhancement of the job's solution value when the job uses particular resources in the next ime period.
+estimates enhancement of the job's solution value when the job uses particular resources in the next time period.
 In other words, 
 algorithm needs to estimate impact of using particular resources in the next time period on solution value function development.
+Therefore in time $t$ it needs to estimate value of the solution value function $v_{t+1}^{j}$.
 The definition in section \ref{sec:formal-definition} describes it as $^{r}\Delta_{t}^{j}$ variable.
 Based on the $^{r}\Delta_{t}^{j}$ value, the reward for improving solution value $S_{t}^{j}$ is computed.
-This reward is used when the load balancing decisions are being made to reflect the suitability of current execution plan solution.
+This reward is then used when the load balancing decisions are being made to reflect the suitability of current execution plan solution.

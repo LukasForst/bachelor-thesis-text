@@ -1,9 +1,9 @@
 \section{Load balancing decisions}\label{sec:load-balancing-decisions}
 
-To make informed load balancing decisions while scheduling multiple optimization algorithms,
-the application uses dynamic scheduling with centralized node running load balancing algorithm.
+To make the most informed load balancing decisions while scheduling multiple optimization jobs,
+the application uses dynamic scheduling with centralized node running the load balancing algorithm.
 
-The application also takes advantage of knowing the exact maximal time of execution thanks to the input parameter $D^{j}$ 
+The application also takes advantage of knowing the exact maximal time of an execution thanks to the input parameter $D^{j}$ 
 defined in section \ref{subsubsec:formal-input}.
 Also,
 because of this parameter, 
@@ -14,7 +14,7 @@ The definition formalized in section \ref{sec:formal-definition} implies
 that it is possible to use integer mixed integer linear programming solver, 
 because the problem itself is defined as integer linear programming problem.
 That is indeed possible, 
-but after careful consideration I rather decided to use heuristic approach.
+but after careful consideration we rather decided to use heuristic approach.
 The main reason for selecting this type of optimization algorithm is,
 that it provides suitable results during the whole runtime.
 This could be very handy when the time for load balancing decisions is tight

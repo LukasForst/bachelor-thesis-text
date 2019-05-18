@@ -1,21 +1,22 @@
 \section{Optimization algorithms data}\label{sec:optimization-algorithms-data}
 For the proper testing environment,
-the real runtime data of some optimization algorithm were needed.
-I decided to use TASP (mentioned in subsection \ref{subsubsec:tasp}) as an example heuristic algorithm
-which execution could be potentially scheduled by the instance of optimization load balancer.
-I did not implement new TASP instance,
-instead I used instances from Stochastic Dynamic Vehicle Routing Problem master's thesis by Petr Eichler\cite{Eichler:Petr:2003}.
+the real runtime data of the optimization algorithm were needed.
+We decided to use TASP (mentioned in subsection \ref{subsubsec:tasp}) as heuristic algorithm,
+which execution could be potentially scheduled by the instance of the optimization load balancer.
+We did not implement a new TASP instance,
+instead,
+we used an instances from Stochastic Dynamic Vehicle Routing Problem master's thesis by Petr Eichler\cite{Eichler:Petr:2003}.
 
 These instances solve real life vehicle routing problem 
-and mainly for that reason are ideal for testing purposes.
-I slightly modified the code from thesis for observation purposes
-and added time measuring functionality,
-which tracked time between the algorithm's iterations and the current job value in each iteration.
+and mainly for that reason are ideal for the testing purposes.
+We slightly modified the code from the thesis for observation purposes
+and added the time measuring functionality,
+which tracked the time between the algorithm's iterations and the current solution value of the job in each iteration.
 
 In overall,
-I executed and measured 56 different instances of TASP.
-The measurement can be found in \inlinedata{jobs-data/input} folder in the project
+we executed and measured 56 different instances of TASP.
+The observations can be found in \inlinedata{jobs-data/input} folder inside the implementation project
 and they are being used in the simulations,
 where the simulation module randomly selects for each job one file with runtime data
 and assigns it to the job, that is being scheduled.
-The data are then effectively used as input data for the scheduling algorithm.
+The data are then effectively used as an input data for the load balancer.

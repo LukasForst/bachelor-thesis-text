@@ -1,18 +1,17 @@
 \section{Architecture}\label{sec:architecture}
 
-Although this paper aims on the scheduling system's core,
+Although this paper goals aim solely on the scheduler and introducing the new load balancing strategy,
 the architecture keeps in mind future work outlined in the section \ref{sec:future-work}.
-Therefore the system's architecture  is based on the idea of cooperating microservices,
+Therefore the system's architecture is based on the idea of cooperating microservices,
 where each service has control over specific part of the infrastructure. 
 
 Microservice architecture is a software design architectural style 
 that structures an application as a collection of loosely coupled services that 
-are organized around system's business capabilities\cite{namiot2014micro} 
+are organized around the system's business capabilities\cite{namiot2014micro} 
 and are independently deployable with enabled continuous delivery\cite{balalaie2016microservices}.
-Microservice architectural design also helps to system's better horizontal scalability
+Microservice architectural design also helps to the system's better horizontal scalability
 by using multiple instances of one microservice 
-and orchestration module.
-
+and the orchestration module.
 
 \subsection{Architecture scheme}\label{subsec:architecture-scheme}
 Scheme \ref{fig:scheduling-core-arch} visualizes only system's core architecture. 

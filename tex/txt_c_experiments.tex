@@ -1,15 +1,23 @@
 \chapter{Experiments}\label{ch:experiments}
 
-To test the application,
+In this chapter, 
+we would like to present,
+how we tested the load balancer.
+The simulations were designed to reflect the real-life situations 
+and to simulate the most common usage of the load balancer.
+
+
+\section{Simulations implementation}\label{sec:simulations-implementations}
+To test the load balancer,
 there are two modules, 
 that contain simulation code used for testing -
-\inlinecode{simulation} and \inlinecode{remote-scheduler} modules.
-Simulation engine and all simulation use cases are located in simulation module.
+\inlinecode{simulation} and \inlinecode{remote-scheduler} module.
+The simulation engine and all simulation use cases are located in the simulation module.
 The second mentioned module contains server, 
-which runs simulations on remote API. 
-This is especially useful when testing whole scheduling environment for example in Docker Compose network
-and it is as closest as possible to real life environment,
-which should be running in micro services architecture.
+which runs simulations on the remote API. 
+This is especially useful when testing whole scheduling environment
+and it is as closest as possible to the real-life environment,
+which should be based on the microservices architecture.
 
 \input{txt_s_generated_data.tex}
 

@@ -33,7 +33,7 @@ that works by tracking input and output of tasks,
 including files changes tracking, and only running tasks, that are necessary
 and thus reducing the time necessary to build the project. 
 Also, it processes only these files, that were changed between tasks execution. 
-Another reason I choose Gradle was, that it is preferred build system for Kotlin.
+Another reason we choose Gradle was, that it is preferred build system for Kotlin.
 
 The preferred approach to build the application is to use Docker
 and build the application as the Docker image, 
@@ -41,7 +41,7 @@ which can be then run inside the Docker container.
 
 \subsubsection{Docker build environment}
 To keep build clean and reusable on almost every operating system and 
-machine setup I decided to use 
+machine setup we decided to use 
 \textbf{multistage Docker build}\footnote{Docker is a technology that performs operating-system-level virtualization,
 meaning that it uses hosts operating system kernel}
 which uses different base docker images for the build and for the run phase.
@@ -101,7 +101,7 @@ Because of the overall micro services architecture of the project,
 some kind of web framework was needed.
 There are many Java based web frameworks,
 that could be used. 
-I would like to present two of them - \textit{Spring Boot}, 
+We would like to present two of them - \textit{Spring Boot}, 
 which is traditional and widely used web framework for all kind of Java web applications
 and \textit{Ktor} - relatively new, 
 lightweight Kotlin framework build upon the Kotlin Coroutines\footnote{Way of asynchronous or non-blocking programming
@@ -134,7 +134,7 @@ the features of Spring would not be fully utilized
 and therefore the complexity of Spring could potentially slowed down the entire application.
 
 Because Ktor by default does not contain any dependency injection framework, 
-I decided to use lightweight DI\footnote{Dependency Injection} framework \textit{Koin}\cite{koinGithub}.
+We decided to use lightweight DI\footnote{Dependency Injection} framework \textit{Koin}\cite{koinGithub}.
 This framework is written in Kotlin and have its own DSL\footnote{Domain Specific Language} for the dependency specification,
 which is very handy for the medium sized project.
 
@@ -145,13 +145,13 @@ The \inlinecode{Application} context is accessible by its instance that is given
 This means that no \textit{route} can be registered without using instance of \inlinecode{Application}.
 
 During the development of the application and using Ktor framework, 
-I decided that this way of registering routes was not something I would like to be using,
+we decided that this way of registering routes was not something we would like to be using,
 mainly because it did not allowed to have simple class serving only as a route without having to inject \textit{Application} instance.
 Also, 
 since routes must be registered during the application startup,
 using the new class for each route would mean to create instance of the class and calling method to register the routes manually.
-Another reason I did not like the Ktor default approach was 
-that I personally prefer to inject class dependencies using construct injection instead of using setters injection.
+Another reason we did not like the Ktor default approach was 
+that we prefer to inject class dependencies using construct injection instead of using setters injection.
 \begin{itemize}
 	\item Constructor dependency injection - using constructor of the class to set all instances of the objects, that class uses.
 	      The main advantage is that the instance of class is always in a valid state, because it has all dependencies resolved during the instance creation.
@@ -161,8 +161,8 @@ that I personally prefer to inject class dependencies using construct injection 
 \end{itemize}
 
 To solve this \inlinecode{Application} instance dependency and to enable constructor dependency injection approach,
-I decided to implement simple library which would solve this issue for me.
-I came up with different way how to register various types of application's routes using the annotations, 
+we decided to implement simple library which would solve this issue for us.
+We came up with different way how to register various types of application's routes using the annotations, 
 reflection and dependency injection strategy.
 
 \medskip \noindent
@@ -213,5 +213,5 @@ class HelloRoute(sr: Service) : RouteBase("hello") {
 The route is automatically instantiated and registered by the Routes discovery library.
 The programmer does not need handle it by himself.
 
-For the library startup I designed a builder class using fluent builder pattern \inlinecode{ApplicationDependencyBuilder}.
+For the library startup we designed a builder class using fluent builder pattern \inlinecode{ApplicationDependencyBuilder}.
 Usage of this class can be found in the \inlinecode{ServerStarter.kt}.
