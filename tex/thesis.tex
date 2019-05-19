@@ -55,8 +55,6 @@
 \supervisor{Ing. Ondřej Vaněk, Ph.D.}
 \placeForDeclarationOfAuthenticity{Prague}
 \declarationOfAuthenticityOption{1} % 1-6
-\keywordsCS{vyvažování zátěže, optimalizační algoritmy, Kotlin, Ktor, Docker}
-\keywordsEN{load balancing, optimization algorithms, Kotlin, Ktor, Docker}   
 
 \acknowledgements{
   \noindent
@@ -82,11 +80,40 @@
   Lukáš Forst
 }
 
+\keywordsCS{vyvažování a distribuce zátěže, optimalizační algoritmy, Kotlin, Ktor, Docker}
+\keywordsEN{load balancing, optimization algorithms, Kotlin, Ktor, Docker}   
+
+
 \abstractCS{
-	abstract cs\todo{czech abstract here}
+  \noindent
+  Velké optimalizační úlohy nejsou jednoduché
+  a pro nalezení řešení vyžadují velké množství výpočetního výkonu, stejně jako výpočetního času.
+  Proto je výzvou je vyřešit paralelně a v co nejkratším možném čase.
+  Optimalizační problémy nejsou homogenní skupina,
+  ale popisují často kompletně odlišnou doménu a tedy mohou být velice různorodé.
+  Problém exekuce optimalizačních programů
+  a jejich výkonové náročnosti,
+  lze řešit za použití inteligentního plánovače,
+  který umožňuje naplánovat samotné spuštění úlohy v distribuovaném výpočetním prostředí.
+ 
+  \noindent
+  Tato práce se zabývá matematickou formalizací takového problému
+  a představuje implementaci plánovače a rozvrhovače zátěže speciálně navrženého a vyvinutého pro optimalizační algoritmy.
 }
+
 \abstractEN{
-	abstract en\todo{en abstract there}
+  \noindent
+  Large-scale optimization problems are non-trivial to solve 
+  and require a significant amount of computational resources as well as computational time to find a solution.
+  The challenge is to solve not only a single task but a multitude of them in a parallel manner.
+  Additionally, the tasks are non-homogeneous, 
+  often describing a different problem. 
+  This problem can be solved by designing 
+  and intelligent scheduler able to schedule such tasks on a distributed computational platform.
+  
+  \noindent
+  This work introduced the mathematical formalization 
+  and the implementation of the load balancing system specifically designed and developed for the optimization algorithms.
 }
 
 \begin{document}
@@ -108,10 +135,10 @@
 \bibliography{literature}
 
 \appendix {
-  \chapter{List of attachments}
-  \begin{enumerate}
-    \item CD with implementation described in chapter \ref{ch:implementation}
-  \end{enumerate}
+	\chapter{List of attachments}
+	\begin{enumerate}
+		\item CD with implementation described in chapter \ref{ch:implementation}
+	\end{enumerate}
 }
 
 \newpage\null\thispagestyle{empty}\newpage
