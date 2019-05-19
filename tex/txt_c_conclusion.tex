@@ -17,7 +17,7 @@ code\footnote{Lines provided by \inlinecode{find . -name "*.kt" | xargs cat | wc
 proved, that it is possible to use it as load balancing algorithm for optimization algorithms.
 
 \section{Future work}\label{sec:future-work}
-To achieve production ready load balancing system, 
+To achieve production ready load balancing system,
 an execution module, 
 which would transform the created plan into physical actions 
 such as running, stopping and moving the jobs between the physical execution nodes,
@@ -32,20 +32,20 @@ which would be running on the execution nodes.
 In this way, 
 the assigned resources would be very easily changed on one execution node.
 Migration to the next execution node would not be problem as well, 
-since containers could be wrapped and transported through the network.
+since the containers could be wrapped and transported through the network.
 
-Another infrastructure related missing feature in current solution is full REST API.
+Another infrastructure related feature is the full JSON-enabled REST API.
 Currently only binary serialization is supported.
 In the future, 
 full REST with JSON as its transport format should be supported.
 
 \subsubsection{Routes discovery library}
 Routes discovery library was very handy during the development of application's server parts 
-and I believe that this way of routes registration in Ktor would suit to many developers as well.
+and we believe that this way of routes registration in Ktor would suit to many developers as well.
 
-Therefore I would like to refactor it from the base project 
+Therefore we would like to refactor it from the base project 
 and create open source project which will ensure future library development.
-I would like to also make it more generic,
+We would like to also make it more generic,
 because right know, 
 it depends on specific Ktor and Koin version.
 Although Ktor dependency is necessary
@@ -53,16 +53,10 @@ since it is library developed specifically for Ktor,
 Koin should be replaced by generic way, 
 how to obtain dependencies for routes.
 
-I believe in future usage and development of the library
-and I hope, 
-that there will be many future developers,
-that will agree with me.
-
-
 \subsubsection{Extension functions}
 During the application development,
-I created and tested many Kotlin extension functions.
-These functions are mainly not domain specific
-and for that reason I decided that it would be fine to publish them as well as Routes discovery library.
+we created and tested many Kotlin extension functions.
+In general, these functions are not domain specific
+and for that reason we decided that we will publish them as well as Routes discovery library.
 These extensions could be useful when starting new project,
-because they are able to perform many operations in single line of Kotlin code.
+because they are able to perform many operations in the single line of Kotlin code.

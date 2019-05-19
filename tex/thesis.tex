@@ -3,15 +3,14 @@
 % basic packages
 \usepackage[utf8]{inputenc} % input in utf8
 \usepackage{cite} % bibtex
+\bibliographystyle{ieeetr}
+
 \usepackage{url} % so URLs look better in bib
 \usepackage{amsmath} % math extensions
 
 % fancy packages
 \usepackage{indentfirst} % indent every time after new line
 \usepackage{xcolor} % various colors used in listings and in template
-
-\usepackage[square,numbers]{natbib} % bibliography style with numbers
-\bibliographystyle{abbrvnat}
 
 \hypersetup{hidelinks=true} % disable hideous link borders
 
@@ -107,5 +106,13 @@
 \input{txt_c_conclusion.tex}
 
 \bibliography{literature}
+
+\appendix {
+  \chapter{List of attachments}
+  \begin{enumerate}
+    \item CD with implementation described in chapter \ref{ch:implementation}
+  \end{enumerate}
+}
+
 \newpage\null\thispagestyle{empty}\newpage
 \end{document}
