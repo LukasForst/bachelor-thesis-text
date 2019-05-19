@@ -1,3 +1,2 @@
 - abstract
-- complete application algorithm
 - popsat simulace

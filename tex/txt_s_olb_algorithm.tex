@@ -1,67 +1,65 @@
 \section{Complete application algorithm}\label{sec:olb-algorithm}
 
-There are two possible ways, 
-how to create execution plan with load balancing decisions.
-The first should be used when no scheduled optimization algorithm runtime data are available.
-Typically, when system is starting up
-and no job is being currently scheduled.
-The second aims to provide more informed decisions by using jobs runtime data with job-value function history.
-Thanks to this provided history,
-load balancing algorithm is able to take in account the prediction of future job-value function development.
+The load balancing algorithm phases are divided into scheduling rounds.
+Each scheduling round produces new execution plan.
+The execution plan is created for specified scheduling horizon,
+this horizon is the period of time,
+which is limited by the time $t+1$ and the $t_{max}$, 
+which defines the end of the execution plan
+and where the $t$ is the time of an execution.
+In other words,
+each scheduling round, executed in time $t$,
+produces the scheduling plan with scheduling horizon from $t+1$ to $t_{max}$.
 
-Common thing for the two scheduling ways is,
-that they need to receive data set, 
-convert it into inner core representation
-and after plan creation send the scheduled data to the client.
+The scheduling horizon can be configured in the scheduling properties described in chapter \ref{ch:implementation}.
+The length of scheduling window can be configured as well. 
 
-The final algorithm is then following, 
-the two phases are described below.
-\begin{algorithm}[H]
-    \SetAlgoLined
-    \textbf{jobsDomain} $\leftarrow$ gather jobs from waiting queue\;
-    \textbf{plan} $\leftarrow$ execute initial initial plan creation on \textbf{jobsDomain}\;
-	\While{job to schedule exists} {
-        \textbf{waitingJobs} $\leftarrow$ gather jobs from waiting queue\;
-        \textbf{jobsExecutionData} $\leftarrow$ gather runtime information about jobs runtime\;
-        \textbf{plan} $\leftarrow$ enhance \textbf{plan} with \textbf{jobsExecutionData} 
-        and \textbf{waitingJobs} $\cap$ \textbf{jobsDomain}\;
-	}
-\end{algorithm} 
-
-\subsection{Initial plan creation}\label{subsec:initial-plan-creation}
-
-In the initial plan creation phase, 
-there are no data to begin with.
-Therefore the prediction functionality is not used.
-Also, 
-the predictions dependents constraints in core OptaPlanner wrapper implementation are skipped. 
-
-The following algorithm steps are used when the initial plan creation is executed. 
-
-\begin{algorithm}[H]
-	\SetAlgoLined
-	\Input{jobs, scheduling properties}
-	\textbf{jobsToSchedule} $\leftarrow$ convert given jobs to inner core representation\;
-	\textbf{plan} $\leftarrow$ start OptaPlanner scheduling with \textbf{jobsToSchedule}\;
-	convert created \textbf{plan} to output data\;
-	\Output{Time schedule for each job}
-\end{algorithm} 
-
-\subsection{Plan enhancement}\label{subsec:plan-enhancement}
-During the plan enhancement scheduling stage are used all available information for more informed decisions.
-
-Following pseudocode describes behavior of the program when the plan enhancement phase is triggered.
-The obsolete data are jobs,
-that were already scheduled and executed,
-or are due their scheduling history unschedulable (their $D^{j}$ or $P^{j}$ exceeded).
-
-\begin{algorithm}[H]
-	\SetAlgoLined
-    \Input{jobs, scheduling properties, job history}
-    \textbf{jobsDomain} $\leftarrow$ filter obsolete data from jobs\;
-    \textbf{jobsToSchedule} $\leftarrow$ convert \textbf{jobsDomain} to inner core representation\;
-    \textbf{predictions} $\leftarrow$ create predictions of job-value function based on job history data\;
-	\textbf{plan} $\leftarrow$ start OptaPlanner scheduling with \textbf{jobsToSchedule} and \textbf{predictions}\;
-	convert created \textbf{plan} to output data\;
-	\Output{Time schedule for each job}
-\end{algorithm} 
+\noindent
+\begin{minipage}{\textwidth}
+	The following steps describes the way, how the load balancer works.
+	\begin{enumerate}
+		\item \label{item:initial-scheduling-step} Poll jobs from the jobs queue.
+		\begin{itemize}
+			\item The incoming jobs from API are stored in the queue, 
+			until the scheduling algorithm picks them up.
+			That happens when the new scheduling round is engaged.
+		\end{itemize}
+	
+		\item Analyze and filter jobs, that are not relevant for the current scheduling round.
+		\begin{itemize}
+			\item Filtered out are the jobs,
+			 whose execution time exceeded the maximal possible execution time $D^{j}$
+			 or whose cost has exceeded the maximal cost $P^{j}$.
+		\end{itemize}
+	
+		\item Convert received jobs into the inner data representation.
+		\begin{itemize}
+			\item The scheduling core works with different data objects,
+			than the load balancer API.
+			For that reason,
+			the data must be converted from the data transfer objects structure
+			to the OptaPlanner domain representation.
+		\end{itemize}
+	
+		\item Create predictions based on the solution value of the jobs 
+		and on the history of the load balancing decisions.
+		\begin{itemize}
+			\item The process of making the predictions is described in section \ref{sec:algorithm-value-prediction}.
+		\end{itemize}
+	
+		\item Produce execution plan using OptaPlanner scheduling.
+		\begin{itemize}
+			\item The scheduling is limited to the amount of time defined as scheduling window.
+			When the scheduling reaches the scheduling window (for example 60 seconds),
+			it is stopped.
+		\end{itemize}
+	
+		\item Convert created plan into time schedule and send them back to the client.
+		\begin{itemize}
+			\item Transform internal domain representation into DTO layer and send them back to the client.
+		\end{itemize}
+	
+		\item Engage the next scheduling round and go to the step \ref{item:initial-scheduling-step}.
+	\end{enumerate}	
+\end{minipage}
+\bigskip

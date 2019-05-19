@@ -145,13 +145,13 @@ The \inlinecode{Application} context is accessible by its instance that is given
 This means that no \textit{route} can be registered without using instance of \inlinecode{Application}.
 
 During the development of the application and using Ktor framework, 
-we decided that this way of registering routes was not something we would like to be using,
-mainly because it did not allowed to have simple class serving only as a route without having to inject \textit{Application} instance.
+we decided that proprietary way of registering routes was not something we would like to be using,
+mainly because it did not allowed to have simple class serving only as a route without having to inject the \textit{Application} instance.
 Also, 
-since routes must be registered during the application startup,
-using the new class for each route would mean to create instance of the class and calling method to register the routes manually.
-Another reason we did not like the Ktor default approach was 
-that we prefer to inject class dependencies using construct injection instead of using setters injection.
+since the routes must be registered during the application startup,
+using the new class for each route would mean to create instance of the class and executing the method to register the routes manually.
+Another reason we did not like the Ktor default approach was,
+that we prefer to inject class dependencies using the construct injection instead of using the setters injection.
 \begin{itemize}
 	\item Constructor dependency injection - using constructor of the class to set all instances of the objects, that class uses.
 	      The main advantage is that the instance of class is always in a valid state, because it has all dependencies resolved during the instance creation.
