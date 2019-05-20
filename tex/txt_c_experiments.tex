@@ -19,6 +19,14 @@ This is especially useful when testing whole scheduling environment
 and it is as closest as possible to the real-life environment,
 which should be based on the microservices architecture.
 
+Both simulation can be started up locally using \inlinecode{SimulationExecutor} or
+using \inlinecode{docker-compose} inside the microservices runtime environment.
+Input data for the tests are created randomly,
+based on number of scheduled jobs and given planning horizon (how much steps ahead should scheduler count with).
+The number of scheduled jobs can be easily edited directly in code.
+For the simulation data and the input configuration please refer to \inlinecode{OnePlanningRoundSimulation} 
+and \inlinecode{RuntimeSimulation} classes.
+
 \input{txt_s_generated_data.tex}
 
 \input{txt_s_simulations.tex}
