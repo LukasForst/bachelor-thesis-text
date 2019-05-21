@@ -182,11 +182,11 @@ Following algorithm is used to find and register all routes used in the project.
 \begin{algorithm}[H]
 	\SetAlgoLined
 	\Input{Package name, where all routes are stored}
-	\textbf{routes} $\leftarrow$ find all classes annotated as \inlinecode{@Route} in provided package name\;
+	\textbf{routes} $\leftarrow$ find all classes annotated as \inlinedata{@Route} in provided package name\;
 	\For{\textbf{route} in \textbf{routes}}{
 		\textbf{dependencies} $\leftarrow$ obtain dependencies needed for creating instance of \textbf{route}\;
 		\textbf{routeInstance} $\leftarrow$ create instance of \textbf{route} using \textbf{dependencies}\;
-		register \textbf{routeInstance} in instance of \inlinecode{Application} \;
+		register \textbf{routeInstance} in instance of \inlinedata{Application} \;
 	}
 	\Output{All routes are registered and ready to use}
 \end{algorithm} 
