@@ -10,56 +10,71 @@ and where the $t$ is the time of an execution.
 In other words,
 each scheduling round, executed in time $t$,
 produces the scheduling plan with scheduling horizon from $t+1$ to $t_{max}$.
-
 The scheduling horizon can be configured in the scheduling properties described in chapter \ref{ch:implementation}.
 The length of scheduling window can be configured as well. 
 
-\noindent
-\begin{minipage}{\textwidth}
-	The following steps describes the way, how the load balancer works.
-	\begin{enumerate}
-		\item \label{item:initial-scheduling-step} Poll jobs from the jobs queue.
-		\begin{itemize}
-			\item The incoming jobs from API are stored in the queue, 
-			until the scheduling algorithm picks them up.
-			That happens when the new scheduling round is engaged.
-		\end{itemize}
-	
-		\item Analyze and filter jobs, that are not relevant for the current scheduling round.
-		\begin{itemize}
-			\item Filtered out are the jobs,
-			 whose execution time exceeded the maximal possible execution time $D^{j}$
-			 or whose cost has exceeded the maximal cost $P^{j}$.
-		\end{itemize}
-	
-		\item Convert received jobs into the inner data representation.
-		\begin{itemize}
-			\item The scheduling core works with different data objects,
-			than the load balancer API.
-			For that reason,
-			the data must be converted from the data transfer objects structure
-			to the OptaPlanner domain representation.
-		\end{itemize}
-	
-		\item Create predictions based on the solution value of the jobs 
-		and on the history of the load balancing decisions.
-		\begin{itemize}
-			\item The process of making the predictions is described in section \ref{sec:algorithm-value-prediction}.
-		\end{itemize}
-	
-		\item Produce execution plan using OptaPlanner scheduling.
-		\begin{itemize}
-			\item The scheduling is limited to the amount of time defined as scheduling window.
-			When the scheduling reaches the scheduling window (for example 60 seconds),
-			it is stopped.
-		\end{itemize}
-	
-		\item Convert created plan into time schedule and send them back to the client.
-		\begin{itemize}
-			\item Transform internal domain representation into DTO layer and send them back to the client.
-		\end{itemize}
-	
-		\item Engage the next scheduling round and go to the step \ref{item:initial-scheduling-step}.
-	\end{enumerate}	
-\end{minipage}
+The formalized algorithm is then presented in the algorithm~\ref{alg:load-balancing-alg}.
+The job related properties $D,T,P$ and $C$ are the very same variables defined in the section \ref{sec:formal-definition}.
+The functions mentioned in the algorithm are described in the algorithm detailed description listed bellow the algorithm itself.
+The function \textit{predict} is related to the step described in the step \ref{item:predictions-scheduling-step}
+and the function \textit{schedule} to the step \ref{item:scheduling-step}.
+
 \bigskip
+\begin{algorithm}[H]
+	\SetAlgoLined
+	\Input{$Q$ - queue with jobs to schedule}
+	$Q$: jobs queue\;
+	$J$: set of jobs\;
+	$P$: predictions\;
+	$E$: execution plan\;
+	\BlankLine
+	$J \leftarrow$ $Q$.poll()\;
+	$J'\leftarrow$ $J$.filter($job \rightarrow job.D > job.T \wedge job.P > job.C$)\;
+	$J'' \leftarrow$ convert($J'$)\;
+	$P \leftarrow$ predict($J''$)\;
+	$E \leftarrow$ schedule($J''$, $P$)\;
+	$E' \leftarrow$ convert($E$)\;
+	\Result{$Q$ is empty}
+	\Output{$E'$ - execution plan}
+	\caption{Load balancing algorithm}
+	\label{alg:load-balancing-alg}
+\end{algorithm} 
+\medskip
+\begin{enumerate}
+	\itemsep0pt
+	\item \label{item:initial-scheduling-step} Poll jobs from the jobs queue.
+	\begin{itemize}
+		\item The incoming jobs from API are stored in the queue, 
+		until the new scheduling round is engaged.
+	\end{itemize}
+
+	\item Analyze and filter jobs, that are not relevant for the current scheduling round.
+	\begin{itemize}
+		\item Filtered out are the jobs,
+		 whose execution time exceeded the maximal possible execution time $D^{j}$
+		 or whose cost has exceeded the maximal cost $P^{j}$.
+	\end{itemize}
+
+	\item \label{item:convert-to-scheduling-step} Convert received jobs into the inner data representation.
+	\begin{itemize}
+		\item The data must be converted from the data transfer objects structure
+		to the OptaPlanner domain representation.
+	\end{itemize}
+
+	\item \label{item:predictions-scheduling-step} Create predictions based on the solution value of the jobs 
+	and on the history of the load balancing decisions.
+	\begin{itemize}
+		\item The process of making the predictions is described in section \ref{sec:algorithm-value-prediction}.
+	\end{itemize}
+
+	\item \label{item:scheduling-step} Produce execution plan using OptaPlanner scheduling.
+	\begin{itemize}
+		\item The scheduling is limited to the amount of time defined as scheduling window.
+		When the scheduling reaches the scheduling window (for example 60 seconds),
+		it is stopped.
+	\end{itemize}
+
+	\item \label{item:convert-back-scheduling-step} Convert created plan into time schedule and send them back to the client.
+
+	\item Engage the next scheduling round and go to the step \ref{item:initial-scheduling-step}.
+\end{enumerate}	
