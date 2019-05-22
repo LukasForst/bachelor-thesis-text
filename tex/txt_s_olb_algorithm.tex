@@ -1,21 +1,21 @@
 \section{Complete application algorithm}\label{sec:olb-algorithm}
 
 The load balancing algorithm phases are divided into scheduling rounds.
-Each scheduling round produces new execution plan.
-The execution plan is created for specified scheduling horizon,
-this horizon is the period of time,
+Each scheduling round produces a new execution plan.
+The execution plan is created for a specified scheduling horizon,
+this horizon is the period,
 which is limited by the time $t+1$ and the $t_{max}$, 
 which defines the end of the execution plan
-and where the $t$ is the time of an execution.
+and where the $t$ is the time of execution.
 In other words,
 each scheduling round, executed in time $t$,
 produces the scheduling plan with scheduling horizon from $t+1$ to $t_{max}$.
 The scheduling horizon can be configured in the scheduling properties described in chapter \ref{ch:implementation}.
-The length of scheduling window can be configured as well. 
+The length of the scheduling window can be configured as well. 
 
 The formalized algorithm is then presented in the algorithm~\ref{alg:load-balancing-alg}.
 The job related properties $D,T,P$ and $C$ are the very same variables defined in the section \ref{sec:formal-definition}.
-The functions mentioned in the algorithm are described in the algorithm detailed description listed bellow the algorithm itself.
+The functions mentioned in the algorithm are described in the algorithm detailed description listed below the algorithm itself.
 The function \textit{predict} is related to the step described in the step \ref{item:predictions-scheduling-step}
 and the function \textit{schedule} to the step \ref{item:scheduling-step}.
 

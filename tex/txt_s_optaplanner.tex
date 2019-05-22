@@ -16,8 +16,8 @@ Input variables $D^{j}$ and $P^{j}$ are then specified as a \inlinecode{JobParam
 Resources $r$ are implemented as a sealed class \inlinecode{Resources} composing of \inlinecode{CpuResources} 
 and \inlinecode{MemoryResources}.
 Resources belong to resources pools,
-which can be imagined as a physical computers or a virtual machines.
-Resource pools then cary information about the cost ${}^{r}c$ of the underlying resources.
+which can be imagined as physical computers or a virtual machines.
+Resource pools then carry information about the cost ${}^{r}c$ of the underlying resources.
 The pools are represented as a \inlinecode{ResourcesPool} interface.
 
 Class \inlinecode{JobValue} represents a solution value of the job during time $v_{t}^{j}$
@@ -30,18 +30,18 @@ In the similar constraint \inlinecode{TimeEvaluation}, $t$ value is compared wit
 whether all specified constraints are satisfied.
 
 Scheduling output is always \inlinecode{AllocationPlan}.
-It contains job domain, resources domain, overall cost
+It contains job domain, resources domain, the overall cost
 and created time schedule.
 From the latest, 
 values $T^{j}$ and $C^{j}$ can be computed very easily,
-therefore are not present directly in interface as properties.
+therefore are not present directly in the interface as properties.
 
 \subsection{Scheduling Algorithm}
 The OptaPlanner scheduling itself has two main phases.
-\textit{Construction heuristics}, that tries to build initial solution in a finite length of time.
+\textit{Construction heuristics} that tries to build an initial solution in a finite length of time.
 This partial solution is not always feasible, 
-but it is found in relatively short time and then it is passed to the next scheduling phase.
-\textit{Local search} with metaheuristics that can enhance the partial solution found in previous phase.
+but it is found in a relatively short time, and then it is passed to the next scheduling phase.
+\textit{Local search} with metaheuristics that can enhance the partial solution found in the previous phase.
 
 OptaPlanner contains various types of construction heuristics (i.e. \textit{first fit}, \textit{weakest fit} and \textit{strongest fit})
 as well as local search metaheuristics such as \textit{hill climbing}, \textit{tabu search} and \textit{simulated annealing}.
@@ -53,10 +53,10 @@ It assigns the planning entity to the best available planning value,
 taking the already initialized planning entities into account.
 It terminates when all entities have been initialized\cite{optaplannerDoc:heuristics}.
 
-The Tabu Search metaheuristics search is based on local search optimization method
+The Tabu Search metaheuristics search is based on the local search optimization method
 and enhances it by worse step strategy, 
 when at each step worsening moves can be accepted if no improving move is available.
-In addition, prohibitions are introduced to discourage the search from coming back to previously-visited solutions\cite{glover1989tabu}.
+Besides, prohibitions are introduced to discourage the search from coming back to previously-visited solutions\cite{glover1989tabu}.
 
 \subsection{Implementation}
 The scheduling implementation can be found in module \inlinecode{core}.
@@ -68,15 +68,15 @@ All custom constraints should implement \inlinecode{CompletePlanEvaluation}
 or \inlinecode{PlanEvaluation} interface.
 That way, 
 they can be used in custom score evaluator,
-which is then used to generate score of the given plan.
-The constrains are stored in collections of previously mentioned interfaces 
-and evaluated at once, when plan is submitted.
+which is then used to generate the score of the given plan.
+The constraints stored in collections of previously mentioned interfaces 
+and evaluated at once, when the plan is submitted.
 Thanks to this solution,
-additional constrains can be added or removed very easily.
+additional constraints can be added or removed very easily.
 
 As an input for the scheduling algorithm interface \inlinecode{SchedulingProperties} is used.
 This interface defines properties necessary for the scheduling infrastructure
-such as \inlinecode{maxTimePlanningSpend} which defines how long can the application run the scheduling 
+such as \inlinecode{maxTimePlanningSpend} which explains how long can the application run the scheduling 
 or \inlinecode{cores}, describing how many cores in the computer can algorithm utilize by spawning scheduling threads.
 
 The OptaPlanner scheduler instance is created by custom factory implementation 

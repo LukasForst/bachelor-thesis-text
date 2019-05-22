@@ -5,9 +5,9 @@ We decided to use TASP (mentioned in subsection \ref{subsubsec:tasp}) as heurist
 which execution could be potentially scheduled by the instance of the optimization load balancer.
 We did not implement a new TASP instance,
 instead,
-we used an instances from Stochastic Dynamic Vehicle Routing Problem master's thesis by Petr Eichler\cite{Eichler:Petr:2003}.
+we used examples from Stochastic Dynamic Vehicle Routing Problem master's thesis by Petr Eichler\cite{Eichler:Petr:2003}.
 
-These instances solve real life vehicle routing problem 
+These instances solve the real-life vehicle routing problem 
 and mainly for that reason are ideal for the testing purposes.
 We slightly modified the code from the thesis for observation purposes
 and added the time measuring functionality,
@@ -19,4 +19,4 @@ The observations can be found in \inlinedata{jobs-data/input} folder inside the 
 and they are being used in the simulations,
 where the simulation module randomly selects one file with runtime data for each job 
 and assigns it to the job, that is being scheduled.
-The data are then effectively used as an input data for the load balancer.
+The data are then effectively used as input data for the load balancer.

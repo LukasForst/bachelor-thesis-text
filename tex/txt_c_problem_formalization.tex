@@ -1,20 +1,20 @@
 \chapter{Problem formalization}\label{ch:problem-formalization}
 
-The problem with implementation of optimization algorithms in applications is that their
+The problem with the implementation of optimization algorithms in applications is that their
 performance requirements are quite high and are fully utilized only while working.
-Optimization algorithm is not running all the time and for that reason hardware resources are mainly unused.
-These unused resources could be potentially used by another instance of algorithm
-or can be shutdown completely to reduce hosting costs.
-Also adding more time to the job execution does not always bring better solution
+The optimization algorithm is not running all the time and for that reason hardware resources are mainly unused.
+These unused resources could be potentially used by another instance of the algorithm
+or can be shut down completely to reduce hosting costs.
+Also adding more time to the job execution does not always bring a better solution
 but it certainly costs more.
 
 The figure \ref{fig:problem-scheme} displays standard case,
-when application is deployed on the server.
-Because the application uses optimization algorithm, 
+when the application is deployed on the server.
+Because the application uses an optimization algorithm, 
 the server must be powerful enough to deliver suitable results.
 This also means,
 that the server resources must be allocated to the application and to nothing else,
-which leads to the resource wasting.
+which leads to resource wasting.
 \begin{figure}[ht] 
     \includegraphics[scale=0.7]{i_problem_scheme_without.pdf} 
     \centering
@@ -24,7 +24,7 @@ which leads to the resource wasting.
 
 The next figure \ref{fig:problem-with-load-balancer} visualizes scenario when the load balancer is used.
 Instead of using powerful servers for each of the applications,
-it is enough to use small server or even deploy multiple applications on the one machine.
+it is enough to use a small server or even deploy multiple applications on the one machine.
 This can be done thanks to the outsourcing of the optimization jobs to the external servers with more computational power.
 \begin{figure}[ht] 
     \includegraphics[width=\textwidth]{i_problem_scheme_jobs.pdf} 
@@ -32,8 +32,7 @@ This can be done thanks to the outsourcing of the optimization jobs to the exter
     \caption{Problem visualization with the load balancer}
     \label{fig:problem-with-load-balancer}
 \end{figure}
-The circles are optimization jobs,
-that were triggered by the same colored applications
+The circles are optimization jobs triggered by the corresponding colored applications
 and are being executed on the different servers in the cloud.
 
 Moreover,

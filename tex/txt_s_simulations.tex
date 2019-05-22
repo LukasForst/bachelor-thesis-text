@@ -1,12 +1,12 @@
 \section{Simulations}\label{sec:simulations}
 
-There are two main randomized simulation scenarios inside simulation module 
+There are two main randomized simulation scenarios inside the simulation module 
 (module described in \ref{subsec:simulations-architecture}).
-First simulation is designed to be static.
+The first simulation is designed to be static.
 It creates only one execution plan
 and then it shut downs.
 The second simulation reflects the presumed production environment
-and is described in the figure \ref{fig:simulation-process}.
+and is described in figure \ref{fig:simulation-process}.
 
 \begin{figure}[ht] 
 	\includegraphics[width=\textwidth]{i_simulation_process.pdf} 
@@ -35,7 +35,7 @@ and is described in the figure \ref{fig:simulation-process}.
 \subsection{Simulation output}\label{subsec:simulation-output}
 
 Simulation's output (produced execution plan) is printed to standard output.
-Data displayed in the table~\ref{table:execution-plan} are a formalized output produced by the simulation with 10 jobs being scheduled at once.
+Data displayed in the table~\ref{table:execution-plan} are a formalized output produced by the simulation with ten jobs being scheduled at once.
 The optimization jobs,
 which were scheduled in the table~\ref{table:execution-plan},
 have their parameters displayed in the table~\ref{table:jobs-parameters}. 
@@ -71,7 +71,7 @@ and represents following data related to the one job.
 	\item $C^{j}$ - resource costs, how much money was actually paid for the job execution
 \end{itemize}
 
-The following data output in the table \ref{table:execution-plan} is result of the first scheduling window 
+The following data output in the table \ref{table:execution-plan} is the result of the first scheduling window 
 (how does the load balancing algorithm work is described in section \ref{sec:olb-algorithm}).
 
 \begin{table}[ht]
@@ -92,15 +92,15 @@ The following data output in the table \ref{table:execution-plan} is result of t
 \end{table}
 
 Time axis shows time units ($t$ value described in section \ref{sec:formal-definition}).
-Second, vertical axis, visualizes resources.
+Second, vertical axis visualizes resources.
 $r$ value is in the format $x.y$ where the $x$ value is the resources provider (explained in section \ref{subsec:formalized-definition-representation}),
-and $y$ is one usage unit - meaning that it could be one physical core or for example percentage of shared processor.
-In implementation, this value is referred as CPU core,
+and $y$ is one usage unit - meaning that it could be one physical core or for example percentage of the shared processor.
+In the implementation, this value is called CPU core,
 but in fact, it is dimensionless value expressing usage of some system resources.
 
 Each cell contains either number or is empty.
-Number is job ID and indicates, that this resource is allocated to job with displayed ID.
+The number is job ID and indicates that this resource is allocated to the job with displayed ID.
 This is effectively $^{r}x_{t}^{j}$ value explained in section \ref{subsec:variables-definition}.
 
-Total plan cost is sum of all particular costs of all jobs - their resources allocations.
+Total plan cost is the sum of all particular costs of all jobs - their resources allocations.
 Therefore this is the cost of the created execution plan.

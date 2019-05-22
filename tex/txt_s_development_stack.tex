@@ -7,22 +7,22 @@ the traditional Java platform programming language Java was not used.
 
 \subsection{Programming Language}\label{subsec:programming-language}
 The OLB\footnote{Optimization Load Balancer, name of the application} is not bound to the single technology, 
-which could limit the development stack, and for that reason,
-we had a free choice while making the decision about the programming language used for the OLB implementation.
+which could limit the development stack and for that reason,
+we had a free choice while choosing the programming language used for the OLB implementation.
 
 OLB is programmed in the programming language \textbf{Kotlin}.
-This cross-platform, statically typed, general-purpose programming language is developed by JetBrains\cite{kotlinReference}.
+This cross-platform, statically typed, the general-purpose programming language is developed by JetBrains\cite{kotlinReference}.
 Kotlin is 100\% interoperable with Java because it uses JVM as its runtime and it is compiled to the Java Bytecode.
-Apart from the Java Bytecode, it can be also compiled to JavaScript or native code.\cite{kotlinReference}
-The main advantage of Kotlin is its strong and aggressive type inference,
+Apart from the Java Bytecode, it can also be compiled to JavaScript or native code.\cite{kotlinReference}
+The main advantage of Kotlin is its aggressive and robust type inference,
 meaning that for the most of the time,
-it is not necessary to specify used data type since Kotlin compiler is able to infer it from the context.\cite{kotlinReference}
-It results to concise language syntax and therefore to the faster development in general.
+it is not necessary to specify used data type since Kotlin compiler can infer it from the context.\cite{kotlinReference}
+It results in concise language syntax and therefore to the faster development in general.
 
-Another great advantage is the Kotlin's \textit{null safety}. 
+Another great advantage is Kotlin's \textit{null safety}. 
 Kotlin compiler distinguishes between non-nullable types and nullable types 
-and enforces \textit{null checks}\footnote{Check whether the object being used has not null value} when the object has nullable data type.
-This feature effectively leads to less problems in the code
+and enforces \textit{null checks}\footnote{Check whether the object being used has not null value} when the object has a nullable data type.
+This feature effectively leads to fewer problems in the code
 and drastically reduces \textit{Null Pointer Exceptions}\footnote{Exception raised when code access reference that has null value}
 during the runtime.
 
@@ -31,28 +31,28 @@ The application uses Gradle as its build automation system.
 It was chosen mainly because its incrementally build system,
 that works by tracking input and output of tasks, 
 including files changes tracking, and only running tasks, that are necessary
-and thus reducing the time necessary to build the project. 
-Also, it processes only these files, that were changed between tasks execution. 
-Another reason we choose Gradle was, that it is preferred build system for Kotlin.
+and thus reducing the required time to build the project. 
+Also, it processes only these files that were changed between tasks execution. 
+Another reason we choose Gradle was that it is preferred build system for Kotlin.
 
-The preferred approach to build the application is to use Docker
-and build the application as the Docker image, 
+The preferred approach to assemble the application is to use Docker
+and build it as the Docker image, 
 which can be then run inside the Docker container.
 
 \subsubsection{Docker build environment}
-To keep build clean and reusable on almost every operating system and 
+To keep the build clean and reusable on almost every operating system and 
 machine setup we decided to use 
 \textbf{multistage Docker build}\footnote{Docker is a technology that performs operating-system-level virtualization,
 meaning that it uses hosts operating system kernel}
-which uses different base docker images for the build and for the run phase.
-Since OLB targets JVM 11 environment and uses Gradle as its build system,
+which uses different base docker images for the build and the run phase.
+Since OLB targets the JVM 11 environment and uses Gradle as its build system,
 \textit{gradle:5.4.0-jdk11-slim} is used as base image for build stage.
-This image contains all necessary Gradle build tools while having smaller size than common Gradle Docker image.
+This image contains all necessary Gradle build tools while having a smaller size than the common Gradle Docker image.
 Even smaller (in terms of size) are \textit{alpine} based docker images. 
-Alpine is smallest possible Linux core, 
-which is widely used in the wide range of Docker base images.
+Alpine is the smallest possible Linux core, 
+which is widely used in the full range of Docker base images.
 Alpine is focused on the smallest possible size of the image, 
-while having all necessary tools build in.
+while having all the necessary tools built in.
 Unfortunately, there were (at the time of development) no official JVM 11 alpine images
 since there is no official stable OpenJDK\footnote{Open-source implementation of the Java Platform, Standard Edition} 
 11 build for Alpine Linux.
@@ -63,8 +63,8 @@ where the application image runs inside the created docker container.
 
 \subsubsection{Docker runtime environment}\label{subsubsec:docker-runtime-env}
 The build application files are copied from the Docker build stage to the Docker runtime stage.
-As the runtime base image in multistage build was used \textit{openjdk:11-jre-slim} image,
-because it is official OpenJDK 11 Docker image and therefore it is declared as stable.
+As the runtime base image in the multistage build was used \textit{openjdk:11-jre-slim} image,
+because it is an official OpenJDK 11 Docker image and therefore it is declared as stable.
 
 Because there was used \textit{gradle application plugin} while building the application, 
 startup scripts were generated by the Gradle.
@@ -74,35 +74,35 @@ When starting the whole application,
 multiple services must be started up.
 Therefore, because of the containerized environment,
 where containers can not access each other,
-multiple containers must be started and virtual network connecting them together must be created.
+multiple containers must be started, and the virtual network connecting them must be created.
 This process can be automated using Docker Compose.
 
 \subsubsection{Docker Compose}
 Docker Compose\cite{dockerComposeReference} is an application for defining, running and managing multi-container Docker applications.
 It automatically creates Docker networks as well as Docker volumes.
 With writing down the definition of multiple Docker applications to the one Docker Compose configuration file,
-it is possible to create powerful micro services architecture, 
-which can be build or started using single command.
+it is possible to create robust microservices architecture, 
+which can be built or started using a single command.
 
 Thanks to the created Docker networks,
 containers can communicate with each other using Docker Compose service names,
-therefore they do not need to know specific IP address they are running on.
+therefore they do not need to know specific IP address they have.
 
-Docker Compose is used in the implementation of OLB since it is designed with micro services architecture in mind.
+Docker Compose is used in the implementation of OLB since it is designed with microservices architecture in mind.
 There are two services - Scheduling server and Scheduling client.
-Scheduling server provides ability to schedule process execution on the various computers
+Scheduling server provides the ability to schedule process execution on the various computers
 and contains all core algorithms.
-Scheduling client is an example application which uses ability of scheduling server. 
+Scheduling client is an example application which uses the ability of scheduling server. 
 There are implemented various simulations,
 which are being executed by scheduling client.  
 
 \subsection{Framework}\label{subsec:framework}
-Because of the overall micro services architecture of the project,
-some kind of web framework was needed.
-There are many Java based web frameworks,
+Because of the overall microservices architecture of the project,
+a web framework was needed.
+There are many Java-based web frameworks 
 that could be used. 
 We would like to present two of them - \textit{Spring Boot}, 
-which is traditional and widely used web framework for all kind of Java web applications
+which is a traditional and widely used web framework for all kind of Java web applications
 and \textit{Ktor} - relatively new, 
 lightweight Kotlin framework build upon the Kotlin Coroutines\footnote{Way of asynchronous or non-blocking programming
 that generalize subroutines for non-preemptive multitasking with using suspended/resumed task execution}.
@@ -112,83 +112,83 @@ that generalize subroutines for non-preemptive multitasking with using suspended
 Spring Boot\cite{springBootReference} is an open source Java Spring-powered web framework.
 It takes an opinionated view of the Spring platform,
 meaning that Spring Boot automatically configure Spring and 3rd party libraries whenever possible,
-and therefore enables usage of it to wider audience.
-It is highly dependent on the starter templates feature which provide pre-configured templates for various types of web applications.
-This for example allows user to start with already working we server
+and therefore enables usage of it to broader audience.
+It is highly dependent on the starter templates feature which provides pre-configured templates for various types of web applications.
+This, for example, allows the user to start with already working web server
 and thus simplify the start of the application development\cite{springBootGithubReference}.
 Spring Boot contains comprehensive infrastructure support for developing enterprise monolith web applications as well as micro services\cite{springBootGithubReference}.
 
 \subsubsection{Ktor}\label{subsubsec:ktor}
-Ktor\cite{ktorWebPage} is an open source web framework for building asynchronous servers 
-and clients in connected systems such as web applications and http services.
+Ktor \cite{ktorWebPage} is an open source web framework for building asynchronous servers 
+and clients in connected systems such as web applications and HTTP services.
 It designed for quickly building web applications with minimal effort 
-and it doesn't impose a lot of technology constraints such as logging, persistent, serializing, dependency injection etc.\cite{ktorApiReference}
+and it doesn't impose a lot of technical constraints such as logging, persistent, serializing, dependency injection etc.\cite{ktorApiReference}
 It is developed by the same company as Kotlin is, JetBrains.
 
 
 \bigskip
 The final decision was to use \textbf{Ktor} as the web framework,
 mainly because of its very light implementation and native Kotlin support.
-Also, for such project, 
+Also, for such a project, 
 the features of Spring would not be fully utilized
-and therefore the complexity of Spring could potentially slowed down the entire application.
+and therefore, the complexity of Spring could potentially slow down the entire application.
 
-Because Ktor by default does not contain any dependency injection framework, 
+Because Ktor by default does not contain any dependency an injection framework, 
 We decided to use lightweight DI\footnote{Dependency Injection} framework \textit{Koin}\cite{koinGithub}.
 This framework is written in Kotlin and have its own DSL\footnote{Domain Specific Language} for the dependency specification,
-which is very handy for the medium sized project.
+which is very handy for the medium-sized project.
 
 \subsubsection{Route discovery library}
 The default way, how to create a HTTP endpoint (Ktor calls them \textit{routes}),
 which can handle HTTP requests is registering it within the \inlinecode{Application} context.
-The \inlinecode{Application} context is accessible by its instance that is given to user when the Ktor is being started.
-This means that no \textit{route} can be registered without using instance of \inlinecode{Application}.
+The \inlinecode{Application} context is accessible by its instance that is given to the user when the Ktor is being started.
+This means that no \textit{route} can be registered without using an instance of \inlinecode{Application}.
 
 During the development of the application and using Ktor framework, 
-we decided that proprietary way of registering routes was not something we would like to be using,
-mainly because it did not allowed to have simple class serving only as a route without having to inject the \textit{Application} instance.
+we decided that the proprietary way of registering routes was not something we would like to be using,
+mainly because it did not allow to have pure class serving only as a route without having to inject the \textit{Application} instance.
 Also, 
 since the routes must be registered during the application startup,
-using the new class for each route would mean to create instance of the class and executing the method to register the routes manually.
-Another reason we did not like the Ktor default approach was,
+using the new class for each route would mean to create an instance of the class and executing the method to register the routes manually.
+Another reason we did not like the Ktor default approach was 
 that we prefer to inject class dependencies using the construct injection instead of using the setters injection.
 \begin{itemize}
-	\item Constructor dependency injection - using constructor of the class to set all instances of the objects, that class uses.
-	      The main advantage is that the instance of class is always in a valid state, because it has all dependencies resolved during the instance creation.
-	\item Setter dependency injection - the dependent objects are provided by the setter methods.
-	      This gives the freedom to manipulate the state of the dependency references at any time.
-	      However, it is possible to use the instance without setting the dependencies which could lead to the undefined behavior or to the \textit{Null Pointer Exceptions}
+    \item Constructor dependency injection - using the constructor of the class to set all instances of the objects, that class uses.
+          The main advantage is that the instance of the class is always in a valid state because it has all dependencies resolved during the instance creation.
+    \item Setter dependency injection - the dependent objects are provided by the setter methods.
+          This gives the freedom to manipulate the state of the dependency references at any time.
+          However, it is possible to use the instance without setting the dependencies which could lead to the undefined behavior or the \textit{Null Pointer Exceptions}
 \end{itemize}
 
 To solve this \inlinecode{Application} instance dependency and to enable constructor dependency injection approach,
-we decided to implement simple library which would solve this issue for us.
-We came up with different way how to register various types of application's routes using the annotations, 
+we decided to implement a simple library which would solve this issue for us.
+We came up with a different way how to register various types of application's routes using the annotations, 
 reflection and dependency injection strategy.
 
 \medskip \noindent
-Preconditions for successful usage of the library are following:
+Preconditions for successful usage of the library are the following:
 \begin{itemize}
-	\item \textit{Koin}\cite{koinGithub} - dependency injection framework which is used for resolving dependencies needed in the routes
-	\item \textit{Reflection library}\cite{reflectionsGithub} - library used for runtime lookup for classes with specific annotation
-	\item Using the \inlinecode{@Route} annotation on the class that is meant to be route,
-	the class has to also inherit from \inlinecode{RouteBase}
-	\item Registering all necessary routes dependencies in \textit{Koin} modules during the application startup
-	\item Provide base package name where routes are placed.
+    \item \textit{Koin}\cite{koinGithub} - dependency injection framework which is used for resolving dependencies needed in the routes
+    \item \textit{Reflection library}\cite{reflectionsGithub} - library used for runtime lookup for classes with specific annotation
+    \item Using the \inlinecode{@Route} annotation on the class that is meant to be route,
+    the class has to also inherit from \inlinecode{RouteBase}
+    \item Registering all necessary routes dependencies in \textit{Koin} modules during the application startup
+    \item Provide base package name where routes are placed.
 \end{itemize}
 
 \medskip \noindent
 Following algorithm is used to find and register all routes used in the project.
 
 \begin{algorithm}[H]
-	\SetAlgoLined
-	\Input{Package name, where all routes are stored}
-	\textbf{routes} $\leftarrow$ find all classes annotated as \inlinedata{@Route} in provided package name\;
-	\For{\textbf{route} in \textbf{routes}}{
-		\textbf{dependencies} $\leftarrow$ obtain dependencies needed for creating instance of \textbf{route}\;
-		\textbf{routeInstance} $\leftarrow$ create instance of \textbf{route} using \textbf{dependencies}\;
-		register \textbf{routeInstance} in instance of \inlinedata{Application} \;
-	}
-	\Output{All routes are registered and ready to use}
+    \SetAlgoLined
+    \Input{Package name, where all routes are stored}
+    \textbf{routes} $\leftarrow$ find all classes annotated as \inlinedata{@Route} in provided package name\;
+    \For{\textbf{route} in \textbf{routes}}{
+        \textbf{dependencies} $\leftarrow$ obtain dependencies needed for creating instance of \textbf{route}\;
+        \textbf{routeInstance} $\leftarrow$ create instance of \textbf{route} using \textbf{dependencies}\;
+        register \textbf{routeInstance} in instance of \inlinedata{Application} \;
+    }
+    \Output{All routes are registered and ready to use}
 \end{algorithm} 
 \medskip \noindent
 The implementation of the simple route is then following:
@@ -211,7 +211,7 @@ class HelloRoute(sr: Service) : RouteBase("hello") {
 
 \medskip \noindent
 The route is automatically instantiated and registered by the Routes discovery library.
-The programmer does not need handle it by himself.
+The programmer does not need to handle it by himself.
 
-For the library startup we designed a builder class using fluent builder pattern \inlinecode{ApplicationDependencyBuilder}.
+For the library startup, we designed a builder class using fluent builder pattern \inlinecode{ApplicationDependencyBuilder}.
 Usage of this class can be found in the \inlinecode{ServerStarter.kt}.

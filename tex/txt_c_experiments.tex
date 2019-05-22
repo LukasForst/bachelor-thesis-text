@@ -13,16 +13,16 @@ there are two modules,
 that contain simulation code used for testing -
 \inlinecode{simulation} and \inlinecode{remote-scheduler} module.
 The simulation engine and all simulation use cases are located in the simulation module.
-The second mentioned module contains server, 
+The second mentioned module contains the server, 
 which runs simulations on the remote API. 
-This is especially useful when testing whole scheduling environment
+This is especially useful when testing the whole scheduling environment
 and it is as closest as possible to the real-life environment,
 which should be based on the microservices architecture.
 
 Both simulation can be started up locally using \inlinecode{SimulationExecutor} or
 using \inlinecode{docker-compose} inside the microservices runtime environment.
 Input data for the tests are created randomly,
-based on number of scheduled jobs and given planning horizon (how much steps ahead should scheduler count with).
+based on the number of scheduled jobs and given planning horizon (how much steps ahead should scheduler count with).
 The number of scheduled jobs can be easily edited directly in code.
 For the simulation data and the input configuration please refer to \inlinecode{OnePlanningRoundSimulation} 
 and \inlinecode{RuntimeSimulation} classes.

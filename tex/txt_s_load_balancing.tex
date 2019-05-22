@@ -1,68 +1,63 @@
-%%
-%% Author: lukas
-%% 03.01.2019
-%%
-
 \section{Load Balancing}\label{sec:load-balancing}
-Load balancing is technique for a division of processing work in the distributed environment of execution units
-\footnote{In general, execution unit can be CPU, network links, storage devices or other devices,
+Load balancing is a technique for a division of processing work in the distributed environment of execution units
+\footnote{In general, the execution unit can be CPU, network links, storage devices or other devices,
 in this paper \textit{execution unit} or also referred as \textit{execution node} or as \textit{host} is a computer executing assigned job}
-with aim to deliver faster service with higher efficiency.
+to deliver faster service with higher efficiency.
 It improves the distribution of workloads across the whole environment and thus balances resources usage while maximizing throughput and minimizing response time.
 Load balancer is typically either dedicated \textit{hardware device} or \textit{software program}.
 
 A \textbf{hardware} load balancer is a dedicated hardware device which distributes network traffic across a cluster of servers\cite{web:hardwareLoadBalancer}.
 These devices are used mainly in the data centers to ensure equal distribution of traffic between the application servers.
-Main benefit of using hardware load balancer is zero balancing overhead on the host machines,
+The main benefit of using hardware load balancer is zero balancing overhead on the host machines,
 because all decisions are made on dedicated hardware specially developed for such tasks.
 
-A \textbf{software} load balancer is a program operating on the application server with the same aim as hardware load balancer.
-Main advantage of the software load balancing is that it can be heavily customized and deployed to its own server.
-This paper will discuss only software load balancing approach.
+A \textbf{software} load balancer is a program operating on the application server with the same aim as a hardware load balancer.
+The main advantage of the software load balancing is that it can be heavily customized and deployed to its server.
+This paper will discuss only the software load balancing approach.
 
 \medskip
 \noindent In general, software load balancing algorithms can be classified as either \textit{static} or \textit{dynamic}.
 
 \subsection{Static Load Balancing}\label{subsec:static-load-balancing}
-Static load balancing is an approach where system information are provided a priori
+Static load balancing is an approach where system information is provided a priori
 and load balancer does not use performance information about execution node
-\footnote{Execution node - Server executing task which is being scheduled by load balancer.
-In our case, this task is solving optimization problem by solver.},
+\footnote{Execution node - Server executing task which is being scheduled by the load balancer.
+In our case, this task is solving an optimization problem by the solver.},
 to make distribution decisions.
-The performance possibilities and the load of the execution point (or node) are not taken in account
-when decision - where to execute current task - is being made, because load-balancing decisions are made at compile time.
+The performance possibilities and the load of the execution point (or node) are not taken into account
+when decision - where to execute the current task - is being made, because load-balancing decisions are made at compile time.
 When a decision is made, no other interaction with executing node, regarding the current task, is being made.
 In other words, once the load is allocated to the execution node, it cannot be transferred to another node.
-Static load balancing method is to reduce the overall execution time of a concurrent program while minimizing the communication delays\cite{web:loadBalancingInGridComputing}.
-The main advantage of static load balancing methods is mainly the fact, that there is minimal communication delay between system nodes
+The static load balancing method is to reduce the overall execution time of a concurrent program while minimizing the communication delays\cite{web:loadBalancingInGridComputing}.
+The main advantage of static load balancing methods is mainly the fact that there is minimal communication delay between system nodes
 and therefore execution overhead is minimized to almost zero.
 For that reason is static load balancing mainly used in the fields, where server response is crucial such as serving a web page.\todo{Find better example}
-Also the implementation of some static load balancing algorithm is straightforwards, since the used methods are very simple.
+Also, the implementation of some static load balancing algorithm is straightforward, since the used methods are elementary.
 
-The main disadvantage of static load balancing is that it does not take in account current state of the system, when making decision.
-This could potentially lead to performance issues in the whole system because some nodes can be overloaded although others are not working at all.
+The main disadvantage of static load balancing is that it does not take into account the current state of the system when making a decision.
+This could potentially lead to performance issues in the whole system because some nodes can be overloaded, although others are not working at all.
 
 Another drawback of this approach is that hardware resources are allocated only once in the execution time.
 Since optimization jobs are very heterogeneous, they sometimes have different power requirements during the execution.
 For example \textit{TASP}\footnote{\textbf{Task and Asset Scheduling Platform} - proprietary optimization software developed by Blindspot Solutions,
 described in section \ref{subsubsec:tasp}}
-uses only one thread when creating feasible plan in the first algorithm iteration - this task relays only on single core performance.
-However, when first iteration is completed, all following can be done by multiple threads,
-therefore it could be useful to execute first iteration on a machine with better single core performance
-and then transfer algorithm into machine focused on multiple threads execution.
+uses only one thread when creating a feasible plan in the first algorithm iteration - this task relays only on single core performance.
+However, when the first iteration is completed, all following can be done by multiple threads,
+therefore it could be useful to execute the first iteration on a machine with better single core performance
+and then transfer the algorithm into a device focused on multithreading execution.
 This is something that can not be done while using static load balancing.\newline
 Following static load balancing algorithms are commonly used.
 
 \subsubsection{First Alive}
 First alive or also called \textit{Central Manager} algorithm uses the concept of a primary server and backup servers\cite{web:ibmLoadBalancingDecisions}.
-All tasks are scheduled to be executed on primary server unless the primary server is down.
-Then the load will be forwarded to first backup server.
-This algorithm has almost zero level of inner process communication, which leads to better performance when there are lots of smaller tasks.
+All tasks are scheduled to be executed on the primary server unless the central server is down.
+Then the load will be forwarded to the first backup server.
+This algorithm has almost zero levels of internal process communication, which leads to better performance when there are lots of smaller tasks.
 
 \subsubsection{Round Robin}
-Round Robin algorithm which distributes work load evenly to all nodes.
-It is being done in round robin order, where load is distributed to each node in circular order without any priority.
-Round Robin is esy to implement and as well as \textit{First alive} algorithm has almost none inner communication overhead.
+Round Robin algorithm which distributes workload evenly to all nodes.
+It is being done in round-robin order, where the load is distributed to each node in circular order without any priority.
+Round Robin is easy to implement and as well as \textit{First alive} algorithm has almost none inner communication overhead.
 This algorithm performs best when tasks have equal, or at least similar, processing time.
 
 \subsubsection{Weighted Round Robin}
@@ -72,11 +67,11 @@ This algorithm uses more computation times than the round robin algorithm.
 However, the additional computation results in distributing the traffic more efficiently to the server that is most capable of handling the request\cite{web:ibmLoadBalancingDecisions}.
 
 \subsubsection{Threshold Algorithm}
-Threshold algorithm - execution nodes keep private copy of the system's load, when the load state of a node exceeds a load level limit,
-node sends message to all remote nodes, that it is overloaded.
-If the local state is not overloaded then the load is allocated locally.
+Threshold algorithm - execution nodes keep a private copy of the system's load when the load state of a node exceeds a load level limit,
+the node sends message to all remote nodes that it is overloaded.
+If the local state is not overloaded, then the load is allocated locally.
 Otherwise a remote node, that is not overloaded, is selected and if no such node exists it is also allocated locally.
-This algorithm has low inter process communication and large number of local process allocations.
+This algorithm has low interprocess communication and a large number of local process allocations.
 The later reduces the overhead of remote process allocation and the overhead of remote memory access,
 which leads to performance improvements\cite{web:staticAndDynamicLoadBalancing}.
 
@@ -86,13 +81,13 @@ and forward a new connection to the server with the least number of active conne
 This can be generally useful while having many concurrent requests, that can be dispatched quickly.
 
 \subsubsection{Randomized Algorithm}
-Randomized algorithm uses random selection of the execution node without having any information about it.
+The randomized algorithm uses a random selection of the execution node without having any information about it.
 
 \subsection{Dynamic Load Balancing}\label{subsec:dynamic-load-balancing}
 Unlike static load balancing algorithms, dynamic algorithms use runtime state information to more informative decisions while distributing the jobs.
-They monitor changes on the system work load and take it in account when decision, where to execute job, is being made.
-The process of monitoring the system is not stopped after execution job started and if circumstances change,
-job execution can be transferred to another system node which then proceeds with execution.
+They monitor changes on the system workload and take it into account when the decision, where to execute a job, is being made.
+The process of monitoring the system is not stopped after the execution job started and if circumstances change,
+job execution can be transferred to another system node, which then proceeds with execution.
 
 While many different load balancing algorithms have been proposed, there are four basic steps that nearly all algorithms have in common\cite{malik2000dynamic}.
 \begin{enumerate}
@@ -107,23 +102,23 @@ or in other words, where load balancing decisions are made\cite{malik2000dynamic
     \item Centralized - a single node in the network is responsible for all load distribution
     \item Distributed - all nodes ale equal
 \end{itemize}
-While in centralized scheme are decisions made in one master workstation,
-in distributed scheme, the load balancing algorithm runs on all nodes
+While in the centralized scheme are decisions made in one master workstation,
+in a distributed scheme, the load balancing algorithm runs on all nodes
 and each node balances itself.
-Each of this approach has its own ups and downs,
-centralized scheme can be potential performance bottleneck
+Each of this approach has its ups and downs,
+the centralized scheme can be the potential performance bottleneck
 since it relies on one system node,
 on the other hand distributed scheme has communication overhead,
 because it requires broadcast communication between all algorithm instances.
 
 The main advantage of dynamic load balancing is that it allows changing execution node in runtime.
-For that reason it is possible to change hardware characteristics according to the job execution phase.
-For example execute initial phase of optimization algorithm on machine with powerful single core performance
-and then move the job to the machine with multiple, less powerful, cores to let it run in parallel.\todo{This sentence sounds weird}
+For that reason, it is possible to change hardware characteristics according to the job execution phase.
+For example, execute initial phase of optimization algorithm on the machine with powerful single core performance
+and then move the job to the computer with multiple, less powerful, cores to let it run in parallel.
 Also as a result of runtime scheduling,
-dynamic load balancing algorithms tend to provide a significant improvements in performance over static algorithms.
+dynamic load balancing algorithms tend to provide significant improvements in performance over static algorithms.
 However, this comes at the additional cost of collecting and maintaining load information\cite{malik2000dynamic}.
-For that reason dynamic load balancing suites better for long running tasks, which can be managed and distributed better, than for fast queries.
+For that reason, dynamic load balancing suites better for long running tasks, which can be managed and distributed better than for fast queries.
 
 \subsubsection{Dynamic load balancing strategies}
 There are three major parameters which usually define the strategy a specific load balancing algorithm will employ.
@@ -139,11 +134,11 @@ In \textit{sender-initiated} policies, congested nodes attempt to move work to l
 In \textit{receiver-initiated} policies, lightly-loaded nodes look for heavily-loaded nodes from which work may be received\cite{malik2000dynamic}.
 
 \smallskip
-Question `What information is used to make the load balancing decision?` is answered by following policies - \textbf{global} and \textbf{local}.
-When algorithm uses \textit{global} policy, the load balancer uses the performance profiles of all execution nodes connected to the network.
+The question `What information is used to make the load balancing decision?` is answered by following policies - \textbf{global} and \textbf{local}.
+When the algorithm uses \textit{global} policy, the load balancer uses the performance profiles of all execution nodes connected to the network.
 When using \textit{local} policy, only local
 \footnote{Workstations are usually divided into groups, in this context \textit{local} means in the same group of workstations}
-nodes are taken in account while creating performance profile of the system.
+nodes are taken into account while creating a performance profile of the system.
 
 \smallskip
 The last parameter - `where the load balancing decision is made` - is answered by used control form,
@@ -157,44 +152,44 @@ dynamic load balancing algorithms are divided into two groups based on their con
 Central queue algorithm is based on centralized receiver-initiated load balancing strategy.
 It uses a cyclic FIFO queue on the main host to store new activities\footnote{Activities - jobs to be executed, in our case optimization job}
 and unfulfilled requests.
-New activity request is inserted into queue and here it is stored until some execution node picks it up.
+New activity request is inserted into the queue, and there it is stored until some execution node picks it up.
 
-Whenever a request for an activity (which is send by executing node in the case when its load has fallen bellow specified threshold)
+Whenever a request for an activity (which is sent by executing node in the case when its load has fallen below a specified threshold)
 is received by the queue manager\footnote{Queue manager - central server which manages queue},
 it removes the first activity from the queue and sends it to the requester.
 If the queue is empty, the request is buffered, until a new activity is available.
 If a new activity arrives at the queue manager while there are unanswered requests in the queue,
-the first such request is removed from the queue and the new activity is assigned to it.
+the first such request is removed from the queue, and the new activity is assigned to it.
 
-When a execution node load falls under the threshold,
+When an execution node load falls under the threshold,
 the local load manager sends a request for a new activity to the central load manager (which manages the central system queue).
 The central load manager answers the request immediately if a ready activity is found in the queue,
 or queues the request until a new activity arrives\cite{sharma2008performance}.
 
 
 \subsubsection{Local Queue Algorithm}
-Local queue algorithms uses distributed receiver-initiated strategy.
+Local queue algorithms use distributed receiver-initiated strategy.
 
-Its main feature is, that it supports dynamic process migration.\todo{Weird sentence}
-This algorithm in the first step uses static allocation of all new processes - all processes are allocated to under loaded hosts.
-In the second step the process migration is initiated by a host when its load falls under predefined threshold\footnote{
-This threshold can be defined by the user and it is an input for the algorithm}.
+Its main feature is that it supports dynamic process migration.\todo{Weird sentence}
+This algorithm in the first step uses the static allocation of all new processes - all processes are allocated to under loaded hosts.
+In the second step, the process migration is initiated by a host when its load falls under predefined threshold\footnote{
+This threshold can be defined by the user, and it is an input for the algorithm}.
 In such case, the execution node attempts to get several processes from remote hosts.
 It randomly sends requests with the number of local ready processes to remote load managers.
 When a load manager receives such a request, it compares the local number of ready processes with the received number.
 If the former is greater than the latter, then some of the running processes are transferred to the requester
 and an affirmative confirmation with the number of processes transferred is returned.\cite{sharma2008performance}
 
-Local queue algorithm is distributed load balancing algorithm where each execution node requests a new activity when it is under loaded.
-The main advantage of using such algorithm is the fact, that there is no central point,
-where all requests are managed and distributed to another segments of system.
+Local queue algorithm is a distributed load balancing algorithm where each execution node requests a new activity when it is underloaded.
+The main advantage of using such an algorithm is the fact that there is no central point,
+where all requests are managed and distributed to another segment of the system.
 For that reason is this particular algorithm copes and performs well under an increased or expanding workload.
 
 %TODO There must be something about Static vs. Dynamic scheduling
 %\subsection{Static vs.
 %Dynamic scheduling}\label{subsec:static-vs.-dynamic-scheduling}
 %Comparison between static and dynamic scheduling.
-%For our case dynamic is definitely better and more suitable because\ldots
+%For our case dynamic is better and more suitable because\ldots
 
 
 
@@ -210,33 +205,11 @@ However, this paper focus on the load balancing and execution scheduling of opti
 therefore,
 unlike generic load balancing solutions,
 proposed load balancer \textbf{have} the information about execution algorithms on the host machine
-and thus load balancing decision are more informed.
-More informed load balancing decisions could potentially lead to better performance and costs reduction as well as greater capacity of whole system.
+and thus, the load balancing decision is more informed.
+More informed load balancing decisions could potentially lead to better performance and costs reduction as well as higher capacity of the whole system.
 
 Since load balancer is aware of algorithms running on the hosts,
-it can take in account an execution criteria which can be specified (such as execution time)
+it can take into account execution criteria which can be specified (such as execution time)
 or at least estimated (how much memory will be needed according to the domain size) in advance to make even more informed balancing decision
 when scheduling the job execution.
 This is also the main difference between the generally used and existing load balancing software and a solution proposed in this paper.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

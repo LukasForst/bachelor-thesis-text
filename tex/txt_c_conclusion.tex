@@ -1,18 +1,18 @@
 \chapter{Conclusion}\label{ch:conclusion}
 All goals of this thesis were fulfilled.
-This thesis analyzed the state-of-the-art solution for the load balancing systems in the section \ref{sec:load-balancing}. 
-It brought an overview of various optimization problems, techniques and algorithms 
+This thesis analyzed the state-of-the-art solution for the load balancing systems in section \ref{sec:load-balancing}. 
+It brought an overview of various optimization problems, techniques, and algorithms 
 that are being used to solve diverse problems in section \ref{sec:optimization-algorithms}.
 
 The thesis described and formalized the problem of the load balancing of optimization algorithms in chapter \ref{ch:problem-formalization}.
-Solution of the formalized problem was then proposed in the chapter \ref{ch:solution-design}.
+The solution to the formalized problem was then proposed in chapter \ref{ch:solution-design}.
 The main goal of the thesis was then fulfilled in the following chapter \ref{ch:implementation},
 where the implementation of the new system was described.
 This implementation is attached to the thesis.
 
 The solution with 6767 lines of Kotlin 
-code\footnote{Lines provided by \inlinecode{find . -name "*.kt" | xargs cat | wc -l} bash command in root folder of the project} 
-proved, that it is possible to use it as load balancing algorithm for optimization algorithms.
+code\footnote{Lines provided by \inlinecode{find . -name "*.kt" | xargs cat | wc -l} bash command in the root folder of the project} 
+proved, that it is possible to use it as a load balancing algorithm for optimization algorithms.
 
 \section{Future work}\label{sec:future-work}
 To achieve production ready load balancing system,
@@ -23,38 +23,37 @@ is needed.
 
 \subsubsection{Infrastructure development}
 As soon as the previously mentioned execution module is implemented,
-the application can be deployed into real life environment.
-Proposition is to make optimization algorithms running as Docker containers 
-and the execution module would operate with Docker machines,
+the application can be deployed into a real-life environment.
+The proposition is to make optimization algorithms running as Docker containers and the execution module would operate with Docker machines,
 which would be running on the execution nodes. 
 In this way, 
 the assigned resources would be very easily changed on one execution node.
-Migration to the next execution node would not be problem as well, 
+Migration to the next execution node would not be a problem as well, 
 since the containers could be wrapped and transported through the network.
 
 Another infrastructure related feature is the full JSON-enabled REST API.
-Currently only binary serialization is supported.
+Currently, only binary serialization is supported.
 In the future, 
 full REST with JSON as its transport format should be supported.
 
 \subsubsection{Routes discovery library}
-Routes discovery library was very handy during the development of application's server parts 
+Routes discovery library was very handy during the development of the application's server parts 
 and we believe that this way of routes registration in Ktor would suit to many developers as well.
 
 Therefore we would like to refactor it from the base project 
-and create open source project which will ensure future library development.
+and create an open source project which will ensure future library development.
 We would like to also make it more generic,
-because right know, 
+because right now, 
 it depends on specific Ktor and Koin version.
 Although Ktor dependency is necessary
 since it is library developed specifically for Ktor,
-Koin should be replaced by generic way, 
+Koin should be replaced by a generic way, 
 how to obtain dependencies for routes.
 
 \subsubsection{Extension functions}
 During the application development,
 we created and tested many Kotlin extension functions.
 In general, these functions are not domain specific
-and for that reason we decided that we will publish them as well as Routes discovery library.
-These extensions could be useful when starting new project,
+and for that reason, we decided that we will publish them as well as Routes discovery library.
+These extensions could be useful when starting a new project,
 because they are able to perform many operations in the single line of Kotlin code.

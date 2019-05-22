@@ -1,25 +1,25 @@
 \section{Load balancing decisions}\label{sec:load-balancing-decisions}
 
 To make the most informed load balancing decisions while scheduling multiple optimization jobs,
-the application uses dynamic scheduling with centralized node running the load balancing algorithm.
+the application uses dynamic scheduling with a centralized node running the load balancing algorithm.
 
 The application also takes advantage of knowing the exact maximal time of an execution thanks to the input parameter $D^{j}$ 
 defined in section \ref{subsubsec:formal-input}.
 Also,
 because of this parameter, 
-it is possible to create scheduling decisions for much larger time horizon, 
-because algorithm is aware of the future workload.
+it is possible to create scheduling decisions for a much larger time horizon, 
+because the algorithm is aware of the future workload.
 
 The definition formalized in section \ref{sec:formal-definition} implies 
 that it is possible to use integer mixed integer linear programming solver, 
-because the problem itself is defined as integer linear programming problem.
+because the problem itself is defined as an integer linear programming problem.
 That is indeed possible, 
-but after careful consideration we rather decided to use heuristic approach.
+but after careful consideration, we rather decided to use a heuristic approach.
 The main reason for selecting this type of optimization algorithm is,
 that it provides suitable results during the whole runtime.
 This could be very handy when the time for load balancing decisions is tight
-and in such case, the mixed integer linear programming solver would not have enough time to provide suitable solution,
-because the one, it provided, would not be optimal at all.
+and in such case, the mixed integer linear programming solver would not have enough time to provide a suitable solution,
+because the one, it provided would not be optimal at all.
 
 The optimization solver, which was chosen for the application,
 was previously mentioned (\ref{subsubsec:heuristic-algs-optaplanner}) heuristics optimization engine OptaPlanner.
