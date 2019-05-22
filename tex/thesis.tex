@@ -59,17 +59,16 @@
 
 \acknowledgements{
   \noindent
-  I would first like to thank my thesis advisor Ondřej Vaněk,
-  whose ofice's door was always open whenever I ran into a trouble spot or had a question about my research or writing. 
+  I would first like to thank my thesis advisor, Ondřej Vaněk,
+  whose office's door was always open whenever I ran into a trouble spot or had a question about my research or writing. 
   
   \noindent
-  I would like to also thank to my colleagues in Blindspot Solutions and especially to Petr Eichler,
-  whose valuable comment suggestions on my paper gave me an inspiration to improve the quality of the assignment
-  and helped me to overcome various challenges I faced during the development.
+  I would like to also thank my colleagues in Blindspot Solutions and especially to Petr Eichler,
+  whose valuable comment suggestions on my paper inspired me to improve the quality of the assignment
+  and helped me to overcome the various challenges I faced during the development.
   
   \noindent
-  Finally, I must express my very profound gratitude to my parents and to my better half for providing me with unfailing support 
-  and continuous encouragement throughout my years of study and through the process of researching and writing this thesis. 
+  Finally, I must express my very profound gratitude to my parents and to my better half for providing me with unfailing support and continuous encouragement throughout my years of study and through the process of researching and writing this thesis. 
 
   \noindent
   This accomplishment would not have been possible without them.
@@ -98,8 +97,23 @@
   který umožňuje naplánovat samotné spuštění úlohy v distribuovaném výpočetním prostředí.
  
   \noindent
-  Tato práce se zabývá matematickou formalizací takového problému
-  a představuje implementaci plánovače a rozvrhovače zátěže speciálně navrženého a vyvinutého pro optimalizační algoritmy.
+  Tato práce se zabývá návrhem vyvažovače zátěže vyvinutého přímo pro optimalizační algoritmy,
+  který minimalizuje plýtvání zdroji
+  a zvyšuje výkon pomocí správného rozdělení využití mezi více instancí těchto algoritmů.
+  Práce analyzuje nejmodernější řešení a technologie,
+  které se používají k řešení takových problémů ve velkých infrastrukturách.
+  Následně je navrženo nové řešení pro vyrovnávání zátěže specifické pro danou doménu.
+  Práce obsahuje matematickou formalizaci problému optimalizace vyvažování zátěže
+  a zároveň popisuje a řeší další nalezené problémy, jako je například predikce hyperbolických časových řad.
+  Následně je v práci navržena architektura na bázi mikroslužeb pro systém vyvažování zátěže
+  a také je daný systém kompletně realizován.
+  Zároveň jsme navrhli a implementovali simulace a experimenty,
+  které testují implementovaný vyvažovač zátěže.
+
+  \noindent
+  Závěrečná kapitole práce se zabývá vymezením nezbytných kroků pro úplnou produkcionalizaci navrženého systému vyvažování zátěže
+  a také nastiňuje budoucí vývoj nástrojů a knihoven,
+  které byly vyvinuty vedle primárního systému.
 }
 
 \abstractEN{
@@ -113,8 +127,23 @@
   and intelligent scheduler able to schedule such tasks on a distributed computational platform.
   
   \noindent
-  This work introduced the mathematical formalization 
-  and the implementation of the load balancing system specifically designed and developed for the optimization algorithms.
+  This work introduced the load balancer developed explicitly for the optimization algorithms,
+  which should minimize resources wasting 
+  and increase the performance using correct utilization distribution across the multiple instances of such algorithms.
+  The thesis analyzes the state-of-the-art solutions and technologies,
+  that are being used to solve load balancing problems in the large infrastructures.
+  Subsequently, the new domain-specific load balancing solution is proposed.
+  The thesis proposes the mathematical formalization of the load balancing optimization problem
+  and the related challenge, such as hyperbola time series prediction.
+  Subsequently, the thesis designs the microservices architecture for the load balancer 
+  and also delivers the complete implementation of the proposed system.
+  This thesis also proposed and implemented the simulations and experiments, 
+  which evaluates the implemented load balancer.
+
+  \noindent
+  The final chapter of the thesis addresses out of scope steps for complete productionalization of the proposed load balancing system
+  and also outlines the future development of the tools and libraries,
+  that was developed alongside the primary system.
 }
 
 \begin{document}
@@ -141,6 +170,4 @@
 		\item CD with implementation described in chapter \ref{ch:implementation}
 	\end{enumerate}
 }
-
-\newpage\null\thispagestyle{empty}\newpage
 \end{document}
